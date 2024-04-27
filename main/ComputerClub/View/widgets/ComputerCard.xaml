@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ComputerClub.View.widgets.ComputerCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ComputerClub.View.widgets"
+             mc:Ignorable="d"
+             Background="Transparent"
+             >
+
+
+
+    <Border CornerRadius="30" Background="{DynamicResource c_second}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 20 0 0">
+                <Image Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Source="./../../assets/images/computer_2.png" Width="178" Height="168"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Panel.ZIndex="1" Margin="0 0 0 50" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Number}" Foreground="White" FontFamily="Neura Text" FontSize="70"/>
+            </Grid>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding RateName}" FontSize="24" Foreground="White" FontWeight="Bold" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" Margin="0 30 0 30">
+                <TextBlock Text="{Binding Status}" FontSize="24" Foreground="White" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding TimeLeft}" FontSize="24" Foreground="White" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</UserControl>

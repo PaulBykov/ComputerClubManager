@@ -1,0 +1,43 @@
+﻿<Page x:Class="ComputerClub.View.pages.LogsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ComputerClub.View.pages"
+      mc:Ignorable="d" 
+      xmlns:widget="clr-namespace:ComputerClub.View.widgets" 
+      xmlns:shared="clr-namespace:ComputerClub.View.shared" 
+      Title="LogsPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <widget:Header Grid.Row="0" SectionText="Логи"/>
+
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <widget:Aside Grid.Column="0" Background="{DynamicResource c_second}"/>
+
+
+            <Border Grid.Column="1" Background="{DynamicResource c_main}">
+                
+
+
+            </Border>
+
+        </Grid>
+
+
+    </Grid>
+</Page>

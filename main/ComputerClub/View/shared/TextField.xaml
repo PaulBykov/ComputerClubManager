@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="ComputerClub.View.shared.TextField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ComputerClub.View.shared"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <Grid Grid.Column="1" Grid.Row="1"
+          Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
+          HorizontalAlignment="Center" Height="30px"
+          >
+    
+    <TextBlock Margin="15 0" 
+       VerticalAlignment="Center"
+       Foreground="#b0b9c6"
+       IsHitTestVisible="False"
+       Panel.ZIndex="1"
+       Text="{Binding Placeholder, RelativeSource={RelativeSource AncestorType=UserControl}}"
+       Height="30"
+       FontSize="20px"
+       Visibility="{Binding ElementName=txtInput, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
+    />
+
+    <TextBox x:Name="txtInput" FontSize="20px" Foreground="Black" Margin="10 0 0 0"/>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ComputerClub.View.widgets.Aside"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ComputerClub.View.widgets"
+             xmlns:shared="clr-namespace:ComputerClub.View.shared"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <RoutedCommand x:Key="NavigationCommand" />
+    </UserControl.Resources>
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource NavigationCommand}" Executed="NavigateHandler"/>
+    </UserControl.CommandBindings>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <shared:IconButton x:Name="toHome" IconSource="./../../assets/icons/house_mini.png"          Command="{StaticResource NavigationCommand}" Text="Главная" Width="250" Height="70"/>
+            <shared:IconButton x:Name="toComputers" IconSource="./../../assets/icons/computer_mini.png"  Command="{StaticResource NavigationCommand}" Text="Компьютеры" Width="250" Height="70"/>
+            <shared:IconButton x:Name="toRates" IconSource="./../../assets/icons/rates_mini.png"         Command="{StaticResource NavigationCommand}" Text="Тарифы" Width="250" Height="70"/>
+            <shared:IconButton x:Name="toStaff" IconSource="./../../assets/icons/team_mini.png"          Command="{StaticResource NavigationCommand}" Text="Сотрудники" Width="250" Height="70"/>
+            <shared:IconButton x:Name="toLogs" IconSource="./../../assets/icons/logs_mini.png"           Command="{StaticResource NavigationCommand}" Text="Логи" Width="250" Height="70"/>
+        </StackPanel>
+
+
+        <shared:IconButton x:Name="Settings" Grid.Row="1" Grid.Column="0" IconSource="./../../assets/icons/settings_mini.png" Text="Настройки" Width="250"/>
+    </Grid>
+</UserControl>
