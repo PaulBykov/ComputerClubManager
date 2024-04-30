@@ -1,5 +1,4 @@
-﻿using ComputerClub.View.shared;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 

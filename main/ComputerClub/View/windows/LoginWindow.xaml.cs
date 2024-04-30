@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComputerClub.Model;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,12 +13,40 @@ namespace ComputerClub.View
             InitializeComponent();
         }
 
-        private void SubmitButton_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Login_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var main = new MainWindow();
-            Application.Current.MainWindow = main;
-            main.Show();
+            AuthService authService = new AuthService(new Model.Database.ComputerClubContext());
+            string login = txtUser.Text;
+            string pass = txtPass.Password;
+
+
+            if (authService.TryAuth(login,pass)) {
+                var main = new MainWindow();
+                Application.Current.MainWindow = main;
+                main.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("unlucku");
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
             this.Close();
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

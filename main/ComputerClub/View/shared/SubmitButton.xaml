@@ -22,7 +22,6 @@
                             <Border.Background>
                                 <SolidColorBrush Color="{Binding Path=Background.Color, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </Border.Background>
-
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -35,7 +34,7 @@
                 Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 Content="{Binding Text, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 Cursor="Hand"
-                
+                Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}"
     >
         <Button.Triggers>
             <EventTrigger RoutedEvent="Button.MouseEnter">

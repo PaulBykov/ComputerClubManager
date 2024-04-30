@@ -6,8 +6,10 @@
       xmlns:local="clr-namespace:ComputerClub.View.pages"
       mc:Ignorable="d" 
       xmlns:shared="clr-namespace:ComputerClub.View.shared" 
-      xmlns:widget="clr-namespace:ComputerClub.View.widgets" 
+      xmlns:widget="clr-namespace:ComputerClub.View.widgets"
+       xmlns:model="clr-namespace:ComputerClub.Model" 
       Title="ComputersPage">
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -28,15 +30,26 @@
             </Grid.RowDefinitions>
 
             <widget:Aside Grid.Column="0" Background="{DynamicResource c_second}"/>
-            
+
             <!--#region main section-->
             <Border Grid.Column="1" Background="{DynamicResource c_main}">
-                <StackPanel Orientation="Vertical">
-                    <shared:SubmitButton Margin="30 20 0 0"  Text="+ Добавить" Width="210" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <DockPanel>
+                    <shared:SubmitButton Margin="55 25 0 0"
+                                         DockPanel.Dock="Top"
+                                         Text="+ Добавить"
+                                         Width="210" Height="40"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Left"/>
 
-                    <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True">
-                        <ListView ScrollViewer.CanContentScroll="False" BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                  HorizontalAlignment="Center" Width="Auto" VerticalAlignment="Center"  Margin="0 15 0 0">
+                    <ScrollViewer PanningMode="VerticalOnly" PanningDeceleration="0.1" PanningRatio="0">
+                        <ListView 
+                                  BorderThickness="0" Background="Transparent"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  HorizontalAlignment="Left"
+                                  Margin="22 0 15 0"
+                                  ItemsSource="{Binding Computers}"
+                                  x:Name="ListViewComputers">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left"></WrapPanel>
@@ -44,10 +57,13 @@
                             </ListView.ItemsPanel>
 
                             <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="20 15 30 15">
-                                        <widget:ComputerCard Number="1" RateName="premium" Status="free" Width="240px" Height="320px"/>
-                                    </Grid>
+                                <DataTemplate DataType="model:Computer">
+                                    <widget:ComputerCard Number="{Binding Id}" 
+                                                         RateName="{Binding RateName}"
+                                                         Rent="{Binding Rent}"
+                                                         Width="240px" Height="320px"
+                                                         Margin="30 30 30 0"
+                                    />
                                 </DataTemplate>
                             </ListView.ItemTemplate>
 
@@ -73,36 +89,14 @@
                                 </Style>
                             </ListView.ItemContainerStyle>
 
-
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-                            <widget:ComputerCard/>
-
-
                         </ListView>
                     </ScrollViewer>
-                    
-                </StackPanel>
+
+                </DockPanel>
             </Border>
             <!--#endregion-->
-            
-            
+
+
         </Grid>
 
 

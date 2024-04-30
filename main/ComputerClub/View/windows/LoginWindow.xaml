@@ -3,38 +3,183 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ComputerClub.View"
         xmlns:src="clr-namespace:ComputerClub.View.shared"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="LoginWindow" Height="350" Width="300"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
         ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <RoutedCommand x:Key="Login"/>
+    </Window.Resources>
 
-    <Border CornerRadius="50">
-        <Grid Background="#51527D">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-            </Grid.ColumnDefinitions>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource Login}" Executed="Login_Executed"/>
+    </Window.CommandBindings>
 
+
+    <Border Background="{DynamicResource c_main}" CornerRadius="10" BorderThickness="2" Opacity="0.95">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="HotPink" Offset="0"/>
+                <GradientStop Color="#C62DAE" Offset="0.75"/>
+                <GradientStop Color="#8A16C1" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <Border CornerRadius="5" Background="Transparent">
+                <DockPanel Grid.Row="0" Background="{DynamicResource c_dark}">
+                    <TextBlock DockPanel.Dock="Left" Margin="2 0 0 0" Text="LOG IN" FontFamily="Neura text" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource c_text}"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="Login" FontSize="42" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" FontFamily="Neutra Text Book" FontWeight="Bold"/>
+                    <StackPanel DockPanel.Dock="Right" Margin="0 0 2 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="btnMinimize"
+                                Background="#37b4e3"
+                                DockPanel.Dock="Right"
+                                BorderThickness="0"
+                                Content="-"
+                                Foreground="White"
+                                FontSize="16"
+                                FontFamily="Montserrat"
+                                Cursor="Hand" Click="btnMinimize_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#278BEF"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                            CornerRadius="9"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button x:Name="btnClose"
+                        DockPanel.Dock="Right"
+                            BorderThickness="0"
+                            Content="X"
+                            Margin="5 0 0 0"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand" Click="btnClose_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="{DynamicResource c_btn}"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#C62DAE"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                CornerRadius="9"
+                Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
 
 
-            <src:TextField Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Placeholder="club login" Width="200"/>
+            <StackPanel     Width="220"
+                            Grid.Row="1"
+                            Orientation="Vertical"
+                            Margin="0,35,0,0">
+                
+                <TextBlock Text="Login"
+                               Foreground="White"
+                               FontSize="25"
+                               FontWeight="Medium"
+                               FontFamily="Neura text"
+                               HorizontalAlignment="Center"/>
+                
+                <TextBlock Text="Club login"
+                               Foreground="{DynamicResource c_text}"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,35,0,0"/>
+                
+                <TextBox x:Name="txtUser"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="White"
+                             BorderThickness="0,0,0,2"
+                             Height="24"
+                             VerticalContentAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="25,0,0,0">
 
-            <src:TextField Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Placeholder="password" Width="200"/>
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="/assets/icons/user_mini.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left"
+                                    />
+                    </TextBox.Background>
+                </TextBox>
+                
+                <TextBlock Text="User password"
+                               Foreground="{DynamicResource c_text}"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,15,0,0"
+                           />
+                
+                <PasswordBox x:Name="txtPass"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="White"
+                             BorderThickness="0,0,0,2"
+                             Height="24"
+                             VerticalContentAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="25, 0,0,0"
+                             >
+                    <PasswordBox.Background>
+                        <ImageBrush ImageSource="/assets/icons/user_mini.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left"/>
+                    </PasswordBox.Background>
+                    
+                    
+                </PasswordBox>
 
-            <src:SubmitButton Grid.Row="3" Grid.Column="1" Text="Отправить" Width="150" Height="37" VerticalAlignment="Center" HorizontalAlignment="Right" MouseDown="SubmitButton_MouseDown"/>
+                <src:SubmitButton Text="Submit" Width="100" Margin="0 50 0 0" Command="{StaticResource Login}" Height="40px"/>
+            </StackPanel>
         </Grid>
     </Border>
 

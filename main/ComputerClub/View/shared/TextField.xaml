@@ -10,12 +10,14 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
 
-    <Grid Grid.Column="1" Grid.Row="1"
+
+    <Border CornerRadius="10" Background="Transparent">
+        <Grid Grid.Column="1" Grid.Row="1"
           Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
           HorizontalAlignment="Center" Height="30px"
           >
-    
-    <TextBlock Margin="15 0" 
+
+            <TextBlock Margin="15 0"
        VerticalAlignment="Center"
        Foreground="#b0b9c6"
        IsHitTestVisible="False"
@@ -26,7 +28,7 @@
        Visibility="{Binding ElementName=txtInput, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
     />
 
-    <TextBox x:Name="txtInput" FontSize="20px" Foreground="Black" Margin="10 0 0 0"/>
-    </Grid>
-
+            <TextBox x:Name="txtInput" FontSize="20px" Foreground="Black" Margin="10 0 0 0"/>
+        </Grid>
+    </Border>
 </UserControl>

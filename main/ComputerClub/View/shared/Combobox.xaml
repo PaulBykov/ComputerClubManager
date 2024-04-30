@@ -23,7 +23,7 @@
         </Style>
 
         <Style x:Key="CustomComboBox" TargetType="{x:Type ComboBox}">
-            <Setter Property="Height" Value="50"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="{Binding Width}"/>
             <Setter Property="Text" Value=""/>
 
@@ -40,14 +40,14 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     
-                                    <Image Grid.Column="0" Height="37" Margin="10 0 0 0" Source="{Binding IconSource}" Panel.ZIndex="1" HorizontalAlignment="Left"/>
+                                    <Image Grid.Column="0" Height="32" Margin="10 0 0 0" Source="{Binding IconSource}" Panel.ZIndex="1" HorizontalAlignment="Left"/>
 
                                     <TextBlock Grid.Column="1" Text="{TemplateBinding Text}" Foreground="{DynamicResource c_text_light}" FontSize="20" HorizontalAlignment="Center"/>
 
-                                    <Path Grid.Column="2"  Margin="0 0 15 0" HorizontalAlignment="Right" x:Name="Arrow" Data="M8,0 L4,8 L8,16 z" Fill="#FF468F" RenderTransformOrigin="0.5,0.5" Stretch="Uniform">
+                                    <Path Grid.Column="2"  Margin="0 0 20 0" HorizontalAlignment="Right" x:Name="Arrow" Data="M8,0 L4,8 L8,16 z" Fill="#FF468F" RenderTransformOrigin="0.5,0.5" Stretch="Uniform">
                                         <Path.RenderTransform>
                                             <TransformGroup>
-                                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.5"/>
                                                 <SkewTransform/>
                                                 <RotateTransform Angle="-90"/>
                                                 <TranslateTransform/>
@@ -74,6 +74,6 @@
         </Style>
     </UserControl.Resources>
 
-    <ComboBox Style="{StaticResource CustomComboBox}" ItemsSource="{Binding ItemsSource}" SelectedIndex="0"  Width="{Binding Width}"/>
+    <ComboBox Style="{StaticResource CustomComboBox}" ItemsSource="{Binding ItemsSource}" SelectedIndex="-1"  Width="{Binding Width}"/>
 
 </UserControl>

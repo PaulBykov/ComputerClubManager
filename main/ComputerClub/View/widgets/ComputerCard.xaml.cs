@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using ComputerClub.Model;
+using ComputerClub.Model.Database;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 
 
@@ -9,7 +12,6 @@ namespace ComputerClub.View.widgets
         public ComputerCard()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
 
@@ -19,12 +21,8 @@ namespace ComputerClub.View.widgets
         public static readonly DependencyProperty RateNameProperty =
             DependencyProperty.Register("RateName", typeof(string), typeof(ComputerCard));
 
-        public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register("Status", typeof(string), typeof(ComputerCard));
-
-        public static readonly DependencyProperty TimeLeftProperty =
-            DependencyProperty.Register("TimeLeft", typeof(string), typeof(ComputerCard));
-
+        public static readonly DependencyProperty RentProperty =
+            DependencyProperty.Register("Rent", typeof(Rent), typeof(ComputerCard));
 
         public int Number
         {
@@ -38,16 +36,39 @@ namespace ComputerClub.View.widgets
             set { SetValue(RateNameProperty, value); }
         }
 
+        public Rent Rent
+        {
+            get { return (Rent)GetValue(RentProperty); }
+            set { SetValue(RentProperty, value); }
+        }
+
         public string Status
         {
-            get { return (string)GetValue(StatusProperty); }
-            set { SetValue(StatusProperty, value); }
+            get { return TimeLeft == "" ? "free" : "rented" ; }
         }
 
         public string TimeLeft
         {
-            get { return (string)GetValue(TimeLeftProperty); }
-            set { SetValue(TimeLeftProperty, value); }
+            get 
+            {
+                if (Rent == null)
+                {
+                    return "";
+                }
+
+                DateTime currentTime = DateTime.Now;
+                DateTime endTime = Rent.StartTime.Add(Rent.Length.ToTimeSpan());
+
+                if (currentTime > Rent.StartTime && currentTime < endTime)
+                {
+                    TimeSpan timeLeft = endTime - currentTime;
+                    return timeLeft.ToString(@"hh\:mm\:ss");
+                }
+                else 
+                {
+                    return "";
+                }
+            }
         }
     }
 }

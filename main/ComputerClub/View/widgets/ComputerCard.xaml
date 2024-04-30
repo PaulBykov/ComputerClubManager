@@ -25,14 +25,14 @@
 
             <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 20 0 0">
                 <Image Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Source="./../../assets/images/computer_2.png" Width="178" Height="168"/>
-                <TextBlock Grid.Column="0" Grid.Row="0" Panel.ZIndex="1" Margin="0 0 0 50" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Number}" Foreground="White" FontFamily="Neura Text" FontSize="70"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Panel.ZIndex="1" Margin="0 0 0 50" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Number, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="White" FontFamily="Neura Text" FontSize="70"/>
             </Grid>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding RateName}" FontSize="24" Foreground="White" FontWeight="Bold" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding RateName, RelativeSource={RelativeSource AncestorType=UserControl}}" FontSize="24" Foreground="White" FontWeight="Bold" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-            <StackPanel Grid.Row="2" Grid.Column="0" Margin="0 30 0 30">
-                <TextBlock Text="{Binding Status}" FontSize="24" Foreground="White" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock Text="{Binding TimeLeft}" FontSize="24" Foreground="White" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Row="2" Grid.Column="0" Margin="0 20 0 30">
+                <TextBlock Text="{Binding Status, RelativeSource={RelativeSource AncestorType=UserControl}}" FontSize="24" Foreground="White" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding TimeLeft, RelativeSource={RelativeSource AncestorType=UserControl}}" FontSize="24" Foreground="White" FontFamily="Neura text" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </Border>

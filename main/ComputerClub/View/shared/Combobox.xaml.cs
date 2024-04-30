@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -20,7 +21,7 @@ namespace ComputerClub.View.shared
 
 
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(ObservableCollection<object>), typeof(Combobox), new PropertyMetadata(null));
+            DependencyProperty.Register("ItemsSource", typeof(ICollection<object>), typeof(Combobox), new PropertyMetadata(null));
 
         public static readonly DependencyProperty IconSourceProperty =
             DependencyProperty.Register("IconSource", typeof(ImageSource), typeof(Combobox));
@@ -32,9 +33,9 @@ namespace ComputerClub.View.shared
             set { SetValue(WidthDependencyProperty, value); }
         }
 
-        public ObservableCollection<object> ItemsSource
+        public ICollection<object> ItemsSource
         {
-            get { return (ObservableCollection<object>)GetValue(ItemsSourceProperty); }
+            get { return (ICollection<object>)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
 

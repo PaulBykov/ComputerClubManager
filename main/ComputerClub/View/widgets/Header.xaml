@@ -6,25 +6,32 @@
              xmlns:shared="clr-namespace:ComputerClub.View.shared"
              xmlns:local="clr-namespace:ComputerClub.View.widgets"
              mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <x:Array x:Key="UserIconCombobox" Type="{x:Type Button}">
+            <Button Content="Выйти" Background="Transparent" Foreground="{DynamicResource c_text_light}"/>
+        </x:Array>
+    </UserControl.Resources>
+    
     <Grid VerticalAlignment="Top">
 
-        <Border Height="100" BorderThickness="0,0,0, 1" BorderBrush="{DynamicResource c_text}" Background="{DynamicResource c_second}">
+        <Border Height="90" BorderThickness="0,0,0, 1" BorderBrush="{DynamicResource c_text}" Background="{DynamicResource c_second}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.8*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="CLUB NAME" Foreground="{DynamicResource c_text}" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Neutra Text Book"/>
 
                 <TextBlock Grid.Column="1" Margin="42 0 0 0" Text="{Binding SectionText, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="{DynamicResource c_text}" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Neutra Text Book"/>
 
-                <shared:Combobox Grid.Column="3" Width="250" IconSource="../../assets/icons/geopoint_mini.png"/>
+                <shared:Combobox Grid.Column="3" Width="280" IconSource="../../assets/icons/geopoint_mini.png"/>
 
-                <shared:Combobox Grid.Column="4" Width="80" IconSource="../../assets/icons/user_mini.png" Cursor=""/>
+                <shared:Combobox x:Name="UserIcon" Grid.Column="4" Width="80" IconSource="../../assets/icons/user_mini.png" Cursor="" ItemsSource="{StaticResource UserIconCombobox}"/>
             </Grid>
         </Border>
         
