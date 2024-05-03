@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ComputerClub.Model.Database;
 
@@ -75,7 +73,7 @@ public partial class ComputerClubContext : DbContext
             entity.HasOne(d => d.RateNameNavigation).WithMany(p => p.Computers)
                 .HasForeignKey(d => d.RateName)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__computers__rateN__59063A47");
+                .HasConstraintName("FK__computers__rate___40058253");
         });
 
         modelBuilder.Entity<Income>(entity =>
@@ -98,7 +96,7 @@ public partial class ComputerClubContext : DbContext
 
         modelBuilder.Entity<Rate>(entity =>
         {
-            entity.HasKey(e => e.Name).HasName("PK__rates__72E12F1A9788C4A4");
+            entity.HasKey(e => e.Name);
 
             entity.ToTable("rates");
 
@@ -144,10 +142,11 @@ public partial class ComputerClubContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.PassHash)
                 .IsRequired()
-                .HasMaxLength(10)
+                .HasMaxLength(50)
                 .IsFixedLength()
                 .HasColumnName("pass_hash");
             entity.Property(e => e.Role)
+                .IsRequired()
                 .HasMaxLength(10)
                 .HasColumnName("role");
 

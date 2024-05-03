@@ -29,13 +29,15 @@
                 <GradientStop Color="#8A16C1" Offset="1"/>
             </LinearGradientBrush>
         </Border.BorderBrush>
-
+        
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
+            <Frame x:Name="LoginFrame"/>
 
             <Border CornerRadius="5" Background="Transparent">
                 <DockPanel Grid.Row="0" Background="{DynamicResource c_dark}">
@@ -107,7 +109,6 @@
                 </DockPanel>
             </Border>
 
-
             <StackPanel     Width="220"
                             Grid.Row="1"
                             Orientation="Vertical"
@@ -178,7 +179,7 @@
                     
                 </PasswordBox>
 
-                <src:SubmitButton Text="Submit" Width="100" Margin="0 50 0 0" Command="{StaticResource Login}" Height="40px"/>
+                <src:SubmitButton x:Name="submitBtn" Focusable="True" Text="Submit" Width="100" Margin="0 50 0 0" Command="{StaticResource Login}" Height="40px"/>
             </StackPanel>
         </Grid>
     </Border>

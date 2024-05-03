@@ -7,8 +7,8 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="FontFamily" Value="Neura text"/>
-        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource c_text}"/>
-        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource c_text}"/>
+
+        <Setter Property="GridLinesVisibility" Value="None"/>
     </Style>
 
     <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridColumnHeaderStyle">
@@ -17,11 +17,14 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="Height" Value="75"/>
+
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
     <Style TargetType="{x:Type DataGridCell}" x:Key="DataGridCellStyle">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource c_text}"/>
+
         <Setter Property="Height" Value="75"/>
 
         <Setter Property="Template">
@@ -38,10 +41,14 @@
     <Style TargetType="{x:Type DataGridRow}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
+
+        <Setter Property="BorderThickness" Value="0 1 0 1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource c_text}"/>
     </Style>
 
     <Style TargetType="{x:Type DataGridRowHeader}">
         <Setter Property="Width" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
 </ResourceDictionary>

@@ -1,4 +1,4 @@
-﻿using ComputerClub.Model;
+﻿using ComputerClub.Services;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -15,10 +15,9 @@ namespace ComputerClub.View
 
         private void Login_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            AuthService authService = new AuthService(new Model.Database.ComputerClubContext());
+            AuthService authService = AuthService.GetInstance(new Model.Database.ComputerClubContext());
             string login = txtUser.Text;
             string pass = txtPass.Password;
-
 
             if (authService.TryAuth(login,pass)) {
                 var main = new MainWindow();
@@ -28,6 +27,7 @@ namespace ComputerClub.View
             }
             else
             {
+                // wrong pass or login
                 MessageBox.Show("unlucku");
             }
         }

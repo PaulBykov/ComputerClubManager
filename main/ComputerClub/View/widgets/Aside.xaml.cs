@@ -1,9 +1,10 @@
-﻿using ComputerClub.View.pages;
+﻿using ComputerClub.Services;
+using ComputerClub.View.pages;
 using ComputerClub.View.shared;
+using ComputerClub.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 
 namespace ComputerClub.View.widgets
@@ -11,13 +12,13 @@ namespace ComputerClub.View.widgets
 
     public partial class Aside : UserControl
     {
-        
         public Aside()
         {
             InitializeComponent();
-            DataContext = this;
+            DataContext = ViewModel = new NavigationVM();
         }
 
+        private NavigationVM ViewModel { get; set; }
 
         private void NavigateHandler(object sender, RoutedEventArgs args) 
         {
@@ -27,19 +28,19 @@ namespace ComputerClub.View.widgets
                 switch (btn.Name)
                 {
                     case "toHome":
-                        NavigateTo(new HomePage());
+                        NavService.NavigateTo(new HomePage());
                         break;
                     case "toComputers":
-                        NavigateTo(new ComputersPage());
+                        NavService.NavigateTo(new ComputersPage());
                         break;
                     case "toRates":
-                        NavigateTo(new RatesPage());
+                        NavService.NavigateTo(new RatesPage());
                         break;
                     case "toStaff":
-                        NavigateTo(new StaffPage());
+                        NavService.NavigateTo(new StaffPage());
                         break;
                     case "toLogs":
-                        NavigateTo(new LogsPage());
+                        NavService.NavigateTo(new LogsPage());
                         break;
                     default: throw new ArgumentException();
                 }
@@ -50,9 +51,9 @@ namespace ComputerClub.View.widgets
             }
         }
 
-        private void NavigateTo(Page page) 
+        private void ShowSettingsHandler(object sender, RoutedEventArgs args) 
         {
-            NavigationService.GetNavigationService(this).Navigate(page);
+            ViewModel.OpenSettingsCommand.Execute(null);
         }
 
     }

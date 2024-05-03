@@ -1,8 +1,7 @@
-﻿using ComputerClub.View;
+﻿using ComputerClub.Model;
 using ComputerClub.View.pages;
-using System;
 using System.Windows;
-using System.Windows.Controls;
+
 
 namespace ComputerClub
 {
@@ -13,9 +12,10 @@ namespace ComputerClub
         {
             InitializeComponent();
 
+            AppInit.Init();
             MainFrame.Content = new ComputersPage();
         }
 
-
+        
     }
 }

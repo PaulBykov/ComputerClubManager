@@ -29,11 +29,8 @@
 
             <widget:Aside Grid.Column="0" Background="{DynamicResource c_second}"/>
 
-
-            <Border Grid.Column="1" Background="{DynamicResource c_main}">
+            <Border Background="{DynamicResource c_second}" HorizontalAlignment="Center" VerticalAlignment="Center">
                 
-
-
             </Border>
 
         </Grid>

@@ -33,7 +33,7 @@
                 <DockPanel>
                     <shared:SubmitButton Margin="55 25 0 0" DockPanel.Dock="Top" Text="+ Добавить" Width="210" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-                    <DataGrid ItemsSource="{Binding Rates, RelativeSource={RelativeSource AncestorType=Page}}"
+                    <DataGrid ItemsSource="{Binding Rates}"
                               Margin="57 25 57 100"  Height="400"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False"
                               Style="{StaticResource DataGridStyle}"

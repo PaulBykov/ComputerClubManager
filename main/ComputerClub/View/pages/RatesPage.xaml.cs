@@ -1,7 +1,4 @@
-﻿
-using ComputerClub.Model.Database;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.ObjectModel;
+﻿using ComputerClub.ViewModel;
 using System.Windows.Controls;
 
 
@@ -13,15 +10,9 @@ namespace ComputerClub.View.pages
         public RatesPage()
         {
             InitializeComponent();
-            
-            ComputerClubContext _context = new ComputerClubContext();
-            _context.Computers.Load();
-            Rates = new ObservableCollection<Rate>(_context.Rates);
 
-            DataContext = this;
+            DataContext = new RatesPageVM();
         }
-
-        public ObservableCollection<Rate> Rates { get; set; }
 
 
     }

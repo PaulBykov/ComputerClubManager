@@ -1,5 +1,4 @@
-﻿using ComputerClub.Model;
-using ComputerClub.Model.Database;
+﻿using ComputerClub.Model.Database;
 using System;
 using System.Windows;
 using System.Windows.Controls;

@@ -35,17 +35,17 @@
                     <DockPanel>
                         <shared:SubmitButton DockPanel.Dock="Top" Margin="55 25 0 0"  Text="+ Добавить" Width="210" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-                        <DataGrid ItemsSource="{Binding Staff, RelativeSource={RelativeSource AncestorType=Page}}" Margin="57 25 57 100" AutoGenerateColumns="False"  Height="400"
-                                          Style="{StaticResource DataGridStyle}"
-                                          ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
-                                          CellStyle="{StaticResource DataGridCellStyle}"
-                                          CanUserAddRows="False"
-                                          CanUserResizeColumns="False"
+                        <DataGrid   ItemsSource="{Binding Staff}"
+                                    Margin="57 25 57 100" AutoGenerateColumns="False"  Height="400" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    Style="{StaticResource DataGridStyle}"
+                                    ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                                    CellStyle="{StaticResource DataGridCellStyle}"
+                                    CanUserAddRows="False" CanUserResizeColumns="False" RowHeaderWidth="0"
                                 >
                             <DataGrid.Columns>
-                                <DataGridTextColumn IsReadOnly="True" Header="Id" Binding="{Binding Id}" Width="0.5*"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="ФИО" Binding="{Binding Fullname}" Width="4*"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="Роль"     Binding="{Binding Role}" Width="*"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="id"   Binding="{Binding Id}"       Width="0.5*"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="ФИО"  Binding="{Binding Fullname}" Width="4*"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Роль" Binding="{Binding Role}"     Width="*"/>
 
                                 <DataGridTemplateColumn Header="Операции" Width="2*">
                                     <DataGridTemplateColumn.CellTemplate>

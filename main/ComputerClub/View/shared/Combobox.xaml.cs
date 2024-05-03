@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using ComputerClub.Model.Database;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,12 +20,17 @@ namespace ComputerClub.View.shared
         public static readonly DependencyProperty WidthDependencyProperty =
             DependencyProperty.Register("Width", typeof(int), typeof(Combobox));
 
-
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register("ItemsSource", typeof(ICollection<object>), typeof(Combobox), new PropertyMetadata(null));
 
         public static readonly DependencyProperty IconSourceProperty =
             DependencyProperty.Register("IconSource", typeof(ImageSource), typeof(Combobox));
+
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(Combobox));
+
+        public static readonly DependencyProperty OnSelectedItemChangedProperty =
+            DependencyProperty.Register("OnSelectedItemChanged", typeof(Action<Club>), typeof(Combobox));
 
 
         public new int Width
@@ -43,6 +49,22 @@ namespace ComputerClub.View.shared
         {
             get { return (ImageSource)GetValue(IconSourceProperty); }
             set { SetValue(IconSourceProperty, value); }
+        }
+        public object SelectedItem
+        {
+            get { return (object)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
+        }
+
+        public Action<object> OnSelectedItemChanged
+        {
+            get { return (Action<object>) GetValue(OnSelectedItemChangedProperty); }
+            set { SetValue(OnSelectedItemChangedProperty, value); }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            OnSelectedItemChanged((object) ((System.Windows.Controls.ComboBox) sender).SelectedItem );
         }
     }
 }

@@ -9,10 +9,12 @@
 
     <UserControl.Resources>
         <RoutedCommand x:Key="NavigationCommand" />
+        <RoutedCommand x:Key="ShowSettingsCommand" />
     </UserControl.Resources>
 
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource NavigationCommand}" Executed="NavigateHandler"/>
+        <CommandBinding Command="{StaticResource ShowSettingsCommand}" Executed="ShowSettingsHandler"/>
     </UserControl.CommandBindings>
 
     <Grid Margin="5 0 5 0">
@@ -34,6 +36,6 @@
         </StackPanel>
 
 
-        <shared:IconButton x:Name="Settings" Grid.Row="1" Grid.Column="0" IconSource="./../../assets/icons/settings_mini.png" Text="Настройки" Width="250"/>
+        <shared:IconButton x:Name="Settings" Grid.Row="1" Grid.Column="0" Command="{StaticResource ShowSettingsCommand}" IconSource="./../../assets/icons/settings_mini.png" Text="Настройки" Width="250"/>
     </Grid>
 </UserControl>
