@@ -43,7 +43,7 @@ namespace ComputerClub.View.widgets
 
         public string Status
         {
-            get { return TimeLeft == "" ? "free" : "rented" ; }
+            get { return TimeLeft == "" ? "свободен" : "занят" ; }
         }
 
         public string TimeLeft

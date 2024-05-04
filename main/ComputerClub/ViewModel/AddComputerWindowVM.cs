@@ -20,12 +20,11 @@ namespace ComputerClub.ViewModel
         [ObservableProperty]
         public ObservableCollection<Rate> _rateList;
 
-        private Window _view;
+        public EventHandler Done;
 
-        public AddComputerWindowVM(Window window) 
+        public AddComputerWindowVM() 
         {
             RateList = GetRates();
-            _view = window;
         }
 
 
@@ -48,15 +47,11 @@ namespace ComputerClub.ViewModel
 
                 ComputersRepository computersRepository = RepositoryServiceLocator.Resolve<ComputersRepository>();
                 computersRepository.AddMany(Count, SelectedRate);
-
+                Done?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception e) 
             {
                 MessageBox.Show(e.Message);
-            }
-            finally 
-            {
-                _view.Close(); 
             }
         }
     }

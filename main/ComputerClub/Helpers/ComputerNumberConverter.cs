@@ -34,7 +34,7 @@ namespace ComputerClub.Helpers
             throw new NotImplementedException();
         }
 
-        private int GetComputerNumberById(int id)
+        public int GetComputerNumberById(int id)
         {
             try
             {

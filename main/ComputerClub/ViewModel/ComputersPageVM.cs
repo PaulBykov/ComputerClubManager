@@ -6,12 +6,9 @@ using ComputerClub.Services;
 using ComputerClub.View.windows;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
 
 
 namespace ComputerClub.ViewModel
@@ -41,16 +38,25 @@ namespace ComputerClub.ViewModel
         public void ShowAddNewComputerWindow()
         {
             AddComputerModalWindow addComputerWindow = new AddComputerModalWindow();
-            Page parentWindow = ((Frame)(Application.Current.MainWindow.Content)).Content as Page;
-            Effector effector = new Effector(parentWindow);
 
-            effector.ApplyBlurEffect(15);
-
-            addComputerWindow.ShowDialog();
-
-            effector.ClearEffect();
+            Effector.TryApplyModalEffects(addComputerWindow);
         }
 
+        [RelayCommand]
+        public void OpenComputerDetails(object targetComputer)
+        {
+            try
+            {
+                Computer computer = (Computer) targetComputer;
+                DetailedComputerModalWindow window = new DetailedComputerModalWindow(computer);
+
+                Effector.TryApplyModalEffects(window);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error during opening computer details: " + ex.Message);
+            }
+        }
 
         private void AuthServiceChangesHandler(object sender, PropertyChangedEventArgs e)
         {

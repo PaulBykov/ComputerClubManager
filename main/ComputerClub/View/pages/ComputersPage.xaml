@@ -58,6 +58,8 @@
                                   Margin="22 0 15 0"
                                   ItemsSource="{Binding Computers}"
                                   x:Name="ListViewComputers">
+
+                            
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left"></WrapPanel>
@@ -71,7 +73,7 @@
                                                          Rent="{Binding Rent}"
                                                          Width="240px" Height="320px"
                                                          Margin="30 30 30 0">
-                                        
+
                                         <widget:ComputerCard.Number>
                                             <MultiBinding Converter="{StaticResource ComputerNumberConverter}">
                                                 <Binding Path="Id"/>
@@ -83,6 +85,7 @@
 
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
+                                    <EventSetter Event="PreviewMouseDown" Handler="CardClicked"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ListViewItem">
@@ -91,7 +94,7 @@
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
-
+                                                        
                                                     </Trigger>
                                                     <Trigger Property="IsSelected" Value="True">
 

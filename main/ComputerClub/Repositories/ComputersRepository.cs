@@ -78,6 +78,8 @@ namespace ComputerClub.Repositories
             try
             {
                 _context.Computers.Remove(item);
+                _context.SaveChanges();
+                DatabaseChanges?.Invoke(this, EventArgs.Empty);
             }
             catch(Exception ex)
             {
