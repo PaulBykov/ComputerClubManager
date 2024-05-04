@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace ComputerClub.Model.Database;
+namespace ComputerClub.Model;
 
 public partial class ComputerClubContext : DbContext
 {
@@ -56,9 +58,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.ToTable("computers");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClubId).HasColumnName("club_id");
             entity.Property(e => e.RateName)
                 .IsRequired()

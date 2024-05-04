@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System.Collections.Generic;
 
 namespace ComputerClub.Repositories
 {
-    interface IRepository<T> : IDisposable where T : class
+    interface IRepository<T> where T : class
     {
+        IEnumerable<T> GetAll();
         T Get(int id);
-        void Create(T item);
+        void Add(T item);
         void Update(T item);
-        void Delete(int id);
-        void Save();
+        void Delete(T item);
     }
 }

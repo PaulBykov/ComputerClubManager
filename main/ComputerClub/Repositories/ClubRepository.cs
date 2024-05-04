@@ -1,5 +1,4 @@
-﻿using ComputerClub.Model.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using ComputerClub.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,40 +7,31 @@ namespace ComputerClub.Repositories
 {
     public class ClubRepository : IRepository<Club>
     {
-        private DbSet<Club> _context;
-        public ClubRepository(DbSet<Club> context)
+        private ComputerClubContext _context;
+        public ClubRepository(ComputerClubContext context)
         {
             _context = context;
         }
 
-        public ICollection<Club> GetAllClubs() 
+        public IEnumerable<Club> GetAll()
         {
-            return _context.ToList();
+            return _context.Clubs.ToList();
         }
 
-        public void Create(Club item)
+
+        public void Add(Club item)
         {
-            throw new NotImplementedException();
+            _context.Clubs.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(Club item)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
+            _context.Clubs.Remove(item);
         }
 
         public Club Get(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
+            return _context.Clubs.Where(c => c.Id ==  id).FirstOrDefault();
         }
 
         public void Update(Club item)

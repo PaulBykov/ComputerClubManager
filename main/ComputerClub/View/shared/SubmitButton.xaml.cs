@@ -1,8 +1,4 @@
-﻿using ComputerClub.View.widgets;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -14,7 +10,6 @@ namespace ComputerClub.View.shared
         public SubmitButton()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
 

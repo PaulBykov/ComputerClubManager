@@ -1,4 +1,5 @@
-﻿using ComputerClub.Services;
+﻿using ComputerClub.Model;
+using ComputerClub.Services;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -15,7 +16,7 @@ namespace ComputerClub.View
 
         private void Login_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            AuthService authService = AuthService.GetInstance(new Model.Database.ComputerClubContext());
+            AuthService authService = AuthService.GetInstance(new ComputerClubContext());
             string login = txtUser.Text;
             string pass = txtPass.Password;
 

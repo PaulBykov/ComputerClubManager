@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using ComputerClub.Model.Database;
+using ComputerClub.Model;
 using ComputerClub.Repositories;
 using System.Collections.ObjectModel;
 
@@ -14,7 +14,7 @@ namespace ComputerClub.ViewModel
         public StaffPageVM() 
         {
             _staff = new ObservableCollection<Staff>(
-                RepositoryServiceLocator.Resolve<StaffRepository>().GetAllStaff()
+                RepositoryServiceLocator.Resolve<StaffRepository>().GetAll()
             );
         }
     }

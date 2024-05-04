@@ -18,11 +18,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" BorderThickness="0" BorderBrush="Black" CornerRadius="10">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding Path=Background.Color, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            </Border.Background>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border x:Name="border" BorderThickness="0" BorderBrush="Black" CornerRadius="10" Background="#A73D67">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" TextBlock.TextAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -36,6 +33,7 @@
                 Cursor="Hand"
                 Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}"
     >
+        
         <Button.Triggers>
             <EventTrigger RoutedEvent="Button.MouseEnter">
                 <BeginStoryboard>

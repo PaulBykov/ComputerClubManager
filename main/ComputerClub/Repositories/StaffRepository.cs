@@ -1,5 +1,4 @@
-﻿using ComputerClub.Model.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using ComputerClub.Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,28 +6,18 @@ namespace ComputerClub.Repositories
 {
     public class StaffRepository : IRepository<Staff>
     {
-        private DbSet<Staff> _context;
-        public StaffRepository(DbSet<Staff> context)
+        private ComputerClubContext _context;
+        public StaffRepository(ComputerClubContext context)
         {
             _context = context;
         }
 
-        public ICollection<Staff> GetAllStaff()
-        {
-            return _context.ToList();
-        }
-
-        public void Create(Staff item)
+        public void Add(Staff item)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Dispose()
+        public void Delete(Staff item)
         {
             throw new System.NotImplementedException();
         }
@@ -38,9 +27,9 @@ namespace ComputerClub.Repositories
             throw new System.NotImplementedException();
         }
 
-        public void Save()
+        public IEnumerable<Staff> GetAll()
         {
-            throw new System.NotImplementedException();
+           return _context.Staff.ToList();
         }
 
         public void Update(Staff item)

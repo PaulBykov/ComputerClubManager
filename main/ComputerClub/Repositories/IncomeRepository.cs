@@ -1,4 +1,4 @@
-﻿using ComputerClub.Model.Database;
+﻿using ComputerClub.Model;
 using ComputerClub.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,10 +10,10 @@ namespace ComputerClub.Repositories
 {
     public class IncomeRepository : IRepository<Income>
     {
-        private DbSet<Income> _context;
+        private ComputerClubContext _context;
         private AuthService _auth;
 
-        public IncomeRepository(DbSet<Income> context)
+        public IncomeRepository(ComputerClubContext context)
         {
             _context = context;
             _auth = AuthService.GetInstance();
@@ -21,20 +21,12 @@ namespace ComputerClub.Repositories
 
         private int CurrentClubId { get => _auth.CurrentClub.Id; }
 
-
-
-
-        public void Create(Income item)
+        public void Add(Income item)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
+        public void Delete(Income item)
         {
             throw new NotImplementedException();
         }
@@ -44,9 +36,9 @@ namespace ComputerClub.Repositories
             throw new NotImplementedException();
         }
 
-        public void Save()
+        public IEnumerable<Income> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Incomes.ToList();
         }
 
         public void Update(Income item)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ComputerClub.Model.Database;
+namespace ComputerClub.Model;
 
 public partial class Staff
 {

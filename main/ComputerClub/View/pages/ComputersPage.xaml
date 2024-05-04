@@ -7,9 +7,14 @@
       mc:Ignorable="d" 
       xmlns:shared="clr-namespace:ComputerClub.View.shared" 
       xmlns:widget="clr-namespace:ComputerClub.View.widgets"
-       xmlns:model="clr-namespace:ComputerClub.Model" 
+      xmlns:help="clr-namespace:ComputerClub.Helpers"
+      xmlns:model="clr-namespace:ComputerClub.Model" 
+      xmlns:viewmodel="clr-namespace:ComputerClub.ViewModel"
       Title="ComputersPage">
 
+    <Page.Resources>
+        <help:ComputerNumberConverter x:Key="ComputerNumberConverter" />
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -37,7 +42,8 @@
                     <shared:SubmitButton Margin="55 25 0 0"
                                          DockPanel.Dock="Top"
                                          Text="+ Добавить"
-                                         Width="210" Height="40"
+                                         Width="210" 
+                                         Height="40"
                                          VerticalAlignment="Center"
                                          HorizontalAlignment="Left"
                                          Command="{Binding ShowAddNewComputerWindowCommand}"
@@ -60,12 +66,18 @@
 
                             <ListView.ItemTemplate>
                                 <DataTemplate DataType="model:Computer">
-                                    <widget:ComputerCard Number="{Binding Id}" 
+                                    <widget:ComputerCard
                                                          RateName="{Binding RateName}"
                                                          Rent="{Binding Rent}"
                                                          Width="240px" Height="320px"
-                                                         Margin="30 30 30 0"
-                                    />
+                                                         Margin="30 30 30 0">
+                                        
+                                        <widget:ComputerCard.Number>
+                                            <MultiBinding Converter="{StaticResource ComputerNumberConverter}">
+                                                <Binding Path="Id"/>
+                                            </MultiBinding>
+                                        </widget:ComputerCard.Number>
+                                    </widget:ComputerCard>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
 

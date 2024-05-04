@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using ComputerClub.Model.Database;
+using ComputerClub.Model;
 using ComputerClub.Repositories;
 using System.Collections.ObjectModel;
 
@@ -13,7 +13,7 @@ namespace ComputerClub.ViewModel
         public RatesPageVM() 
         {
             Rates = new ObservableCollection<Rate>(
-                RepositoryServiceLocator.Resolve<RatesRepository>().GetAllRates()
+                RepositoryServiceLocator.Resolve<RatesRepository>().GetAll()
             );
         }
     }

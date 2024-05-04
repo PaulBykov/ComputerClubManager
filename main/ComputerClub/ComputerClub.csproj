@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>netcoreapp8.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
@@ -10,6 +10,7 @@
 	  <None Remove="assets\icons\computer_mini.png" />
 	  <None Remove="assets\icons\geopoint_mini.png" />
 	  <None Remove="assets\icons\house_mini.png" />
+	  <None Remove="assets\icons\key_mini.png" />
 	  <None Remove="assets\icons\logs_mini.png" />
 	  <None Remove="assets\icons\pencil_mini.png" />
 	  <None Remove="assets\icons\rates_mini.png" />
@@ -43,6 +44,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="assets\icons\house_mini.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="assets\icons\key_mini.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="assets\icons\logs_mini.png">

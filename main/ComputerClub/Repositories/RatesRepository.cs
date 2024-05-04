@@ -1,5 +1,4 @@
-﻿using ComputerClub.Model.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using ComputerClub.Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,28 +7,18 @@ namespace ComputerClub.Repositories
 {
     public class RatesRepository : IRepository<Rate>
     {
-        private DbSet<Rate> _context;
-        public RatesRepository(DbSet<Rate> context)
+        private ComputerClubContext _context;
+        public RatesRepository(ComputerClubContext context)
         {
             _context = context;
         }
-        
-        public ICollection<Rate> GetAllRates() 
-        {
-            return _context.ToList();            
-        }
 
-        public void Create(Rate item)
+        public void Add(Rate item)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Dispose()
+        public void Delete(Rate item)
         {
             throw new System.NotImplementedException();
         }
@@ -39,10 +28,11 @@ namespace ComputerClub.Repositories
             throw new System.NotImplementedException();
         }
 
-        public void Save()
+        public IEnumerable<Rate> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _context.Rates.ToList();
         }
+
 
         public void Update(Rate item)
         {

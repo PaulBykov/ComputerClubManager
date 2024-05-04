@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ComputerClub.Model.Database;
+namespace ComputerClub.Model;
 
 public partial class Rate
 {
@@ -10,4 +10,9 @@ public partial class Rate
     public int Price { get; set; }
 
     public virtual ICollection<Computer> Computers { get; set; } = new List<Computer>();
+
+    public override string ToString()
+    {
+        return $"{Name}";
+    }
 }

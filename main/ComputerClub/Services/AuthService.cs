@@ -1,5 +1,4 @@
-﻿using ComputerClub.Model.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using ComputerClub.Model;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,13 +13,11 @@ namespace ComputerClub.Services
     {
         private static AuthService Instance;
 
-        private DbSet<Club> _clubs;
-        private DbSet<Staff> _staff;
+        private ComputerClubContext _context;
 
         private AuthService(ComputerClubContext context)
         {
-            _clubs = context.Clubs;
-            _staff = context.Staff;
+            _context = context;
         }
 
         [ObservableProperty]
@@ -56,7 +53,7 @@ namespace ComputerClub.Services
 
         public bool TryAuth(string login, string password)
         {
-            Club club = _clubs.Where(c => c.ClubLogin == login).FirstOrDefault();
+            Club club = _context.Clubs.Where(c => c.ClubLogin == login).FirstOrDefault();
 
             if (club == null)
             {
@@ -64,7 +61,7 @@ namespace ComputerClub.Services
             }
 
             string passHash = GetHash(password);
-            CurrentUser = _staff.Where(u => u.ClubId == club.Id && u.PassHash == passHash).FirstOrDefault();
+            CurrentUser = _context.Staff.Where(u => u.ClubId == club.Id && u.PassHash == passHash).FirstOrDefault();
 
             if (CurrentUser == null)
             {

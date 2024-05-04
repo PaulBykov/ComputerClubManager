@@ -1,16 +1,14 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Linq.Expressions;
+﻿using System;
 using System.Windows.Threading;
 
 namespace ComputerClub.Model
 {
-    public class ComputerTimer
+    public class RentTimer
     {
         private DispatcherTimer _timer;
 
-        private LambdaExpression _handler;
-        public ComputerTimer(LambdaExpression handler, int intervalSeconds = 1) 
+        private Action _handler;
+        public RentTimer(Action handler, int intervalSeconds = 1) 
         {
             _timer = new DispatcherTimer(DispatcherPriority.Render);
             _timer.Tick += new EventHandler(TimerTick);
@@ -31,7 +29,14 @@ namespace ComputerClub.Model
 
         private void TimerTick(object sender, EventArgs args)
         {
-            _handler.Compile();
+            _handler?.Invoke();
+        }
+
+        ~RentTimer()
+        {
+            _timer.Stop();
+            _timer = null;
+            _handler = null;
         }
     }
 }

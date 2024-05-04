@@ -13,10 +13,23 @@
         Background="Transparent"
         >
 
-    <DockPanel Background="#282828" Width="400" Height="500">
+    <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="500">
         <Button DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Right"
-            Margin="5 5 10 5" IsCancel="True" Content="X"
+            Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand" 
             Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
+
+        <Grid HorizontalAlignment="Center" Margin="0 50 0 50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+        </Grid>
+        
     </DockPanel>
 
 </Window>

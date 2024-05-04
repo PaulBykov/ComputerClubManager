@@ -14,9 +14,9 @@
         Background="Transparent"
         >
 
-    <DockPanel Background="#282828" Width="400" Height="500">
+    <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="500">
         <Button DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Right"
-            Margin="5 5 10 5" IsCancel="True" Content="X"
+            Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand"
             Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
 
         <Grid HorizontalAlignment="Center" Margin="0 50 0 50">
@@ -31,19 +31,38 @@
 
             <StackPanel Grid.Row="0">
                 <DockPanel Height="30">
-                    <TextBlock DockPanel.Dock="Left" Width="Auto" Text="Количество" FontSize="20" Margin="0 0 100 0" Foreground="{DynamicResource c_text}"/>
-                    <xctk:IntegerUpDown Name="myUpDownControl" HorizontalContentAlignment="Center" FontSize="20" Value="1" Minimum="1" Increment="1" Width="Auto" DockPanel.Dock="Right"/>
+                    <TextBlock DockPanel.Dock="Left" Width="120" Text="Количество" FontSize="20" Margin="0 0 100 0" Foreground="{DynamicResource c_text}"/>
+                    <xctk:IntegerUpDown x:Name="myUpDownControl" FontSize="20" 
+                                        AllowTextInput="False" Maximum="10" Value="{Binding Count, Mode=TwoWay}" Minimum="1" 
+                                        DockPanel.Dock="Right" Width="130" HorizontalContentAlignment="Right" HorizontalAlignment="Right" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                        />
                 </DockPanel>
 
                 <DockPanel Height="30" Margin="0 25 0 0">
                     <TextBlock DockPanel.Dock="Left" Width="Auto" Text="Тариф" FontSize="20" Margin="0 0 100 0" Foreground="{DynamicResource c_text}"/>
-                    <ComboBox Name="ratesCombobox" DockPanel.Dock="Right"/>
+                    <ComboBox Name="ratesCombobox" Margin="0"
+                              Background="White"
+                              FontSize="16"
+                              FontWeight="Bold"
+                              VerticalContentAlignment="Center"
+                              DockPanel.Dock="Right" HorizontalAlignment="Right"
+                              Width="130" SelectedItem="{Binding SelectedRate, Mode=TwoWay}"
+                              ItemsSource="{Binding RateList, Mode=OneWay}"/>
                 </DockPanel>
             </StackPanel>
 
-            <DockPanel Grid.Row="1">
-                <shared:SubmitButton Text="Подтвердить" DockPanel.Dock="Bottom" Foreground="{DynamicResource c_text}" Width="80" Height="50" Grid.Row="1" Background="{DynamicResource c_btn}"/>
-            </DockPanel>
+            <Button Content="Подтвердить"
+                    Cursor="Hand"
+                    FontFamily="Neura Text"
+                    FontSize="20"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    DockPanel.Dock="Bottom"
+                    Width="300" Height="50"
+                    Foreground="{DynamicResource c_text}"
+                    Background="{DynamicResource c_btn}"
+                    Command="{Binding FormSubmitCommand}"
+            />
         </Grid>
     </DockPanel>
 

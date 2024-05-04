@@ -136,10 +136,10 @@
                              CaretBrush="LightGray"
                              BorderBrush="White"
                              BorderThickness="0,0,0,2"
-                             Height="24"
+                             Height="28"
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
-                             Padding="25,0,0,0">
+                             Padding="29,0,0,0">
 
                     <TextBox.Background>
                         <ImageBrush ImageSource="/assets/icons/user_mini.png"
@@ -165,13 +165,13 @@
                              CaretBrush="LightGray"
                              BorderBrush="White"
                              BorderThickness="0,0,0,2"
-                             Height="24"
+                             Height="27"
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
-                             Padding="25, 0,0,0"
+                             Padding="30, 0,0,0"
                              >
                     <PasswordBox.Background>
-                        <ImageBrush ImageSource="/assets/icons/user_mini.png"
+                        <ImageBrush ImageSource="/assets/icons/key_mini.png"
                                         Stretch="Uniform"
                                         AlignmentX="Left"/>
                     </PasswordBox.Background>

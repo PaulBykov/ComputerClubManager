@@ -1,8 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using ComputerClub.Services;
-using ComputerClub.View.windows;
-using ComputerClub.ViewModel;
-using System.Windows;
+﻿using ComputerClub.ViewModel;
 using System.Windows.Controls;
 
 
@@ -17,8 +13,5 @@ namespace ComputerClub.View.pages
 
             DataContext = new ComputersPageVM(ListViewComputers);
         }
-
-        
-
     }
 }

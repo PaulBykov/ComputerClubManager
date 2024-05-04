@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using ComputerClub.Model.Database;
+using ComputerClub.Model;
 using ComputerClub.Services;
 using ComputerClub.View;
 using System;
