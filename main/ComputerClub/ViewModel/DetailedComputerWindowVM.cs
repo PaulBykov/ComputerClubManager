@@ -5,10 +5,11 @@ using ComputerClub.Model;
 using ComputerClub.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ComputerClub.ViewModel
 {
-    public partial class DetailedComputerWindowVM : ObservableObject, IModelWindowVM
+    public partial class DetailedComputerWindowVM : ObservableObject, IModalWindowVM
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(AntiEditMode))]
@@ -43,10 +44,8 @@ namespace ComputerClub.ViewModel
         {
             _computer = computer;
 
-            if(_computer.Rent != null)
-            {
-                UpdateRentTime();
-            }
+            UpdateRentTime();
+            TimeLeft = CalculateLeftTime();
 
             Rates = RepositoryServiceLocator.Resolve<RatesRepository>().GetAll();
             SelectedRate = computer.RateNameNavigation;
@@ -63,6 +62,7 @@ namespace ComputerClub.ViewModel
             } 
         }
         public bool AntiEditMode => !EditMode;
+        public string FormatedRentStartTime => RentalStartTime.TimeOfDay.ToString("hh\\:mm");
 
 
         [RelayCommand]
@@ -145,6 +145,15 @@ namespace ComputerClub.ViewModel
             }
             else
             {
+                //rent is over
+                RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
+                Rent oldRent = _computer.Rent;
+                _computer.Rent = null;
+                repository.Delete(oldRent);
+
+                Logger.Add(oldRent.ToString() + " окончена!");
+
+                UpdateRentTime();
                 return "00:00:00";
             }
         }

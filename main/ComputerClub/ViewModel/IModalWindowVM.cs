@@ -2,7 +2,7 @@
 
 namespace ComputerClub.ViewModel
 {
-    public interface IModelWindowVM
+    public interface IModalWindowVM
     {
         public event EventHandler Done;
     }

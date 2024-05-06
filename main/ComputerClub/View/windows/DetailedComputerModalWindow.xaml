@@ -145,7 +145,7 @@
                         <TextBlock Grid.Row="1" Text="Срок" Style="{StaticResource text}"/>
                         <TextBlock Grid.Row="2" Text="Тариф"  Style="{StaticResource text}"/>
 
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding RentalStartTime.TimeOfDay}" Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding FormatedRentStartTime}" Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
                         <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding RentDuration}"    Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
                         <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedRate}"        Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
                         

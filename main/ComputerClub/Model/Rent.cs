@@ -14,4 +14,9 @@ public partial class Rent
     public int ComputerId { get; set; }
 
     public virtual Computer Computer { get; set; }
+
+    public override string ToString()
+    {
+        return $"Аренда {Id}, начало в {StartTime}";
+    }
 }
