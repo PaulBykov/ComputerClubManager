@@ -19,7 +19,7 @@ namespace ComputerClub.Model
         {
             RepositoryServiceLocator.Register(new ComputersRepository(context));
             RepositoryServiceLocator.Register(new RatesRepository(context));
-            RepositoryServiceLocator.Register(context.Rents);
+            RepositoryServiceLocator.Register(new RentsRepository(context));
             RepositoryServiceLocator.Register(new StaffRepository(context));
             RepositoryServiceLocator.Register(new ClubRepository(context));
             RepositoryServiceLocator.Register(new IncomeRepository(context));

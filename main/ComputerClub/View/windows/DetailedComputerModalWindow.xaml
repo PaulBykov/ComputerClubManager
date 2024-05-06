@@ -147,13 +147,13 @@
 
                         <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding RentalStartTime.TimeOfDay}" Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
                         <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding RentDuration}"    Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding RateName}"        Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding SelectedRate}"        Style="{StaticResource text}" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}"/>
                         
                         <!-- EditMode Only -->
 
-                        <xctk:TimePicker        Grid.Column="1" Grid.Row="0" TextAlignment="Left" Height="30" IsReadOnly="True" Kind="Local" Value="{Binding RentalStartTime, Mode=OneWay}" ClipValueToMinMax="True" TimeInterval="0:1:0" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}" Background="{DynamicResource c_dark}" Foreground="{DynamicResource c_text}" VerticalContentAlignment="Center" FontSize="16"/>
-                        <xctk:TimeSpanUpDown    Grid.Column="1" Grid.Row="1" TextAlignment="Left" Height="30" AllowSpin="True" Minimum="0:0:10" Maximum="23:59:59" ShowDays="False" ShowSeconds="False" ClipValueToMinMax="True" AllowTextInput="True" Value="{Binding RentDuration, Mode=OneWay}" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}" Background="{DynamicResource c_dark}" Foreground="{DynamicResource c_text}" VerticalContentAlignment="Center" FontSize="16"/>
-                        <ComboBox               Grid.Column="1" Grid.Row="2" Height="30" Text="{Binding RateName, Mode=OneWay}" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}" Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Rates, Mode=OneWay}"/>
+                        <xctk:TimePicker                             Grid.Column="1" Grid.Row="0" TextAlignment="Left" Height="30" IsReadOnly="True" Kind="Local" Value="{Binding RentalStartTime, Mode=OneTime}" ClipValueToMinMax="True" TimeInterval="0:1:0" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}" Background="{DynamicResource c_dark}" Foreground="{DynamicResource c_text}" VerticalContentAlignment="Center" FontSize="16"/>
+                        <xctk:TimeSpanUpDown  x:Name="RentTimeField" Grid.Column="1" Grid.Row="1" TextAlignment="Left" Height="30" AllowSpin="True" Minimum="0:0:10" Maximum="23:59:59" ShowDays="False" ShowSeconds="False" ClipValueToMinMax="True" AllowTextInput="True" Value="{Binding RentDuration, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}" Background="{DynamicResource c_dark}" Foreground="{DynamicResource c_text}" VerticalContentAlignment="Center" FontSize="16"/>
+                        <ComboBox             x:Name="RateCombobox"  Grid.Column="1" Grid.Row="2" Height="30" SelectedValue="{Binding SelectedRate, Mode=TwoWay}" Visibility="{Binding EditMode, Converter={StaticResource BoolToVis}}" Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Rates, Mode=OneWay}"/>
 
                     </Grid>
                 </Border>
@@ -161,10 +161,11 @@
                 <DockPanel Grid.Row="3">
                     <Border DockPanel.Dock="Top" VerticalAlignment="Bottom" Width="300" Height="50" CornerRadius="10" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}" Background="{DynamicResource c_btn}">
                         <Button Content="Изменить"
+                                IsCancel="True"
                                 Cursor="Hand"
                                 Background="Transparent" Foreground="{DynamicResource c_text}"
                                 FontSize="24" FontFamily="Neura text"
-                                Command="{Binding SetEditModeCommand}"
+                                Command="{Binding EnableEditModeCommand}"
                         />
                     </Border>
                     <Border DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Width="300" Height="50" CornerRadius="10" Visibility="{Binding AntiEditMode, Converter={StaticResource BoolToVis}}" Background="{DynamicResource c_dark}">

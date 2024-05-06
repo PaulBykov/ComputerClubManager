@@ -28,7 +28,7 @@ public partial class ComputerClubContext : DbContext
     public virtual DbSet<Staff> Staff { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True");
+       => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -114,9 +114,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.HasIndex(e => e.ComputerId, "UQ__rents__805FE7FEAD83A0B5").IsUnique();
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ComputerId).HasColumnName("computer_id");
             entity.Property(e => e.Length).HasColumnName("length");
             entity.Property(e => e.StartTime)
@@ -125,6 +123,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.HasOne(d => d.Computer).WithOne(p => p.Rent)
                 .HasForeignKey<Rent>(d => d.ComputerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__rents__computer___71D1E811");
         });
 

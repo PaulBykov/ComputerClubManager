@@ -64,9 +64,9 @@ namespace ComputerClub.Helpers
                 return;
             }
 
-            if (AuthService.GetInstance().CurrentClub == null)
+            if(AuthService.GetInstance().CurrentClub == null) 
             {
-                throw new AuthException("Ошибка смены клуба!");
+                return;
             }
 
             UpdateSource();

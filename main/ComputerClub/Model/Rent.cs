@@ -11,7 +11,7 @@ public partial class Rent
 
     public TimeOnly Length { get; set; }
 
-    public int? ComputerId { get; set; }
+    public int ComputerId { get; set; }
 
     public virtual Computer Computer { get; set; }
 }

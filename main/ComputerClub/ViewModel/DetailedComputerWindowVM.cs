@@ -5,7 +5,6 @@ using ComputerClub.Model;
 using ComputerClub.Repositories;
 using System;
 using System.Collections.Generic;
-using ComputerClub.ViewModel;
 
 namespace ComputerClub.ViewModel
 {
@@ -13,16 +12,18 @@ namespace ComputerClub.ViewModel
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(AntiEditMode))]
+        [NotifyPropertyChangedFor(nameof(RentalStartTime))]
+        [NotifyPropertyChangedFor(nameof(RentDuration))]
         private bool _editMode = false;
 
         [ObservableProperty]
-        private DateTime _rentalStartTime = new DateTime();
+        private DateTime _rentalStartTime;
 
         [ObservableProperty]
-        private TimeSpan _rentDuration = new TimeSpan();
+        private TimeSpan _rentDuration;
 
         [ObservableProperty]
-        private string _rateName;
+        private Rate _selectedRate;
 
         [ObservableProperty]
         private string _timeLeft = "00:00:00";
@@ -30,13 +31,13 @@ namespace ComputerClub.ViewModel
         [ObservableProperty]
         private IEnumerable<Rate> _rates;
 
+
         private Computer _computer;
-
         private ComputerNumberConverter _converter = new ComputerNumberConverter();
-
         private RentTimer _timer;
 
         public event EventHandler Done;
+        public event EventHandler ShouldSaveChanges;
 
         public DetailedComputerWindowVM(Computer computer)
         {
@@ -44,12 +45,11 @@ namespace ComputerClub.ViewModel
 
             if(_computer.Rent != null)
             {
-                RentalStartTime = _computer.Rent.StartTime;
-                RentDuration = _computer.Rent.Length.ToTimeSpan();
+                UpdateRentTime();
             }
 
-            _rates = RepositoryServiceLocator.Resolve<RatesRepository>().GetAll();
-            RateName = computer.RateName;
+            Rates = RepositoryServiceLocator.Resolve<RatesRepository>().GetAll();
+            SelectedRate = computer.RateNameNavigation;
 
             _timer = new RentTimer(() => TimeLeft = CalculateLeftTime());
             _timer.Start();
@@ -62,18 +62,13 @@ namespace ComputerClub.ViewModel
                 return _converter.GetComputerNumberById(_computer.Id);
             } 
         }
-
         public bool AntiEditMode => !EditMode;
 
 
         [RelayCommand]
-        private void SetEditMode() 
+        private void EnableEditMode()
         {
-            EditMode = true;
-        }
-        private void UnSetEditMode() 
-        {
-            EditMode = false;
+            SetEditMode(true);
         }
 
         [RelayCommand]
@@ -95,15 +90,43 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void ConfirmChanges() 
         {
-            UnSetEditMode();
+            ShouldSaveChanges?.Invoke(this, EventArgs.Empty);
+
+            _computer.RateName = SelectedRate.Name;
+            _computer.RateNameNavigation = SelectedRate;
+
+            Rent rent = new Rent() {
+                Computer = _computer,
+                ComputerId = _computer.Id,
+                Length = TimeOnly.FromTimeSpan(RentDuration),
+                StartTime=RentalStartTime 
+            };
+            RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
+
+
+            if(_computer.Rent == null) 
+            {
+                repository.Add(rent);
+            }
+            else 
+            {
+                repository.Update(_computer.Rent.Id, rent);
+            }
+
+            SetEditMode(false);
         }
 
         [RelayCommand]
         private void CancelChanges() 
         {
-            UnSetEditMode();
+            SetEditMode(false);
         }
 
+
+        private void SetEditMode(bool value = true)
+        {
+            EditMode = value;
+        }
 
         private string CalculateLeftTime()
         {
@@ -123,6 +146,20 @@ namespace ComputerClub.ViewModel
             else
             {
                 return "00:00:00";
+            }
+        }
+
+        private void UpdateRentTime() 
+        {
+            if(_computer.Rent != null) 
+            {
+                RentalStartTime = _computer.Rent.StartTime;
+                RentDuration = _computer.Rent.Length.ToTimeSpan();
+            }
+            else 
+            {
+                RentalStartTime = DateTime.Now;
+                RentDuration = new TimeSpan(0);
             }
         }
     }
