@@ -50,7 +50,7 @@ namespace ComputerClub.Helpers
             }
             catch (Exception ex) 
             {
-                MessageBox.Show("Exception during calculating number of computer");
+                MessageBox.Show("Exception during calculating number of computer\n" + ex.Message);
             }
 
             return 0;

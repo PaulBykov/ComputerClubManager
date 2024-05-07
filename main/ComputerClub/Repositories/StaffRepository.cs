@@ -14,12 +14,14 @@ namespace ComputerClub.Repositories
 
         public void Add(Staff item)
         {
-            throw new System.NotImplementedException();
+            _context.Staff.Add(item);
+            _context.SaveChanges();
         }
 
         public void Delete(Staff item)
         {
-            throw new System.NotImplementedException();
+            _context.Staff.Remove(item);
+            _context.SaveChanges();
         }
 
         public Staff Get(int id)

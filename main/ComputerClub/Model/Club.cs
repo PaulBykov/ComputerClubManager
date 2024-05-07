@@ -17,6 +17,8 @@ public partial class Club
 
     public virtual ICollection<Income> Incomes { get; set; } = new List<Income>();
 
+    public virtual ICollection<Staff> Staff { get; set; } = new List<Staff>();
+
     public override string ToString()
     {
         return $"{Name}";

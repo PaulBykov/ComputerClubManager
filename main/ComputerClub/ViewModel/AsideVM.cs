@@ -5,9 +5,9 @@ using ComputerClub.View.windows;
 
 namespace ComputerClub.ViewModel
 {
-    public partial class NavigationVM
+    public partial class AsideVM
     {
-        public NavigationVM() 
+        public AsideVM() 
         {
             
         }

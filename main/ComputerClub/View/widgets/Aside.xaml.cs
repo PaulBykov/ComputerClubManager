@@ -15,10 +15,10 @@ namespace ComputerClub.View.widgets
         public Aside()
         {
             InitializeComponent();
-            DataContext = ViewModel = new NavigationVM();
+            DataContext = ViewModel = new AsideVM();
         }
 
-        private NavigationVM ViewModel { get; set; }
+        private AsideVM ViewModel { get; set; }
 
         private void NavigateHandler(object sender, RoutedEventArgs args) 
         {

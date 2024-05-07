@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:ComputerClub"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              StartupUri="View/windows/LoginWindow.xaml">
-    
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,7 +13,11 @@
                 <ResourceDictionary Source="assets/styles/Scrollbar.xaml"/>
                 <ResourceDictionary Source="assets/styles/Table.xaml"/>
                 <ResourceDictionary Source="assets/styles/Button.xaml"/>
+                <ResourceDictionary Source="assets/styles/Combobox_mini.xaml"/>
+                <ResourceDictionary Source="assets/styles/Combobox_mini_light.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+    
+    
 </Application>

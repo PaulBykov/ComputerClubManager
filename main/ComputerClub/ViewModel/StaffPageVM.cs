@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
-using System.Collections.ObjectModel;
+using ComputerClub.Services;
+using ComputerClub.View.windows;
+using System.Collections.Generic;
 
 
 namespace ComputerClub.ViewModel
@@ -9,13 +12,19 @@ namespace ComputerClub.ViewModel
     public partial class StaffPageVM : ObservableObject
     {
         [ObservableProperty]
-        private ObservableCollection<Staff> _staff;
+        private IEnumerable<Staff> _staff;
 
         public StaffPageVM() 
         {
-            _staff = new ObservableCollection<Staff>(
-                RepositoryServiceLocator.Resolve<StaffRepository>().GetAll()
-            );
+            _staff = RepositoryServiceLocator.Resolve<StaffRepository>().GetAll();
+        }
+
+
+        [RelayCommand]
+        private void ShowAddNewStaffWindow() 
+        {
+            AddStaffModalWindow window = new AddStaffModalWindow();
+            Effector.TryApplyModalEffects(window);
         }
     }
 }

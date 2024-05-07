@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
+using ComputerClub.ViewModel.modal;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -9,7 +10,7 @@ using System.Windows;
 
 namespace ComputerClub.ViewModel
 {
-    public partial class AddComputerWindowVM : ObservableObject
+    public partial class AddComputerWindowVM : ObservableObject, IModalWindowVM
     {
         [ObservableProperty]
         private int _count = 1;
@@ -20,13 +21,12 @@ namespace ComputerClub.ViewModel
         [ObservableProperty]
         public ObservableCollection<Rate> _rateList;
 
-        public EventHandler Done;
+        public event EventHandler Done;
 
         public AddComputerWindowVM() 
         {
             RateList = GetRates();
         }
-
 
         private ObservableCollection<Rate> GetRates() 
         {

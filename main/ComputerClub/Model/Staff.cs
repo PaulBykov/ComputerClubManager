@@ -9,11 +9,14 @@ public partial class Staff
 
     public string Fullname { get; set; }
 
-    public int ClubId { get; set; }
-
     public string PassHash { get; set; }
 
     public string Role { get; set; }
 
-    public virtual Club Club { get; set; }
+    public virtual ICollection<Club> Clubs { get; set; } = new List<Club>();
+
+    public override string ToString()
+    {
+        return $"{Fullname}";
+    }
 }

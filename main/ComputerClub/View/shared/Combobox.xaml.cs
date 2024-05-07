@@ -64,7 +64,14 @@ namespace ComputerClub.View.shared
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            OnSelectedItemChanged((object) ((System.Windows.Controls.ComboBox) sender).SelectedItem );
+            try
+            {
+                OnSelectedItemChanged((object)((System.Windows.Controls.ComboBox)sender).SelectedItem);
+            }
+            catch(Exception exc) 
+            {
+                Console.WriteLine(exc.ToString());
+            }
         }
     }
 }

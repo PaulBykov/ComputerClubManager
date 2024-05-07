@@ -1,0 +1,75 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="textLight" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource c_text}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="Iter"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{DynamicResource c_text}"/>
+    </Style>
+
+    <Style x:Key="ComboBoxButtonLight" TargetType="ToggleButton">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+        <Setter Property="Background" Value="{DynamicResource c_text}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="border" BorderThickness="0" BorderBrush="Black" CornerRadius="10"
+                 Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ComboBoxStyleLight" TargetType="ComboBox">
+        <Setter Property="Background" Value="{DynamicResource c_text}"/>
+        <Setter Property="Foreground" Value="{DynamicResource c_dark}"/>
+
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid x:Name="Grid">
+                        <ToggleButton x:Name="ToggleButton" Style="{StaticResource ComboBoxButtonLight}" Focusable="false" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="1" Text="{TemplateBinding Text}" Foreground="{DynamicResource c_dark}" FontSize="16" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+
+                                <Path Grid.Column="2"  Margin="40 0 5 0" HorizontalAlignment="Right" x:Name="Arrow" Data="M8,0 L4,8 L8,16 z" Fill="{DynamicResource c_dark}" RenderTransformOrigin="0.5,0.5" Stretch="Uniform">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="0.8" ScaleY="0.5"/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="-90"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Grid>
+                        </ToggleButton>
+
+                        <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                            <Grid>
+                                <Border x:Name="DropDownBorder" Background="{DynamicResource c_text}" BorderThickness="1" BorderBrush="{DynamicResource c_text}" CornerRadius="5">
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True" Foreground="{DynamicResource c_dark}">
+                                        <ItemsPresenter TextBlock.FontSize="14" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

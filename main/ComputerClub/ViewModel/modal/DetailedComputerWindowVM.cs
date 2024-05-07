@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Helpers;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
+using ComputerClub.ViewModel.modal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

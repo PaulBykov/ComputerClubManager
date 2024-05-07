@@ -1,5 +1,6 @@
 ﻿using ComputerClub.Model;
 using ComputerClub.ViewModel;
+using ComputerClub.ViewModel.modal;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,12 +21,12 @@ namespace ComputerClub.View.windows
             ViewModel.ShouldSaveChanges += SaveChanges;
         }
 
-        private void Finish(object? sender, EventArgs args)
+        public void Finish(object sender, EventArgs args)
         {
             DialogResult = true;
         }
 
-        private void SaveChanges(object? sender, EventArgs args) 
+        private void SaveChanges(object sender, EventArgs args) 
         {
             BindingExpression timeBindingExpression = RentTimeField.GetBindingExpression(TimeSpanUpDown.ValueProperty);
             BindingExpression comboboxBindingExpression = RateCombobox.GetBindingExpression(ComboBox.SelectedValueProperty);

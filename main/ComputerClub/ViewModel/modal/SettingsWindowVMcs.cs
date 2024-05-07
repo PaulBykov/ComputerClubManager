@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace ComputerClub.ViewModel
+namespace ComputerClub.ViewModel.modal
 {
     public class SettingsWindowVMcs : ObservableObject
     {
-        
+
     }
 }

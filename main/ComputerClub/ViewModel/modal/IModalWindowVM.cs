@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ComputerClub.ViewModel
+namespace ComputerClub.ViewModel.modal
 {
     public interface IModalWindowVM
     {

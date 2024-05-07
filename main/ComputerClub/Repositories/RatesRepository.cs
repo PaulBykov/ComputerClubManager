@@ -15,12 +15,14 @@ namespace ComputerClub.Repositories
 
         public void Add(Rate item)
         {
-            throw new System.NotImplementedException();
+            _context.Rates.Add(item);
+            _context.SaveChanges();
         }
 
         public void Delete(Rate item)
         {
-            throw new System.NotImplementedException();
+            _context.Rates.Remove(item);
+            _context.SaveChanges();
         }
 
         public Rate Get(int id)
@@ -33,10 +35,15 @@ namespace ComputerClub.Repositories
             return _context.Rates.ToList();
         }
 
+        public bool Has(string name) 
+        {
+            return _context.Rates.Any(r => r.Name.Equals(name));
+        }
 
         public void Update(Rate item)
         {
-            throw new System.NotImplementedException();
+            _context.Rates.Update(item);
+            _context.SaveChanges();
         }
     }
 }

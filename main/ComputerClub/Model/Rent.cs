@@ -17,6 +17,6 @@ public partial class Rent
 
     public override string ToString()
     {
-        return $"Аренда {Id}, начало в {StartTime}";
+        return $"{Id} начало {StartTime.ToString(@"HH\\mm\\ss")}";
     }
 }

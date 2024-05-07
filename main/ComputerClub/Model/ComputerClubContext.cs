@@ -28,7 +28,7 @@ public partial class ComputerClubContext : DbContext
     public virtual DbSet<Staff> Staff { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-       => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -78,13 +78,11 @@ public partial class ComputerClubContext : DbContext
 
         modelBuilder.Entity<Income>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__incomes__3213E83F4C68E736");
+            entity.HasKey(e => e.Month).HasName("PK__incomes__3213E83F4C68E736");
 
             entity.ToTable("incomes");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Month).HasColumnName("month");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.ClubId).HasColumnName("club_id");
 
@@ -129,16 +127,15 @@ public partial class ComputerClubContext : DbContext
 
         modelBuilder.Entity<Staff>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("staff");
+            entity.ToTable("staff");
 
-            entity.Property(e => e.ClubId).HasColumnName("club_id");
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
             entity.Property(e => e.Fullname)
                 .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("fullname");
-            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.PassHash)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -149,10 +146,24 @@ public partial class ComputerClubContext : DbContext
                 .HasMaxLength(10)
                 .HasColumnName("role");
 
-            entity.HasOne(d => d.Club).WithMany()
-                .HasForeignKey(d => d.ClubId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__stuff__clubId__3E52440B");
+            entity.HasMany(d => d.Clubs).WithMany(p => p.Staff)
+                .UsingEntity<Dictionary<string, object>>(
+                    "StaffClub",
+                    r => r.HasOne<Club>().WithMany()
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__StaffClub__club___0A688BB1"),
+                    l => l.HasOne<Staff>().WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__StaffClub__staff__09746778"),
+                    j =>
+                    {
+                        j.HasKey("StaffId", "ClubId").HasName("PK__StaffClu__92A90E41CEE8E612");
+                        j.ToTable("StaffClub");
+                        j.IndexerProperty<int>("StaffId").HasColumnName("staff_id");
+                        j.IndexerProperty<int>("ClubId").HasColumnName("club_id");
+                    });
         });
 
         OnModelCreatingPartial(modelBuilder);

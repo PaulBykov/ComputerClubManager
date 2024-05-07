@@ -23,7 +23,7 @@ namespace ComputerClub.ViewModel
 
         public HeaderVM() 
         {
-            UserButtons[0] = CreateSignOutButton();
+            UserButtons[0] = CreateLogOutButton();
             _clubs = GetClubs();
             SwitchSelectedClub += ChangeCurrentClub;
         }
@@ -32,7 +32,7 @@ namespace ComputerClub.ViewModel
 
         
         [RelayCommand]
-        private void SignOut()
+        private void LogOut()
         {
             AuthService.GetInstance().Clear();
 
@@ -51,13 +51,13 @@ namespace ComputerClub.ViewModel
             return clubs.ToArray();
         }
 
-        private Button CreateSignOutButton()
+        private Button CreateLogOutButton()
         {
             var button = new Button
             {
                 Content = "Выйти",
                 Background = System.Windows.Media.Brushes.Transparent,
-                Command = SignOutCommand,
+                Command = LogOutCommand,
             };
 
             button.SetResourceReference(Control.ForegroundProperty, "c_text_light");

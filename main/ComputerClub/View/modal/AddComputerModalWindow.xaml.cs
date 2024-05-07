@@ -1,4 +1,5 @@
 ﻿using ComputerClub.ViewModel;
+using ComputerClub.ViewModel.modal;
 using System;
 using System.Windows;
 
@@ -15,7 +16,7 @@ namespace ComputerClub.View.windows
             ViewModel.Done += Finish;
         }
 
-        private void Finish(object sender, EventArgs e)
+        public void Finish(object sender, EventArgs e)
         {
             DialogResult = true;
         }

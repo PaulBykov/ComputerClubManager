@@ -5,6 +5,9 @@ using System.Text;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ComputerClub.Exceptions;
+using System.Windows.Documents;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ComputerClub.Services
@@ -15,9 +18,14 @@ namespace ComputerClub.Services
 
         private ComputerClubContext _context;
 
+        public static List<string> Roles = new List<string>() {"admin", "owner"};
+
         private AuthService(ComputerClubContext context)
         {
             _context = context;
+
+            _context.Clubs.Load();
+            _context.Staff.Load();
         }
 
         [ObservableProperty]
@@ -42,7 +50,7 @@ namespace ComputerClub.Services
             return Instance;
         }
 
-        private string GetHash(string pass)
+        public string GetHash(string pass)
         {
             MD5 md5 = MD5.Create();
             byte[] passBytes = Encoding.ASCII.GetBytes(pass);
@@ -53,6 +61,8 @@ namespace ComputerClub.Services
 
         public bool TryAuth(string login, string password)
         {
+            _context.Staff.Load();
+            _context.Clubs.Load();
             Club club = _context.Clubs.Where(c => c.ClubLogin == login).FirstOrDefault();
 
             if (club == null)
@@ -61,7 +71,11 @@ namespace ComputerClub.Services
             }
 
             string passHash = GetHash(password);
-            CurrentUser = _context.Staff.Where(u => u.ClubId == club.Id && u.PassHash == passHash).FirstOrDefault();
+
+            CurrentUser = _context.Staff
+                                        .Where(u => u.Clubs.Any(c => c.Id.Equals(club.Id)) 
+                                                    && u.PassHash == passHash)
+                                        .FirstOrDefault();
 
             if (CurrentUser == null)
             {

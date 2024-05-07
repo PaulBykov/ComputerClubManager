@@ -1,5 +1,7 @@
 ﻿using ComputerClub.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Windows;
 
 namespace ComputerClub.Model
 {
@@ -11,6 +13,13 @@ namespace ComputerClub.Model
             context.Computers.Load();
             context.Rates.Load();
             context.Rents.Load();
+            context.Staff.Load();
+            context.Clubs.Load();
+
+            context.Staff.Include(s => s.Clubs);
+            context.Clubs.Include(c => c.Staff);
+
+
 
             RegisterRepositories(context);
         }
