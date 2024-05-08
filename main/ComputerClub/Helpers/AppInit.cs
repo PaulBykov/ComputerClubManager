@@ -13,12 +13,11 @@ namespace ComputerClub.Model
             context.Computers.Load();
             context.Rates.Load();
             context.Rents.Load();
-            context.Staff.Load();
+            context.Users.Load();
             context.Clubs.Load();
 
-            context.Staff.Include(s => s.Clubs);
-            context.Clubs.Include(c => c.Staff);
-
+            context.Users.Include(s => s.Clubs).ToList();
+            context.Clubs.Include(c => c.Users).ToList();
 
 
             RegisterRepositories(context);
@@ -29,7 +28,7 @@ namespace ComputerClub.Model
             RepositoryServiceLocator.Register(new ComputersRepository(context));
             RepositoryServiceLocator.Register(new RatesRepository(context));
             RepositoryServiceLocator.Register(new RentsRepository(context));
-            RepositoryServiceLocator.Register(new StaffRepository(context));
+            RepositoryServiceLocator.Register(new UserRepository(context));
             RepositoryServiceLocator.Register(new ClubRepository(context));
             RepositoryServiceLocator.Register(new IncomeRepository(context));
         }

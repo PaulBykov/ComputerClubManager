@@ -10,11 +10,11 @@ namespace ComputerClub.Helpers
 {
     public class StaffClubsConverter : IMultiValueConverter
     {
-        private readonly StaffRepository _repository = RepositoryServiceLocator.Resolve<StaffRepository>();
+        private readonly UserRepository _repository = RepositoryServiceLocator.Resolve<UserRepository>();
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Staff person = values[0] as Staff;
+            User person = values[0] as User;
             return GetClubList(person);
         }
 
@@ -23,11 +23,10 @@ namespace ComputerClub.Helpers
             throw new NotImplementedException();
         }
 
-        private string GetClubList(Staff person) 
+        private string GetClubList(User person) 
         {
-            IEnumerable<Staff> peopleList = _repository.GetAll();
 
-            List<Club> clubList = peopleList.Where(p => p.Id.Equals(person.Id)).SelectMany(p => p.Clubs).ToList();
+            List<Club> clubList = person.Clubs.ToList();
 
             return string.Join(", ", clubList);
         }

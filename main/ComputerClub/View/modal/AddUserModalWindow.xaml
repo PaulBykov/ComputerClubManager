@@ -12,7 +12,7 @@
     Background="Transparent"
     >
 
-    <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="500">
+    <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="550">
         <Button DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Right"
     Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand"
     Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
@@ -70,14 +70,14 @@
                     <PasswordBox Grid.Column="1" Margin="40 0 0 0" PasswordChanged="PasswordBox_PasswordChanged"/>
                 </Grid>
 
-                <Grid Height="30" Margin="0 40 0 0">
+                <Grid Height="100" Margin="0 40 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Клубы" FontSize="20" Foreground="{DynamicResource c_text}" VerticalAlignment="Center"/>
-                    <ListBox Grid.Column="1" Margin="40 0 0 0" ItemsSource="{Binding ClubList}" SelectedItem="{Binding SelectedClubs}" SelectionMode="Multiple" MaxHeight="100px" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <ListBox Grid.Column="1" Margin="40 0 0 0" ItemsSource="{Binding ClubList}" SelectedItem="{Binding SelectedClubs}" SelectionMode="Multiple" Height="100px" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                 </Grid>
             </StackPanel>
 

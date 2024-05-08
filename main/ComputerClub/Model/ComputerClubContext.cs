@@ -25,7 +25,7 @@ public partial class ComputerClubContext : DbContext
 
     public virtual DbSet<Rent> Rents { get; set; }
 
-    public virtual DbSet<Staff> Staff { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True");
@@ -42,10 +42,6 @@ public partial class ComputerClubContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Balance).HasColumnName("balance");
-            entity.Property(e => e.ClubLogin)
-                .IsRequired()
-                .HasMaxLength(32)
-                .HasColumnName("club_login");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(32)
@@ -125,13 +121,17 @@ public partial class ComputerClubContext : DbContext
                 .HasConstraintName("FK__rents__computer___71D1E811");
         });
 
-        modelBuilder.Entity<Staff>(entity =>
+        modelBuilder.Entity<User>(entity =>
         {
-            entity.ToTable("staff");
+            entity.HasKey(e => e.Login).HasName("PK_staff");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.ToTable("users");
+
+            entity.HasIndex(e => e.Login, "unique_login").IsUnique();
+
+            entity.Property(e => e.Login)
+                .HasMaxLength(50)
+                .HasColumnName("login");
             entity.Property(e => e.Fullname)
                 .IsRequired()
                 .HasMaxLength(100)
@@ -146,22 +146,24 @@ public partial class ComputerClubContext : DbContext
                 .HasMaxLength(10)
                 .HasColumnName("role");
 
-            entity.HasMany(d => d.Clubs).WithMany(p => p.Staff)
+            entity.HasMany(d => d.Clubs).WithMany(p => p.Users)
                 .UsingEntity<Dictionary<string, object>>(
-                    "StaffClub",
+                    "UserClub",
                     r => r.HasOne<Club>().WithMany()
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__StaffClub__club___0A688BB1"),
-                    l => l.HasOne<Staff>().WithMany()
-                        .HasForeignKey("StaffId")
+                        .HasConstraintName("FK__UserClub__club_i__345EC57D"),
+                    l => l.HasOne<User>().WithMany()
+                        .HasForeignKey("UserLogin")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__StaffClub__staff__09746778"),
+                        .HasConstraintName("FK__UserClub__user_l__336AA144"),
                     j =>
                     {
-                        j.HasKey("StaffId", "ClubId").HasName("PK__StaffClu__92A90E41CEE8E612");
-                        j.ToTable("StaffClub");
-                        j.IndexerProperty<int>("StaffId").HasColumnName("staff_id");
+                        j.HasKey("UserLogin", "ClubId").HasName("PK__UserClub__156B6673AF5E95E7");
+                        j.ToTable("UserClub");
+                        j.IndexerProperty<string>("UserLogin")
+                            .HasMaxLength(50)
+                            .HasColumnName("user_login");
                         j.IndexerProperty<int>("ClubId").HasColumnName("club_id");
                     });
         });

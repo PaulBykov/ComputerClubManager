@@ -12,11 +12,11 @@ namespace ComputerClub.ViewModel
     public partial class StaffPageVM : ObservableObject
     {
         [ObservableProperty]
-        private IEnumerable<Staff> _staff;
+        private IEnumerable<User> _staff;
 
         public StaffPageVM() 
         {
-            _staff = RepositoryServiceLocator.Resolve<StaffRepository>().GetAll();
+            _staff = RepositoryServiceLocator.Resolve<UserRepository>().GetAll();
         }
 
 

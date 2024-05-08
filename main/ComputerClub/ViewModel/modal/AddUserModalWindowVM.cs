@@ -6,11 +6,6 @@ using ComputerClub.Services;
 using ComputerClub.ViewModel.modal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace ComputerClub.ViewModel
 {
@@ -50,12 +45,12 @@ namespace ComputerClub.ViewModel
         private void FormSubmit()
         {
             AuthService auth = AuthService.GetInstance();
-            StaffRepository repository = RepositoryServiceLocator.Resolve<StaffRepository>();
+            UserRepository repository = RepositoryServiceLocator.Resolve<UserRepository>();
 
             foreach(Club club in SelectedClubs) 
             {
                 string hash = auth.GetHash(Password);
-                Staff person = new Staff() {Fullname = FullName, Role = Role, PassHash = hash};
+                User person = new User() {Fullname = FullName, Role = Role, PassHash = hash};
                 person.Clubs.Add(club);
                 repository.Add(person);
             }

@@ -4,37 +4,37 @@ using System.Linq;
 
 namespace ComputerClub.Repositories
 {
-    public class StaffRepository : IRepository<Staff>
+    public class UserRepository : IRepository<User>
     {
         private ComputerClubContext _context;
-        public StaffRepository(ComputerClubContext context)
+        public UserRepository(ComputerClubContext context)
         {
             _context = context;
         }
 
-        public void Add(Staff item)
+        public void Add(User item)
         {
-            _context.Staff.Add(item);
+            _context.Users.Add(item);
             _context.SaveChanges();
         }
 
-        public void Delete(Staff item)
+        public void Delete(User item)
         {
-            _context.Staff.Remove(item);
+            _context.Users.Remove(item);
             _context.SaveChanges();
         }
 
-        public Staff Get(int id)
+        public User Get(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Staff> GetAll()
+        public IEnumerable<User> GetAll()
         {
-           return _context.Staff.ToList();
+           return _context.Users.ToList();
         }
 
-        public void Update(Staff item)
+        public void Update(User item)
         {
             throw new System.NotImplementedException();
         }

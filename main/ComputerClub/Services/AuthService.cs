@@ -8,6 +8,7 @@ using ComputerClub.Exceptions;
 using System.Windows.Documents;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 
 namespace ComputerClub.Services
@@ -25,11 +26,11 @@ namespace ComputerClub.Services
             _context = context;
 
             _context.Clubs.Load();
-            _context.Staff.Load();
+            _context.Users.Load();
         }
 
         [ObservableProperty]
-        public Staff _currentUser;
+        public User _currentUser;
 
         [ObservableProperty]
         public Club _currentClub;
@@ -61,28 +62,27 @@ namespace ComputerClub.Services
 
         public bool TryAuth(string login, string password)
         {
-            _context.Staff.Load();
-            _context.Clubs.Load();
-            Club club = _context.Clubs.Where(c => c.ClubLogin == login).FirstOrDefault();
+            var temp = _context.Users.Include(s => s.Clubs).ToList();
+            var temp1 = _context.Clubs.Include(c => c.Users).ToList();
 
-            if (club == null)
+            User user = _context.Users.Where(u => u.Login == login).FirstOrDefault();
+
+            if (user == null)
             {
                 return false;
             }
 
             string passHash = GetHash(password);
 
-            CurrentUser = _context.Staff
-                                        .Where(u => u.Clubs.Any(c => c.Id.Equals(club.Id)) 
-                                                    && u.PassHash == passHash)
-                                        .FirstOrDefault();
-
-            if (CurrentUser == null)
+            if(user.PassHash.Equals(passHash)) 
             {
                 return false;
             }
 
-            CurrentClub = club;
+            // данные совпали
+
+            CurrentUser = user;
+            CurrentClub = user.Clubs.First();
             return true;
         }
 

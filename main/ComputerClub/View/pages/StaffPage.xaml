@@ -48,10 +48,9 @@
                                     CanUserAddRows="False" CanUserResizeColumns="False" RowHeaderWidth="0"
                                 >
                             <DataGrid.Columns>
-                                <DataGridTextColumn IsReadOnly="True" Header="id"   Binding="{Binding Id}"       Width="0.5*"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="ФИО"  Binding="{Binding Fullname}" Width="4*"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="ФИО"  Binding="{Binding Fullname}" Width="3.5*"/>
                                 <DataGridTextColumn IsReadOnly="True" Header="Роль" Binding="{Binding Role}"     Width="*"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="Клубы"                             Width="*">
+                                <DataGridTextColumn IsReadOnly="True" Header="Клубы"                             Width="2*">
                                     <DataGridTextColumn.Binding>
                                         <MultiBinding Converter="{StaticResource ClubListConverter}">
                                             <Binding Path="."/>
