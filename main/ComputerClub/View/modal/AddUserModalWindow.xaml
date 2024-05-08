@@ -12,7 +12,11 @@
     Background="Transparent"
     >
 
-    <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="550">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="650">
         <Button DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Right"
     Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand"
     Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
@@ -70,14 +74,14 @@
                     <PasswordBox Grid.Column="1" Margin="40 0 0 0" PasswordChanged="PasswordBox_PasswordChanged"/>
                 </Grid>
 
-                <Grid Height="100" Margin="0 40 0 0">
+                <Grid Height="100" Margin="0 40 0 0" Visibility="{Binding ClubSectionVisibility, Converter={StaticResource BoolToVis}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Клубы" FontSize="20" Foreground="{DynamicResource c_text}" VerticalAlignment="Center"/>
-                    <ListBox Grid.Column="1" Margin="40 0 0 0" ItemsSource="{Binding ClubList}" SelectedItem="{Binding SelectedClubs}" SelectionMode="Multiple" Height="100px" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <ListBox x:Name="ClubLB" Grid.Column="1" Margin="40 0 0 0" ItemsSource="{Binding ClubList}" SelectionMode="Multiple" Height="100px" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="ListBox_SelectionChanged"/>
                 </Grid>
             </StackPanel>
 

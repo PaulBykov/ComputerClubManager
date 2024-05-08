@@ -3,6 +3,9 @@ using ComputerClub.ViewModel.modal;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.Generic;
+using ComputerClub.Model;
+using System.Linq;
 
 namespace ComputerClub.View.windows
 {
@@ -14,6 +17,7 @@ namespace ComputerClub.View.windows
             DataContext = ViewModel = new AddStaffModalWindowVM();
             ViewModel.Done += Finish;
         }
+
 
         private AddStaffModalWindowVM ViewModel { get; set; }
 
@@ -27,6 +31,11 @@ namespace ComputerClub.View.windows
             PasswordBox passBox = sender as PasswordBox;
 
             ViewModel.Password = passBox.Password;
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.SelectedClubs = ClubLB.SelectedItems.Cast<Club>();
         }
     }
 }

@@ -20,14 +20,14 @@ namespace ComputerClub.ViewModel
         [ObservableProperty]
         private string _password;
 
-         [ObservableProperty]
+        [ObservableProperty]
         private string _role;
 
         [ObservableProperty]
+        private bool _clubSectionVisibility = true;
+
+        [ObservableProperty]
         private IEnumerable<Club> _selectedClubs;
-
-
-        
 
 
         public AddStaffModalWindowVM() 
@@ -37,9 +37,10 @@ namespace ComputerClub.ViewModel
 
         public event EventHandler Done;
 
-        public IEnumerable<Club> ClubList { get; set; }
+        public IEnumerable<Club> ClubList { get; private set; }
 
         public List<string> Roles => AuthService.Roles;
+
 
         [RelayCommand]
         private void FormSubmit()
@@ -47,16 +48,28 @@ namespace ComputerClub.ViewModel
             AuthService auth = AuthService.GetInstance();
             UserRepository repository = RepositoryServiceLocator.Resolve<UserRepository>();
 
-            foreach(Club club in SelectedClubs) 
+            string hash = auth.GetHash(Password);
+            User person = new User() { Fullname = FullName, Role = Role, Login = Login, PassHash = hash };
+
+            foreach (Club club in SelectedClubs) 
             {
-                string hash = auth.GetHash(Password);
-                User person = new User() {Fullname = FullName, Role = Role, PassHash = hash};
                 person.Clubs.Add(club);
-                repository.Add(person);
             }
+
+            repository.Add(person);
 
             Done?.Invoke(this, EventArgs.Empty);
         }
 
+
+        partial void OnRoleChanged(string oldValue, string newValue)
+        {
+            UpdateRoleStatus(newValue);
+        }
+
+        private void UpdateRoleStatus(string newRole) 
+        {
+            ClubSectionVisibility = RoleIdentityService.IsAdmin(newRole);
+        }
     }
 }

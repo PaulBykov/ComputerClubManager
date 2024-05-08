@@ -46,9 +46,9 @@ namespace ComputerClub.ViewModel
 
         private Club[] GetClubs() 
         {
-            var context = new ComputerClubContext();
-            var clubs = new ObservableCollection<Club>(context.Clubs);
-            return clubs.ToArray();
+            AuthService auth = AuthService.GetInstance();
+
+            return auth.GetAvalibleClubs().ToArray();
         }
 
         private Button CreateLogOutButton()

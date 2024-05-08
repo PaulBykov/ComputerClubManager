@@ -34,7 +34,6 @@ namespace ComputerClub.Services
 
         [ObservableProperty]
         public Club _currentClub;
-
         
         public static AuthService GetInstance(ComputerClubContext context = null) 
         {
@@ -86,6 +85,10 @@ namespace ComputerClub.Services
             return true;
         }
 
+        public IEnumerable<Club> GetAvalibleClubs() 
+        {
+            return CurrentUser.Clubs;
+        }
         public void Clear() 
         {
             CurrentUser = null;
