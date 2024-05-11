@@ -3,7 +3,6 @@ using ComputerClub.ViewModel.modal;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.Generic;
 using ComputerClub.Model;
 using System.Linq;
 

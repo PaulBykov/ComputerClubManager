@@ -5,10 +5,8 @@ using System.Text;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ComputerClub.Exceptions;
-using System.Windows.Documents;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Windows;
 
 
 namespace ComputerClub.Services

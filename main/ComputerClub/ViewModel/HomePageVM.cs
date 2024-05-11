@@ -56,8 +56,8 @@ namespace ComputerClub.ViewModel
             FreeComputersCount = _computerStatsProvider.GetFreeComputersCount();
             RentedComputersCount = _computerStatsProvider.GetRentedComputersCount();
 
-            UserName = _sessionStatsProvider.GetShortedCurrentUserName();
-            SessionBeginTime = sessionStatsProvider.SessionBeginTime.ToString(@"dd/MM/yyyy") + "  " + SessionStatsProvider.SessionBeginTime.TimeOfDay.Hours + ":" + SessionStatsProvider.SessionBeginTime.TimeOfDay.Minutes;
+            UserName = _sessionStatsProvider.GetShortedSessionOwner();
+            SessionBeginTime = session..ToString(@"dd/MM/yyyy") + "  " + SessionStatsProvider.SessionBeginTime.TimeOfDay.Hours + ":" + SessionStatsProvider.SessionBeginTime.TimeOfDay.Minutes;
         }
 
     }

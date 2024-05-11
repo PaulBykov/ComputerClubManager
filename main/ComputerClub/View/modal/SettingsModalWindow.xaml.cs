@@ -1,6 +1,4 @@
-﻿using ComputerClub.Services;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 
 namespace ComputerClub.View.windows

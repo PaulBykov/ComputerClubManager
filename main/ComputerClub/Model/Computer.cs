@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ComputerClub.Model;
+﻿namespace ComputerClub.Model;
 
 public partial class Computer
 {

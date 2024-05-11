@@ -1,7 +1,6 @@
 ﻿using ComputerClub.Model;
 using ComputerClub.ViewModel;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using ListViewItem = System.Windows.Controls.ListViewItem;
 

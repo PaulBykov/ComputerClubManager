@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using ComputerClub.Exceptions;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
