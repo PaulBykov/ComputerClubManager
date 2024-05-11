@@ -1,4 +1,5 @@
 ﻿using ComputerClub.Model;
+using ComputerClub.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,14 @@ namespace ComputerClub.Repositories
     public class RentsRepository : IRepository<Rent>
     {
         private ComputerClubContext _context;
+        private AuthService _auth = AuthService.GetInstance();
 
         public RentsRepository(ComputerClubContext context) 
         {
             _context = context;
         }
 
-
+        public int Count => _context.Rents.Where(r => r.Computer.Club == _auth.CurrentClub).Count();
         public void Add(Rent item)
         {
             _context.Rents.Add(item);

@@ -13,6 +13,6 @@ public partial class Rate
 
     public override string ToString()
     {
-        return $"{Name}";
+        return Name;
     }
-}
+}   

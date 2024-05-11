@@ -2,12 +2,16 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ComputerClub.View"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:widget="clr-namespace:ComputerClub.View.widgets" 
-      xmlns:shared="clr-namespace:ComputerClub.View.shared" 
+      xmlns:helper="clr-namespace:ComputerClub.Helpers"
       mc:Ignorable="d" 
       Title="HomePage">
+
+    <Page.Resources>
+        <helper:BoolToBlurEffectConverter x:Key="BoolToBlurEffectConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -31,11 +35,98 @@
 
 
             <Border Grid.Column="1" Background="{DynamicResource c_main}">
-                <StackPanel Orientation="Vertical">
-                    
-                </StackPanel>
-            </Border>
+                <Grid Margin="40 40 40 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                    </Grid.ColumnDefinitions>
 
+
+                    <Border Grid.Column="0" Grid.Row="0" x:Name="SessionWidgetBorder"
+                            Background="{DynamicResource c_second}"
+                            CornerRadius="30"
+                            Padding="30">
+                        <Border.Effect>
+                            <Binding Path="IsInactiveSession" Converter="{StaticResource BoolToBlurEffectConverter}"/>
+                        </Border.Effect>
+
+                        <Border.OpacityMask>
+                            <SolidColorBrush Color="{Binding OpacityColor, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                            <!-- Здесь задается затемненный цвет -->
+                        </Border.OpacityMask>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="На смене" FontFamily="Neura Text" FontSize="20" Foreground="{DynamicResource c_text}"/>
+                                    <TextBlock Text="{Binding UserName}" FontSize="28" FontWeight="SemiBold" Foreground="{DynamicResource c_text}"/>
+
+                                    <TextBlock Margin="0 25 0 0" Text="Начало смены" FontFamily="Neura Text" FontSize="20" Foreground="{DynamicResource c_text}"/>
+                                    <TextBlock Text="{Binding SessionBeginTime}" FontWeight="SemiBold" FontSize="28" Foreground="{DynamicResource c_text}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+
+                     <Border  Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{DynamicResource c_btn}" CornerRadius="10">
+                        <Button Content="Начать" Visibility="{Binding IsInactiveSession, Converter={StaticResource BoolToVis}}"
+                                FontFamily="Neura text" FontSize="32" 
+                                Cursor="Hand" Width="210" Height="60"
+                                Foreground="{DynamicResource c_text}" 
+                                Command="{Binding ActivateSessionCommand}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                     </Border>    
+
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="20 0 0 0">
+                        <Border DockPanel.Dock="Top"
+                                Background="{DynamicResource c_second}"
+                                CornerRadius="30" Height="115"
+                                HorizontalAlignment="Stretch" Padding="30">
+                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Свободно: " FontFamily="Roboto" FontSize="24" Foreground="{DynamicResource c_text}"/>
+                                <TextBlock Text="{Binding FreeComputersCount}" FontSize="24"  FontFamily="Roboto" Foreground="{DynamicResource c_text}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border DockPanel.Dock="Top"
+                                Background="{DynamicResource c_second}"
+                                CornerRadius="30" Height="115"
+                                Margin="0 20 0 0"
+                                HorizontalAlignment="Stretch" Padding="30">
+                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="Занято: " FontFamily="Roboto" FontSize="24" Foreground="{DynamicResource c_text}"/>
+                                <TextBlock Text="{Binding RentedComputersCount}" FontSize="24"  FontFamily="Roboto" Foreground="{DynamicResource c_text}"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <Border Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Padding="30" Background="{DynamicResource c_second}" HorizontalAlignment="Stretch" Height="425" CornerRadius="30">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.75*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                
+                            </StackPanel>
+                            
+                            
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
         </Grid>
 
 

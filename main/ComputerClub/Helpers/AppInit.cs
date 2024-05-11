@@ -1,7 +1,6 @@
 ﻿using ComputerClub.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Windows;
 
 namespace ComputerClub.Model
 {
@@ -31,6 +30,7 @@ namespace ComputerClub.Model
             RepositoryServiceLocator.Register(new UserRepository(context));
             RepositoryServiceLocator.Register(new ClubRepository(context));
             RepositoryServiceLocator.Register(new IncomeRepository(context));
+            RepositoryServiceLocator.Register(new SessionRepository(context));
         }
     }
 }

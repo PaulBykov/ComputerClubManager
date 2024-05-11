@@ -15,6 +15,8 @@ public partial class Club
 
     public virtual ICollection<Income> Incomes { get; set; } = new List<Income>();
 
+    public virtual Session Session { get; set; }
+
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 
     public override string ToString()

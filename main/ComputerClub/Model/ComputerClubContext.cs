@@ -25,6 +25,8 @@ public partial class ComputerClubContext : DbContext
 
     public virtual DbSet<Rent> Rents { get; set; }
 
+    public virtual DbSet<Session> Sessions { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -74,13 +76,20 @@ public partial class ComputerClubContext : DbContext
 
         modelBuilder.Entity<Income>(entity =>
         {
-            entity.HasKey(e => e.Month).HasName("PK__incomes__3213E83F4C68E736");
+            entity.HasKey(e => e.Id).HasName("PK__incomes__3213E83F4D2993B9");
 
             entity.ToTable("incomes");
 
-            entity.Property(e => e.Month).HasColumnName("month");
-            entity.Property(e => e.Amount).HasColumnName("amount");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Amount)
+                .HasColumnType("money")
+                .HasColumnName("amount");
             entity.Property(e => e.ClubId).HasColumnName("club_id");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.RateName)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("rate_name");
 
             entity.HasOne(d => d.Club).WithMany(p => p.Incomes)
                 .HasForeignKey(d => d.ClubId)
@@ -121,6 +130,31 @@ public partial class ComputerClubContext : DbContext
                 .HasConstraintName("FK__rents__computer___71D1E811");
         });
 
+        modelBuilder.Entity<Session>(entity =>
+        {
+            entity.HasKey(e => e.ClubId).HasName("PK__sessions__BCAD3DD9F9E28EB8");
+
+            entity.ToTable("sessions");
+
+            entity.Property(e => e.ClubId)
+                .ValueGeneratedNever()
+                .HasColumnName("club_id");
+            entity.Property(e => e.UserLogin)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("user_login");
+
+            entity.HasOne(d => d.Club).WithOne(p => p.Session)
+                .HasForeignKey<Session>(d => d.ClubId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__sessions__club_i__59904A2C");
+
+            entity.HasOne(d => d.UserLoginNavigation).WithMany(p => p.Sessions)
+                .HasForeignKey(d => d.UserLogin)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__sessions__user_l__5A846E65");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Login).HasName("PK_staff");
@@ -152,14 +186,14 @@ public partial class ComputerClubContext : DbContext
                     r => r.HasOne<Club>().WithMany()
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__UserClub__club_i__345EC57D"),
+                        .HasConstraintName("FK__UserClub__club_i__382F5661"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("UserLogin")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__UserClub__user_l__336AA144"),
+                        .HasConstraintName("FK__UserClub__user_l__373B3228"),
                     j =>
                     {
-                        j.HasKey("UserLogin", "ClubId").HasName("PK__UserClub__156B6673AF5E95E7");
+                        j.HasKey("UserLogin", "ClubId").HasName("PK__UserClub__156B667372CB8E98");
                         j.ToTable("UserClub");
                         j.IndexerProperty<string>("UserLogin")
                             .HasMaxLength(50)

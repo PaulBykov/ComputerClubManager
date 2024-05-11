@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ComputerClub.Model;
 
@@ -12,6 +11,8 @@ public partial class User
     public string Role { get; set; }
 
     public string Fullname { get; set; }
+
+    public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
 
     public virtual ICollection<Club> Clubs { get; set; } = new List<Club>();
 
