@@ -1,8 +1,9 @@
-﻿using ComputerClub.Repositories;
+﻿using System.Linq;
+using ComputerClub.Model;
+using ComputerClub.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
-namespace ComputerClub.Model
+namespace ComputerClub.Helpers
 {
     public static class AppInit
     {
@@ -14,9 +15,12 @@ namespace ComputerClub.Model
             context.Rents.Load();
             context.Users.Load();
             context.Clubs.Load();
+            context.Sessions.Load();
 
-            context.Users.Include(s => s.Clubs).ToList();
+            context.Users.Include(u => u.Clubs).ToList();
             context.Clubs.Include(c => c.Users).ToList();
+            context.Clubs.Include(c => c.Session).ToList();
+
 
 
             RegisterRepositories(context);

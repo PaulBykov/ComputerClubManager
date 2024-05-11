@@ -1,37 +1,46 @@
-﻿using ComputerClub.Model;
+﻿#nullable enable
+using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
 using System;
 using System.Text;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using ComputerClub.Exceptions;
+using Microsoft.VisualBasic;
 
 
 namespace ComputerClub.Providers
 {
-    public class SessionStatsProvider
+    public partial class SessionStatsProvider : ObservableObject
     {
         private readonly AuthService _authService = AuthService.GetInstance();
         private readonly SessionRepository _sessionRepository = RepositoryServiceLocator.Resolve<SessionRepository>();
-        
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsInactiveSession))]
+        private Session? _currentSession = null;
+
         public SessionStatsProvider() 
         {
-            CurrentSession = GetCurrentSessionInfo();
+            _currentSession = GetCurrentSessionInfo();
+
+            Application.Current.Exit += Application_Exit;
         }
 
-
-        public Session CurrentSession { get; private set; }
-
-        public bool IsInactiveSession
+        private void Application_Exit(object sender, ExitEventArgs e)
         {
-            get
+            if (CurrentSession != null)
             {
-                return _currentSession == null;
+                _sessionRepository.Delete(CurrentSession);
+                CurrentSession = null;
             }
-            private set { }
-        }  
+        }
 
-        private Session GetCurrentSessionInfo() 
+        public bool IsInactiveSession => CurrentSession == null;
+        
+
+        private Session GetCurrentSessionInfo()
         {
             return _authService.CurrentClub.Session;
         }
@@ -46,16 +55,15 @@ namespace ComputerClub.Providers
                 }
 
                 CurrentSession = new Session 
-                { 
-                    Club = _authService.CurrentClub,
+                {
                     ClubId = _authService.CurrentClub.Id,
-                    UserLogin = _authService.CurrentUser.Login
+                    UserLogin = _authService.CurrentUser.Login,
+                    BeginTime = DateAndTime.Now
                 };
 
-                _authService.CurrentClub.Session = CurrentSession;
-                _sessionRepository.Add(CurrentSession);
 
-                IsInactiveSession = false;
+                _sessionRepository.Add(CurrentSession);
+                _authService.CurrentClub.Session = CurrentSession;
             }
             catch (Exception e)
             {

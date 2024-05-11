@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:shared="clr-namespace:ComputerClub.View.shared"
              xmlns:local="clr-namespace:ComputerClub.View.widgets" 
-             xmlns:viewmodel="clr-namespace:ComputerClub.ViewModel"
+             xmlns:viewmodel="clr-namespace:ComputerClub.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HeaderVM}"
              mc:Ignorable="d">
 
     <Grid VerticalAlignment="Top">
@@ -20,13 +20,25 @@
                     <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="CLUB NAME" Foreground="{DynamicResource c_text}" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Neutra Text Book"/>
+                <TextBlock Text="CLUB NAME"
+                           Foreground="{DynamicResource c_text}"
+                           FontSize="40" FontFamily="Neutra Text"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <TextBlock Grid.Column="1" Margin="42 0 0 0" Text="{Binding SectionText, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="{DynamicResource c_text}" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Neutra Text Book"/>
+                <TextBlock Grid.Column="1" Margin="42 0 0 0"
+                           Text="{Binding SectionText, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           Foreground="{DynamicResource c_text}" 
+                           FontSize="24" FontFamily="Neutra Text Book"
+                           HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <shared:Combobox x:Name="GeoIcon" Grid.Column="3" Width="280" IconSource="../../assets/icons/geopoint_mini.png"/>
+                <shared:Combobox x:Name="GeoIcon" Grid.Column="3" Width="280"
+                                 IconSource="../../assets/icons/geopoint_mini.png"
+                                 ItemsSource="{Binding GeoIconItemSource}"
+                                 SelectedItem="{Binding GeoIconSelectedItem}"/>
 
-                <shared:Combobox x:Name="UserIcon" Grid.Column="4" Width="80" IconSource="../../assets/icons/user_mini.png" Cursor="Arrow"/>
+                <shared:Combobox x:Name="UserIcon" Grid.Column="4" Width="80"
+                                 IconSource="../../assets/icons/user_mini.png" Cursor="Arrow"
+                                 ItemsSource="{Binding UserIconItemsSource}"/>
             </Grid>
         </Border>
         

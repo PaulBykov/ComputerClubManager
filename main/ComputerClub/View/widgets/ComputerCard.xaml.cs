@@ -15,36 +15,33 @@ namespace ComputerClub.View.widgets
 
 
         public static readonly DependencyProperty ComputerNumberProperty =
-            DependencyProperty.Register("Number", typeof(int), typeof(ComputerCard));
+            DependencyProperty.Register(nameof(Number), typeof(int), typeof(ComputerCard));
 
         public static readonly DependencyProperty RateNameProperty =
-            DependencyProperty.Register("RateName", typeof(string), typeof(ComputerCard));
+            DependencyProperty.Register(nameof(RateName), typeof(string), typeof(ComputerCard));
 
         public static readonly DependencyProperty RentProperty =
-            DependencyProperty.Register("Rent", typeof(Rent), typeof(ComputerCard));
+            DependencyProperty.Register(nameof(Rent), typeof(Rent), typeof(ComputerCard));
 
         public int Number
         {
-            get { return (int)GetValue(ComputerNumberProperty); }
-            set { SetValue(ComputerNumberProperty, value); }
+            get => (int)GetValue(ComputerNumberProperty);
+            set => SetValue(ComputerNumberProperty, value);
         }
 
         public string RateName
         {
-            get { return (string)GetValue(RateNameProperty); }
-            set { SetValue(RateNameProperty, value); }
+            get => (string)GetValue(RateNameProperty);
+            set => SetValue(RateNameProperty, value);
         }
 
         public Rent Rent
         {
-            get { return (Rent)GetValue(RentProperty); }
-            set { SetValue(RentProperty, value); }
+            get => (Rent)GetValue(RentProperty);
+            set => SetValue(RentProperty, value);
         }
 
-        public string Status
-        {
-            get { return TimeLeft == "" ? "свободен" : "занят" ; }
-        }
+        public string Status => TimeLeft == "" ? "свободен" : "занят";
 
         public string TimeLeft
         {

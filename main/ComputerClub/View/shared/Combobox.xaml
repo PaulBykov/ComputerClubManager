@@ -24,7 +24,7 @@
 
         <Style x:Key="CustomComboBox" TargetType="{x:Type ComboBox}">
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Width" Value="{Binding Width}"/>
+            <Setter Property="Width" Value="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             <Setter Property="Text" Value=""/>
 
             <Setter Property="Template">
@@ -33,14 +33,14 @@
                         <Grid x:Name="Grid">
                             <ToggleButton x:Name="ToggleButton" Style="{StaticResource ComboBoxButton}" Focusable="false" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
 
-                                <Grid VerticalAlignment="Center"  Width="{Binding Width}">
+                                <Grid VerticalAlignment="Center"  Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    
-                                    <Image Grid.Column="0" Height="32" Margin="10 0 0 0" Source="{Binding IconSource}" Panel.ZIndex="1" HorizontalAlignment="Left"/>
+
+                                    <Image Grid.Column="0" Height="32" Margin="10 0 0 0" Source="{Binding IconSource, RelativeSource={RelativeSource AncestorType=UserControl}}" Panel.ZIndex="1" HorizontalAlignment="Left"/>
 
                                     <TextBlock Grid.Column="1" Text="{TemplateBinding Text}" Foreground="{DynamicResource c_text_light}" FontSize="22" HorizontalAlignment="Left" Margin="5 0 0 0"/>
 
@@ -74,6 +74,10 @@
         </Style>
     </UserControl.Resources>
 
-    <ComboBox Style="{StaticResource CustomComboBox}" ItemsSource="{Binding ItemsSource}" SelectedIndex="-1"  Width="{Binding Width}" SelectedItem="{Binding SelectedItem}" SelectionChanged="ComboBox_SelectionChanged"/>
+    <ComboBox Style="{StaticResource CustomComboBox}" SelectedIndex="-1"
+              ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=UserControl}}"
+              Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
+              SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=UserControl}}"
+              SelectionChanged="ComboBox_SelectionChanged"/>
 
 </UserControl>

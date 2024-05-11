@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using ABI.Windows.Security.EnterpriseData;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerClub.Model;
@@ -29,10 +31,12 @@ public partial class ComputerClubContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True");
-
+        => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True")
+                            .EnableSensitiveDataLogging(true);
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+
         modelBuilder.Entity<Club>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__clubs__3213E83F9C5F08A6");
@@ -138,6 +142,9 @@ public partial class ComputerClubContext : DbContext
             entity.Property(e => e.ClubId)
                 .ValueGeneratedNever()
                 .HasColumnName("club_id");
+            entity.Property(e => e.BeginTime)
+                .HasColumnType("datetime")
+                .HasColumnName("begin_time");
             entity.Property(e => e.UserLogin)
                 .IsRequired()
                 .HasMaxLength(50)

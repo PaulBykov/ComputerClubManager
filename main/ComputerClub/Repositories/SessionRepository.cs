@@ -8,7 +8,7 @@ namespace ComputerClub.Repositories
 {
     public class SessionRepository : IRepository<Session>
     {
-        private ComputerClubContext _context;
+        private readonly ComputerClubContext _context;
 
         public SessionRepository(ComputerClubContext context) 
         {
@@ -20,7 +20,7 @@ namespace ComputerClub.Repositories
         {
             try
             {
-                _context.Add(item);
+                _context.Sessions.Add(item);
                 _context.SaveChanges();
             }
             catch(Exception ex) 
@@ -33,7 +33,7 @@ namespace ComputerClub.Repositories
         {
             try
             {
-                _context.Remove(item);
+                _context.Sessions.Remove(Get(item.ClubId));
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -44,7 +44,7 @@ namespace ComputerClub.Repositories
 
         public Session Get(int clubId)
         {
-            return _context.Sessions.Where(s => s.ClubId.Equals(clubId)).FirstOrDefault();
+            return _context.Sessions.FirstOrDefault(s => s.ClubId.Equals(clubId));
         }
 
         public IEnumerable<Session> GetAll()

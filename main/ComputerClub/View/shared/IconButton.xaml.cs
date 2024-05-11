@@ -15,48 +15,48 @@ namespace ComputerClub.View.shared
 
 
         public static readonly DependencyProperty IconSourceProperty =
-            DependencyProperty.Register("IconSource", typeof(ImageSource), typeof(IconButton));
+            DependencyProperty.Register(nameof(IconSource), typeof(ImageSource), typeof(IconButton));
 
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(IconButton));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(IconButton));
 
         public static readonly DependencyProperty WidthDependencyProperty =
-            DependencyProperty.Register("Width", typeof(int), typeof(IconButton));
+            DependencyProperty.Register(nameof(Width), typeof(int), typeof(IconButton));
 
         public static readonly DependencyProperty CommandProperty =
-          DependencyProperty.Register("Command", typeof(ICommand), typeof(IconButton), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(IconButton), new PropertyMetadata(null));
 
         public static readonly DependencyProperty NamePropery =
-            DependencyProperty.Register("Name", typeof(string), typeof(IconButton));
+            DependencyProperty.Register(nameof(Name), typeof(string), typeof(IconButton));
 
         public new string Name
         {
-            get { return (string)GetValue(NamePropery); }
-            set { SetValue(NamePropery, value); }
+            get => (string)GetValue(NamePropery);
+            set => SetValue(NamePropery, value);
         }
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         public new int Width
         {
-            get { return (int)GetValue(WidthDependencyProperty); }
-            set { SetValue(WidthDependencyProperty, value); }
+            get => (int)GetValue(WidthDependencyProperty);
+            set => SetValue(WidthDependencyProperty, value);
         }
 
         public ImageSource IconSource
         {
-            get { return (ImageSource)GetValue(IconSourceProperty); }
-            set { SetValue(IconSourceProperty, value); }
+            get => (ImageSource)GetValue(IconSourceProperty);
+            set => SetValue(IconSourceProperty, value);
         }
 
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
     }
 }

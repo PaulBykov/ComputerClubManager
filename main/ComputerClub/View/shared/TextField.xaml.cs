@@ -17,19 +17,19 @@ namespace ComputerClub.View.shared
           DependencyProperty.Register("PlaceHolder", typeof(string), typeof(TextField));
 
         public static readonly DependencyProperty WidthDependencyProperty =
-          DependencyProperty.Register("Width", typeof(int), typeof(TextField));
+          DependencyProperty.Register(nameof(Width), typeof(int), typeof(TextField));
 
 
         public new int Width
         {
-            get { return (int)GetValue(WidthDependencyProperty); }
-            set { SetValue(WidthDependencyProperty, value); }
+            get => (int)GetValue(WidthDependencyProperty);
+            set => SetValue(WidthDependencyProperty, value);
         }
 
         public string Placeholder
         {
-            get { return (string)GetValue(PlaceholderProperty); }
-            set { SetValue(PlaceholderProperty, value); }
+            get => (string)GetValue(PlaceholderProperty);
+            set => SetValue(PlaceholderProperty, value);
         }
 
     }

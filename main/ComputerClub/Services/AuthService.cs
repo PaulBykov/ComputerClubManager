@@ -13,16 +13,17 @@ namespace ComputerClub.Services
 {
     public partial class AuthService : ObservableObject
     {
-        private static AuthService Instance;
+        private static AuthService _instance;
 
-        private ComputerClubContext _context;
+        private readonly ComputerClubContext _context;
 
-        public static List<string> Roles = new List<string>() {"admin", "owner"};
+        public static List<string> Roles = ["admin", "owner"];
 
         private AuthService(ComputerClubContext context)
         {
             _context = context;
 
+            _context.Sessions.Load();
             _context.Clubs.Load();
             _context.Users.Load();
         }
@@ -35,20 +36,20 @@ namespace ComputerClub.Services
         
         public static AuthService GetInstance(ComputerClubContext context = null) 
         {
-            if (Instance == null)
+            if (_instance == null)
             {
                 if(context == null)
                 {
-                    throw new AuthException("Ошибка прав доступа: вы не авторизованы");
+                    throw new AuthException("Ошибка прав доступа: контекста не существует");
                 }
 
-                Instance = new AuthService(context);
+                _instance = new AuthService(context);
             }
 
-            return Instance;
+            return _instance;
         }
 
-        public string GetHash(string pass)
+        public static string GetHash(string pass)
         {
             MD5 md5 = MD5.Create();
             byte[] passBytes = Encoding.ASCII.GetBytes(pass);
@@ -83,7 +84,7 @@ namespace ComputerClub.Services
             return true;
         }
 
-        public IEnumerable<Club> GetAvalibleClubs() 
+        public ICollection<Club> GetAvailableClubs() 
         {
             return CurrentUser.Clubs;
         }

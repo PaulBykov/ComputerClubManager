@@ -14,40 +14,40 @@ namespace ComputerClub.View.shared
 
 
         public static readonly DependencyProperty WidthDependencyProperty =
-           DependencyProperty.Register("Width", typeof(int), typeof(SubmitButton));
+           DependencyProperty.Register(nameof(Width), typeof(int), typeof(SubmitButton));
 
         public static readonly DependencyProperty TextProperty =
-           DependencyProperty.Register("Text", typeof(string), typeof(SubmitButton));
+           DependencyProperty.Register(nameof(Text), typeof(string), typeof(SubmitButton));
 
         public static readonly DependencyProperty IconSourceProperty =
-           DependencyProperty.Register("IconSource", typeof(ImageSource), typeof(SubmitButton));
+           DependencyProperty.Register(nameof(IconSource), typeof(ImageSource), typeof(SubmitButton));
 
         public static readonly DependencyProperty CommandProperty =
-          DependencyProperty.Register("Command", typeof(ICommand), typeof(SubmitButton), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(SubmitButton), new PropertyMetadata(null));
         
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         public new int Width
         {
-            get { return (int)GetValue(WidthDependencyProperty); }
-            set { SetValue(WidthDependencyProperty, value); }
+            get => (int)GetValue(WidthDependencyProperty);
+            set => SetValue(WidthDependencyProperty, value);
         }
 
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
 
         public ImageSource IconSource
         {
-            get { return (ImageSource)GetValue(IconSourceProperty); }
-            set { SetValue(IconSourceProperty, value); }
+            get => (ImageSource)GetValue(IconSourceProperty);
+            set => SetValue(IconSourceProperty, value);
         }
 
     }

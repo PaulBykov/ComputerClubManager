@@ -18,7 +18,7 @@ namespace ComputerClub.Repositories
             _auth = AuthService.GetInstance();
         }
 
-        private int CurrentClubId { get => _auth.CurrentClub.Id; }
+        private int CurrentClubId => _auth.CurrentClub.Id;
 
         public void Add(Income item)
         {

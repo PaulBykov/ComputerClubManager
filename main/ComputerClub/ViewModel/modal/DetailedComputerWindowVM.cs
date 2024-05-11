@@ -55,12 +55,7 @@ namespace ComputerClub.ViewModel
         }
 
 
-        public int ComputerNumber { 
-            get
-            {
-                return _converter.GetComputerNumberById(_computer.Id);
-            } 
-        }
+        public int ComputerNumber => _converter.GetComputerNumberById(_computer.Id);
         public bool AntiEditMode => !EditMode;
         public string FormatedRentStartTime => RentalStartTime.TimeOfDay.ToString("hh\\:mm");
 

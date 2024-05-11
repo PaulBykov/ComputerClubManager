@@ -20,7 +20,7 @@ namespace ComputerClub.Repositories
             _context = context;
         }
 
-        private int CurrentClubId { get => _auth.CurrentClub.Id; }
+        private int CurrentClubId => _auth.CurrentClub.Id;
 
         public int Count => GetAll().Count();
         public IEnumerable<Computer> GetAll()

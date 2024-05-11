@@ -6,12 +6,12 @@
       xmlns:local="clr-namespace:ComputerClub.View.pages"
       mc:Ignorable="d" 
       xmlns:widget="clr-namespace:ComputerClub.View.widgets" 
-      xmlns:shared="clr-namespace:ComputerClub.View.shared" 
-      xmlns:help="clr-namespace:ComputerClub.Helpers"
+      xmlns:shared="clr-namespace:ComputerClub.View.shared"
+      xmlns:converters="clr-namespace:ComputerClub.Helpers.Converters"
       Title="StaffPage">
 
     <Page.Resources>
-        <help:StaffClubsConverter x:Key="ClubListConverter"/>
+        <converters:StaffClubsConverter x:Key="ClubListConverter"/>
     </Page.Resources>
     
     <Grid>

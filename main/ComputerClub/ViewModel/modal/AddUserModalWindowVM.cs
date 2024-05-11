@@ -45,11 +45,17 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void FormSubmit()
         {
-            AuthService auth = AuthService.GetInstance();
             UserRepository repository = RepositoryServiceLocator.Resolve<UserRepository>();
 
-            string hash = auth.GetHash(Password);
-            User person = new User() { Fullname = FullName, Role = Role, Login = Login, PassHash = hash };
+            string hash = AuthService.GetHash(Password);
+            User person = new User()
+            {
+                Fullname = FullName,
+                Role = Role,
+                Login = Login,
+                PassHash = hash
+            };
+
 
             foreach (Club club in SelectedClubs) 
             {

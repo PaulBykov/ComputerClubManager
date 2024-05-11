@@ -3,13 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:widget="clr-namespace:ComputerClub.View.widgets" 
-      xmlns:helper="clr-namespace:ComputerClub.Helpers"
+      xmlns:widget="clr-namespace:ComputerClub.View.widgets"
+      xmlns:converters="clr-namespace:ComputerClub.Helpers.Converters"
       mc:Ignorable="d" 
       Title="HomePage">
 
     <Page.Resources>
-        <helper:BoolToBlurEffectConverter x:Key="BoolToBlurEffectConverter"/>
+        <converters:BoolToBlurEffectConverter x:Key="BoolToBlurEffectConverter"/>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Page.Resources>
 
@@ -112,18 +112,7 @@
                     </StackPanel>
 
                     <Border Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Padding="30" Background="{DynamicResource c_second}" HorizontalAlignment="Stretch" Height="425" CornerRadius="30">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.75*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0">
-                                
-                            </StackPanel>
-                            
-                            
-                        </Grid>
+                        <widget:IncomeStats/>
                     </Border>
                 </Grid>
             </Border>

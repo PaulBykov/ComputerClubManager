@@ -13,21 +13,19 @@ namespace ComputerClub.View.shared
         public Combobox()
         {
             InitializeComponent();
-            DataContext = this;
-
         }
 
         public static readonly DependencyProperty WidthDependencyProperty =
-            DependencyProperty.Register("Width", typeof(int), typeof(Combobox));
+            DependencyProperty.Register(nameof(Width), typeof(int), typeof(Combobox));
 
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(ICollection<object>), typeof(Combobox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(ICollection<object>), typeof(Combobox), new PropertyMetadata(null));
 
         public static readonly DependencyProperty IconSourceProperty =
-            DependencyProperty.Register("IconSource", typeof(ImageSource), typeof(Combobox));
+            DependencyProperty.Register(nameof(IconSource), typeof(ImageSource), typeof(Combobox));
 
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(Combobox));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(Combobox));
 
         public static readonly DependencyProperty OnSelectedItemChangedProperty =
             DependencyProperty.Register("OnSelectedItemChanged", typeof(Action<Club>), typeof(Combobox));
@@ -35,31 +33,31 @@ namespace ComputerClub.View.shared
 
         public new int Width
         {
-            get { return (int)GetValue(WidthDependencyProperty); }
-            set { SetValue(WidthDependencyProperty, value); }
+            get => (int)GetValue(WidthDependencyProperty);
+            set => SetValue(WidthDependencyProperty, value);
         }
 
         public ICollection<object> ItemsSource
         {
-            get { return (ICollection<object>)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            get => (ICollection<object>)GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
         }
 
         public ImageSource IconSource
         {
-            get { return (ImageSource)GetValue(IconSourceProperty); }
-            set { SetValue(IconSourceProperty, value); }
+            get => (ImageSource)GetValue(IconSourceProperty);
+            set => SetValue(IconSourceProperty, value);
         }
         public object SelectedItem
         {
-            get { return (object)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get => (object)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
 
         public Action<object> OnSelectedItemChanged
         {
-            get { return (Action<object>) GetValue(OnSelectedItemChangedProperty); }
-            set { SetValue(OnSelectedItemChangedProperty, value); }
+            get => (Action<object>) GetValue(OnSelectedItemChangedProperty);
+            set => SetValue(OnSelectedItemChangedProperty, value);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

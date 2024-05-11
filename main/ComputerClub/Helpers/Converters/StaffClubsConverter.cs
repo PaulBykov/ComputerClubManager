@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 
-namespace ComputerClub.Helpers
+namespace ComputerClub.Helpers.Converters
 {
     public class StaffClubsConverter : IMultiValueConverter
     {
@@ -23,7 +23,7 @@ namespace ComputerClub.Helpers
             throw new NotImplementedException();
         }
 
-        private string GetClubList(User person) 
+        private string GetClubList(User person)
         {
 
             List<Club> clubList = person.Clubs.ToList();
