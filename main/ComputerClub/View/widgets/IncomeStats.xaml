@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              xmlns:local="clr-namespace:ComputerClub.View.widgets"
              mc:Ignorable="d">
 
@@ -29,7 +29,12 @@
             <TextBlock Text="{Binding LastWeekIncome}"/>
         </StackPanel>
 
-        <ScottPlot:WpfPlot x:Name="IncomeGraph" Grid.Column="1"/>
+        <lvc:CartesianChart Grid.Column="1"
+                            Series="{Binding Serie}"
+                            XAxes="{Binding XAxes}"
+                            YAxes="{Binding YAxes}"
+                            ZoomMode="Both"
+                            />
     </Grid>
 
 </UserControl>

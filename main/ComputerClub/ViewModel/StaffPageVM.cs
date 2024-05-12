@@ -5,6 +5,7 @@ using ComputerClub.Repositories;
 using ComputerClub.Services;
 using ComputerClub.View.windows;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace ComputerClub.ViewModel
@@ -16,7 +17,7 @@ namespace ComputerClub.ViewModel
 
         public StaffPageVM() 
         {
-            _staff = RepositoryServiceLocator.Resolve<UserRepository>().GetAll();
+            _staff = RepositoryServiceLocator.Resolve<UserRepository>().GetAll().OrderByDescending(u => u.Role);
         }
 
 

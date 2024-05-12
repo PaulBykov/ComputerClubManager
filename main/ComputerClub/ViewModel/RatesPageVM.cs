@@ -1,10 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
 using ComputerClub.View.windows;
 using System.Collections.Generic;
+using ComputerClub.Exceptions;
+using ComputerClub.View.modal;
 
 namespace ComputerClub.ViewModel
 {
@@ -33,10 +36,27 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void RemoveRate(object rate)
         {
-            Rate selectedRate = (Rate)rate;
-            Repository.Delete(selectedRate);
+            try
+            {
+                Rate selectedRate = (Rate)rate;
 
-            UpdateRates();
+                if (selectedRate.Computers.Count > 0)
+                {
+                    throw new CRUDException("Cannot delete rate: Linked computers exist!");
+                }
+
+                Repository.Delete(selectedRate);
+
+                UpdateRates();
+            }
+            catch (CRUDException e)
+            {
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, "С данным тарифом связаны компьютеры, удаление невозможно.");
+            }
+            catch (Exception e)
+            {
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, e.Message);
+            }
         }
 
         [RelayCommand]

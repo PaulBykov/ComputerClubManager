@@ -3,9 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
+using ComputerClub.View.modal;
 using ComputerClub.ViewModel.modal;
 using System;
 using System.Collections.Generic;
+using static ComputerClub.View.modal.NotifyModalWindow;
 
 namespace ComputerClub.ViewModel
 {
@@ -39,7 +41,7 @@ namespace ComputerClub.ViewModel
 
         public IEnumerable<Club> ClubList { get; private set; }
 
-        public List<string> Roles => AuthService.Roles;
+        public List<string> Roles => [nameof(AuthService.Roles.Admin), nameof(AuthService.Roles.Owner)];
 
 
         [RelayCommand]
@@ -65,6 +67,7 @@ namespace ComputerClub.ViewModel
             repository.Add(person);
 
             Done?.Invoke(this, EventArgs.Empty);
+            NotifyModalWindow.Show(NotifyKind.Success, $"Вы успешно добавили нового пользователя");
         }
 
 

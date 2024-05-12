@@ -9,6 +9,5 @@ namespace ComputerClub.View.windows
         {
             InitializeComponent();
         }
-
     }
 }

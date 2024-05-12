@@ -13,9 +13,9 @@ namespace ComputerClub.Services
 {
     public partial class AuthService : ObservableObject
     {
+        public enum Roles {Admin, Owner}
         private static AuthService _instance;
         private readonly ComputerClubContext _context;
-        public static List<string> Roles = ["admin", "owner"];
 
 
         [ObservableProperty]
@@ -85,9 +85,9 @@ namespace ComputerClub.Services
             return true;
         }
 
-        public ICollection<Club> GetAvailableClubs() 
+        public ICollection<Club> GetAvailableClubs()
         {
-            return CurrentUser.Clubs;
+            return CurrentUser?.Clubs;
         }
         public void Clear() 
         {

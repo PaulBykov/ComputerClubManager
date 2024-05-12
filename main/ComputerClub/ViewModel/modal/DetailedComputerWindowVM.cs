@@ -3,9 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Helpers;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
+using ComputerClub.View.modal;
 using ComputerClub.ViewModel.modal;
 using System;
 using System.Collections.Generic;
+using static ComputerClub.View.modal.NotifyModalWindow;
 
 namespace ComputerClub.ViewModel
 {
@@ -33,9 +35,9 @@ namespace ComputerClub.ViewModel
         private IEnumerable<Rate> _rates;
 
 
-        private Computer _computer;
-        private ComputerNumberConverter _converter = new ComputerNumberConverter();
-        private RentTimer _timer;
+        private readonly Computer _computer;
+        private readonly ComputerNumberConverter _converter = new ComputerNumberConverter();
+        private readonly RentTimer _timer;
 
         public event EventHandler Done;
         public event EventHandler ShouldSaveChanges;
@@ -85,30 +87,39 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void ConfirmChanges() 
         {
-            ShouldSaveChanges?.Invoke(this, EventArgs.Empty);
-
-            _computer.RateName = SelectedRate.Name;
-            _computer.RateNameNavigation = SelectedRate;
-
-            Rent rent = new Rent() {
-                Computer = _computer,
-                ComputerId = _computer.Id,
-                Length = TimeOnly.FromTimeSpan(RentDuration),
-                StartTime=RentalStartTime 
-            };
-            RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
-
-
-            if(_computer.Rent == null) 
+            try
             {
-                repository.Add(rent);
+                ShouldSaveChanges?.Invoke(this, EventArgs.Empty);
+
+                _computer.RateName = SelectedRate.Name;
+                _computer.RateNameNavigation = SelectedRate;
+
+                Rent rent = new Rent()
+                {
+                    Computer = _computer,
+                    ComputerId = _computer.Id,
+                    Length = TimeOnly.FromTimeSpan(RentDuration),
+                    StartTime = RentalStartTime
+                };
+                RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
+
+
+                if (_computer.Rent == null)
+                {
+                    repository.Add(rent);
+                }
+                else
+                {
+                    repository.Update(_computer.Rent.Id, rent);
+                }
+
+                SetEditMode(false);
             }
-            else 
+            catch (Exception e)
             {
-                repository.Update(_computer.Rent.Id, rent);
+                NotifyModalWindow.Show(NotifyKind.Error, "An error occurred during editing rent details");
             }
 
-            SetEditMode(false);
         }
 
         [RelayCommand]

@@ -20,4 +20,9 @@ public partial class User
     {
         return $"{Fullname}";
     }
+
+    public override bool Equals(object obj)
+    {
+        return obj is User user && user.Login.Equals(Login);
+    }
 }

@@ -3,8 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Exceptions;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
+using ComputerClub.View.modal;
 using ComputerClub.ViewModel.modal;
 using System;
+using static ComputerClub.View.modal.NotifyModalWindow;
 
 
 namespace ComputerClub.ViewModel
@@ -34,7 +36,9 @@ namespace ComputerClub.ViewModel
             }
 
             repository.Add(rate);
+
             Done?.Invoke(this, EventArgs.Empty);
+            NotifyModalWindow.Show(NotifyKind.Success, $"Вы успешно добавили тариф {RateName}");
         }
     }
 }

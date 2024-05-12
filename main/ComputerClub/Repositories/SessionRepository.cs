@@ -44,7 +44,7 @@ namespace ComputerClub.Repositories
 
         public Session Get(int clubId)
         {
-            return _context.Sessions.FirstOrDefault(s => s.ClubId.Equals(clubId));
+            return _context.Sessions.Where(s => s.ClubId.Equals(clubId)).FirstOrDefault();
         }
 
         public IEnumerable<Session> GetAll()

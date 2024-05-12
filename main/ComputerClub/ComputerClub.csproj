@@ -8,6 +8,7 @@
 	<ItemGroup>
 	  <None Remove="assets\icons\computer.png" />
 	  <None Remove="assets\icons\computer_mini.png" />
+	  <None Remove="assets\icons\error.png" />
 	  <None Remove="assets\icons\geopoint_mini.png" />
 	  <None Remove="assets\icons\house_mini.png" />
 	  <None Remove="assets\icons\key_mini.png" />
@@ -15,6 +16,7 @@
 	  <None Remove="assets\icons\pencil_mini.png" />
 	  <None Remove="assets\icons\rates_mini.png" />
 	  <None Remove="assets\icons\settings_mini.png" />
+	  <None Remove="assets\icons\success.png" />
 	  <None Remove="assets\icons\team_mini.png" />
 	  <None Remove="assets\icons\trashbin_mini.png" />
 	  <None Remove="assets\icons\user_mini.png" />
@@ -24,13 +26,13 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 	  <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+	  <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="ScottPlot.WPF" Version="5.0.34" />
 	</ItemGroup>
 
 
@@ -39,6 +41,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="assets\icons\computer_mini.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="assets\icons\error.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="assets\icons\geopoint_mini.png">
@@ -60,6 +65,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="assets\icons\settings_mini.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="assets\icons\success.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="assets\icons\team_mini.png">

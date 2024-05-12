@@ -5,7 +5,9 @@ using ComputerClub.Repositories;
 using ComputerClub.ViewModel.modal;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
+using ComputerClub.View.modal;
+
+using static ComputerClub.View.modal.NotifyModalWindow;
 
 
 namespace ComputerClub.ViewModel
@@ -47,11 +49,13 @@ namespace ComputerClub.ViewModel
 
                 ComputersRepository computersRepository = RepositoryServiceLocator.Resolve<ComputersRepository>();
                 computersRepository.AddMany(Count, SelectedRate);
+
                 Done?.Invoke(this, EventArgs.Empty);
+                NotifyModalWindow.Show(NotifyKind.Success,$"Вы успешно добавили компьютеры {Count} шт");
             }
             catch (Exception e) 
             {
-                MessageBox.Show(e.Message);
+                NotifyModalWindow.Show(NotifyKind.Error, $"Произошла ошибка при добавлении компьютеров: " + e.Message);
             }
         }
     }

@@ -17,7 +17,6 @@ namespace ComputerClub.Providers
             Distance = distance;
         }
 
-
         public int Distance { get; set; }
         public decimal Balance => _club.Balance;
         public decimal WeekIncome
@@ -39,39 +38,28 @@ namespace ComputerClub.Providers
         }
 
 
-        public DateTime[] GraphOX
+        public List<Tuple<DateTime, decimal>> GraphData
         {
             get
             {
-                DateTime[] dates = new DateTime[Distance];
-                DateTime today = DateTime.Today;
+                List< Tuple<DateTime, decimal> > graphData = new List<Tuple<DateTime, decimal>>();
 
-                for (int i = 0; i < Distance; i++)
+                var groupedData = _incomeRepository.GetAll()
+                    .GroupBy(income => income.Date)
+                    .Select(group => 
+                        new
+                        {
+                            Date = group.Key.ToDateTime(TimeOnly.MinValue),
+                            Amount = group.Sum(item => item.Amount)
+                        }
+                    )
+                    .OrderBy(item => item.Date)
+                    .ToArray();
+
+  
+                foreach (var dayIncome in groupedData)
                 {
-                    dates[i] = today.AddDays(-i);
-                }
-
-                return dates;
-            }
-        }
-
-        public decimal[] GraphOY
-        {
-            get
-            {
-                decimal[] graphData = new decimal[Distance];
-                Income[] incomes = _incomeRepository.GetAll().ToArray();
-                
-                for (int i = 0; i < Distance; i++)
-                {
-                    if (i < incomes.Length)
-                    {
-                        graphData[i] = incomes[i].Amount;
-                    }
-                    else
-                    {
-                        graphData[i] = 0.0m;
-                    }
+                    graphData.Add(Tuple.Create(dayIncome.Date, dayIncome.Amount));
                 }
 
                 return graphData;

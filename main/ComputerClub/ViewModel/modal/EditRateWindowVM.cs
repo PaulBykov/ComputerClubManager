@@ -4,6 +4,8 @@ using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.ViewModel.modal;
 using System;
+using ComputerClub.View.modal;
+
 namespace ComputerClub.ViewModel
 {
     public partial class EditRateWindowVM : ObservableObject, IModalWindowVM
@@ -29,13 +31,20 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void FormSubmit() 
         {
-            _rate.Name = RateName;
-            _rate.Price = Price;
+            try
+            {
+                _rate.Name = RateName;
+                _rate.Price = Price;
 
-            RatesRepository repository = RepositoryServiceLocator.Resolve<RatesRepository>();
-            repository.Update(_rate);
+                RatesRepository repository = RepositoryServiceLocator.Resolve<RatesRepository>();
+                repository.Update(_rate);
 
-            Done?.Invoke(this, EventArgs.Empty);
+                Done?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception e)
+            {
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Success, "Произошла ошибка при изменеии тарифа: " + e.Message);
+            }
         }
     }
 }
