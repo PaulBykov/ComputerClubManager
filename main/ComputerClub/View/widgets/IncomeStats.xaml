@@ -3,8 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
              xmlns:local="clr-namespace:ComputerClub.View.widgets"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Name="txtStyle">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="{DynamicResource c_text}"/>
+            <Setter Property="FontFamily" Value="Neura text"/>
+        </Style>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,11 +24,12 @@
         <StackPanel Grid.Column="0">
             <TextBlock Text="Баланс: "/>
             <TextBlock Text="{Binding CurrentClubBalance}"/>
+
+            <TextBlock Text="За эту неделю: "/>
+            <TextBlock Text="{Binding LastWeekIncome}"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1">
-            <TextBlock Text="Тут буит график"/>
-        </StackPanel>
+        <ScottPlot:WpfPlot x:Name="IncomeGraph" Grid.Column="1"/>
     </Grid>
 
 </UserControl>

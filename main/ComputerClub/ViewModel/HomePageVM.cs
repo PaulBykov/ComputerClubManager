@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Providers;
@@ -19,8 +20,8 @@ namespace ComputerClub.ViewModel
         [ObservableProperty]
         private string _sessionBeginTime;
 
-
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(OpacityColor))]
         private bool _isInactiveSession;
 
 
@@ -35,7 +36,20 @@ namespace ComputerClub.ViewModel
             IsInactiveSession = _sessionStatsProvider.IsInactiveSession;
             UpdateData();
         }
-        
+
+        public Color OpacityColor
+        {
+            get
+            {
+                if (_sessionStatsProvider.IsInactiveSession == false)
+                {
+                    return Color.FromArgb(255, 0, 0, 0);
+                }
+
+                return Color.FromArgb(176, 0, 0, 100);
+            }
+        }
+
 
         [RelayCommand]
         public void ActivateSession() 
@@ -49,19 +63,14 @@ namespace ComputerClub.ViewModel
 
         public void UpdateData() 
         {
-            if(IsInactiveSession) { return; }
-
-            Session session = _sessionStatsProvider.CurrentSession;
-
             FreeComputersCount = _computerStatsProvider.GetFreeComputersCount();
             RentedComputersCount = _computerStatsProvider.GetRentedComputersCount();
 
+            if (IsInactiveSession) { return; }
+
+            Session session = _sessionStatsProvider.CurrentSession;
             UserName = _sessionStatsProvider.GetShortedSessionOwner();
-            SessionBeginTime = session.BeginTime.ToString(@"dd/MM/yyyy")
-                               + "  "
-                               + session.BeginTime.Hour
-                               + ":"
-                               + session.BeginTime.Minute;
+            SessionBeginTime = session.BeginTime.ToString(@"dd/MM/yyyy HH:mm");
         }
 
     }

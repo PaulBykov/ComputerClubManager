@@ -30,6 +30,7 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
+	  <PackageReference Include="ScottPlot.WPF" Version="5.0.34" />
 	</ItemGroup>
 
 

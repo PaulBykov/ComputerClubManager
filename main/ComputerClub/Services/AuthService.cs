@@ -14,10 +14,16 @@ namespace ComputerClub.Services
     public partial class AuthService : ObservableObject
     {
         private static AuthService _instance;
-
         private readonly ComputerClubContext _context;
-
         public static List<string> Roles = ["admin", "owner"];
+
+
+        [ObservableProperty]
+        private User _currentUser;
+
+        [ObservableProperty]
+        private Club _currentClub;
+
 
         private AuthService(ComputerClubContext context)
         {
@@ -28,11 +34,6 @@ namespace ComputerClub.Services
             _context.Users.Load();
         }
 
-        [ObservableProperty]
-        public User _currentUser;
-
-        [ObservableProperty]
-        public Club _currentClub;
         
         public static AuthService GetInstance(ComputerClubContext context = null) 
         {

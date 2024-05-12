@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ABI.Windows.Security.EnterpriseData;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerClub.Model;
@@ -32,11 +30,10 @@ public partial class ComputerClubContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True")
-                            .EnableSensitiveDataLogging(true);
+                         .EnableSensitiveDataLogging(true);
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-
         modelBuilder.Entity<Club>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__clubs__3213E83F9C5F08A6");
@@ -46,7 +43,9 @@ public partial class ComputerClubContext : DbContext
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("id");
-            entity.Property(e => e.Balance).HasColumnName("balance");
+            entity.Property(e => e.Balance)
+                .HasColumnType("money")
+                .HasColumnName("balance");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(32)

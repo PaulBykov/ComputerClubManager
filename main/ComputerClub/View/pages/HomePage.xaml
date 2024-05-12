@@ -55,7 +55,7 @@
                         </Border.Effect>
 
                         <Border.OpacityMask>
-                            <SolidColorBrush Color="{Binding OpacityColor, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                            <SolidColorBrush Color="{Binding OpacityColor}"/>
                             <!-- Здесь задается затемненный цвет -->
                         </Border.OpacityMask>
                         

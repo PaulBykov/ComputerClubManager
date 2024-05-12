@@ -17,9 +17,6 @@ namespace ComputerClub.View
         }
 
         private HomePageVM ViewModel { get; set; }
-        
-        public Color OpacityColor {get;} = Color.FromArgb(176, 0, 0, 100);
-
 
         private void HandlePropertyChanges(object sender, PropertyChangedEventArgs e) 
         {

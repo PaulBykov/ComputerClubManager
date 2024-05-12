@@ -9,8 +9,8 @@ namespace ComputerClub.Repositories
 {
     public class IncomeRepository : IRepository<Income>
     {
-        private ComputerClubContext _context;
-        private AuthService _auth;
+        private readonly ComputerClubContext _context;
+        private readonly AuthService _auth;
 
         public IncomeRepository(ComputerClubContext context)
         {
@@ -18,7 +18,7 @@ namespace ComputerClub.Repositories
             _auth = AuthService.GetInstance();
         }
 
-        private int CurrentClubId => _auth.CurrentClub.Id;
+
 
         public void Add(Income item)
         {
@@ -37,7 +37,8 @@ namespace ComputerClub.Repositories
 
         public IEnumerable<Income> GetAll()
         {
-            return _context.Incomes.ToList();
+            var clubId = _auth.CurrentClub.Id;
+            return _context.Incomes.Where(i => i.ClubId.Equals(clubId)).ToList();
         }
 
         public void Update(Income item)

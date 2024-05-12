@@ -46,8 +46,7 @@
                                          Height="40"
                                          VerticalAlignment="Center"
                                          HorizontalAlignment="Left"
-                                         Command="{Binding ShowAddNewComputerWindowCommand}"
-                                         />
+                                         Command="{Binding ShowAddNewComputerWindowCommand}"/>
 
                     <ScrollViewer PanningMode="VerticalOnly" PanningDeceleration="0.1" PanningRatio="0">
                         <ListView 
@@ -59,7 +58,7 @@
                                   ItemsSource="{Binding Computers}"
                                   x:Name="ListViewComputers">
 
-                            
+
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left"></WrapPanel>
@@ -94,7 +93,7 @@
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                        
+
                                                     </Trigger>
                                                     <Trigger Property="IsSelected" Value="True">
 
@@ -108,7 +107,6 @@
 
                         </ListView>
                     </ScrollViewer>
-
                 </DockPanel>
             </Border>
             <!--#endregion-->

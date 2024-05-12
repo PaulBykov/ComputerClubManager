@@ -139,7 +139,9 @@
                              Height="28"
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
-                             Padding="29,0,0,0">
+                             Padding="29,0,0,0"
+                             Text="bykov"
+                             >
 
                     <TextBox.Background>
                         <ImageBrush ImageSource="/assets/icons/user_mini.png"
@@ -169,6 +171,7 @@
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
                              Padding="30, 0,0,0"
+                             Password="123"
                              >
                     <PasswordBox.Background>
                         <ImageBrush ImageSource="/assets/icons/key_mini.png"

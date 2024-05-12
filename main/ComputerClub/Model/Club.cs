@@ -8,7 +8,7 @@ public partial class Club
 
     public string Name { get; set; }
 
-    public double Balance { get; set; }
+    public decimal Balance { get; set; }
 
     public virtual ICollection<Computer> Computers { get; set; } = new List<Computer>();
 

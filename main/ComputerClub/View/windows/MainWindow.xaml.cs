@@ -1,5 +1,4 @@
-﻿using ComputerClub.Model;
-using ComputerClub.View.pages;
+﻿using ComputerClub.View.pages;
 using System.Windows;
 using ComputerClub.Helpers;
 
