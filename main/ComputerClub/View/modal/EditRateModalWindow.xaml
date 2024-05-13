@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComputerClub.View.windows"
         mc:Ignorable="d"
-        Title="EditRateModalWindow"     WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
-    BorderThickness="0"
-    AllowsTransparency="True"
-    Background="Transparent"
-    >
+        Title="EditRateModalWindow"     
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        BorderThickness="0"
+        AllowsTransparency="True"
+        Background="Transparent"
+        >
 
-    <DockPanel Background="{DynamicResource c_dark}" Width="350" Height="350">
+    <DockPanel Background="{DynamicResource c_dark}" Width="350" Height="375">
         <Button DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Right"
     Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand"
     Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
@@ -56,7 +57,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 DockPanel.Dock="Bottom"
-                Margin="0 40 0 0"
+                Margin="0 70 0 0"
                 Width="300" Height="50"
                 Foreground="{DynamicResource c_text}"
                 Background="{DynamicResource c_btn}"

@@ -1,11 +1,11 @@
-﻿<Window x:Class="ComputerClub.View.modal.NotifyModalWindow"
+﻿<Window x:Class="ComputerClub.View.modal.ConfirmationModalWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComputerClub.View.modal"
         mc:Ignorable="d"
-        Title="NotifyModalWindow"        
+        Title="ConfirmationModalWindow"         
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         BorderThickness="0"
@@ -25,17 +25,28 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" Source="{Binding Img, RelativeSource={RelativeSource AncestorType=Window}}" Stretch="Uniform"/>
-            <TextBlock Grid.Row="1" Margin="0 10 0 0" Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
+            <Image Grid.Row="0" Source="/assets/icons/questionMark.png" Stretch="Uniform"/>
+            <TextBlock Grid.Row="1" Margin="0 10 0 0" 
+                       Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
                        FontSize="22" Foreground="{DynamicResource c_text}"
                        TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"
                        TextAlignment="Center"
-                       />
+            />
+
+            <DockPanel Grid.Row="2" Margin="20 0 20 0">
+                <Button Content="Да" DockPanel.Dock="Left" HorizontalAlignment="Left"
+                        Width="100" Background="{DynamicResource c_btn}"
+                        Foreground="{DynamicResource c_text}" FontSize="16"
+                        FontFamily="Neutra Text"
+                        Command="{Binding SubmitCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                        />
+                <Button Content="Отмена" IsCancel="True" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="100" Background="black" Foreground="{DynamicResource c_text}" FontSize="16" FontFamily="Neutra Text"/>
+            </DockPanel>
         </Grid>
 
     </DockPanel>
-
 </Window>

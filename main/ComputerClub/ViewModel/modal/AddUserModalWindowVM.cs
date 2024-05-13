@@ -47,27 +47,35 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void FormSubmit()
         {
-            UserRepository repository = RepositoryServiceLocator.Resolve<UserRepository>();
-
-            string hash = AuthService.GetHash(Password);
-            User person = new User()
+            try
             {
-                Fullname = FullName,
-                Role = Role,
-                Login = Login,
-                PassHash = hash
-            };
+                UserRepository repository = RepositoryServiceLocator.Resolve<UserRepository>();
+
+                string hash = AuthService.GetHash(Password);
+                User person = new User()
+                {
+                    Fullname = FullName,
+                    Role = Role,
+                    Login = Login,
+                    PassHash = hash
+                };
 
 
-            foreach (Club club in SelectedClubs) 
-            {
-                person.Clubs.Add(club);
+                foreach (Club club in SelectedClubs) 
+                {
+                    person.Clubs.Add(club);
+                }
+
+                repository.Add(person);
+
+                Done?.Invoke(this, EventArgs.Empty);
+                Logger.Add($"Добавил нового пользователя - {person.Fullname}");
+                NotifyModalWindow.Show(NotifyKind.Success, $"Вы успешно добавили нового пользователя");
             }
-
-            repository.Add(person);
-
-            Done?.Invoke(this, EventArgs.Empty);
-            NotifyModalWindow.Show(NotifyKind.Success, $"Вы успешно добавили нового пользователя");
+            catch (Exception e)
+            {
+                NotifyModalWindow.Show(NotifyKind.Error, "Ошибка при добавлении нового пользователя");
+            }
         }
 
 

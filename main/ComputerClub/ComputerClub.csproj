@@ -14,6 +14,7 @@
 	  <None Remove="assets\icons\key_mini.png" />
 	  <None Remove="assets\icons\logs_mini.png" />
 	  <None Remove="assets\icons\pencil_mini.png" />
+	  <None Remove="assets\icons\questionMark.png" />
 	  <None Remove="assets\icons\rates_mini.png" />
 	  <None Remove="assets\icons\settings_mini.png" />
 	  <None Remove="assets\icons\success.png" />
@@ -33,6 +34,7 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 
@@ -61,6 +63,9 @@
 	  <Resource Include="assets\icons\pencil_mini.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
+	  <Resource Include="assets\icons\questionMark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
 	  <Resource Include="assets\icons\rates_mini.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
@@ -85,5 +90,22 @@
 	  <Resource Include="assets\images\computer_2.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Settings.settings</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
 	</ItemGroup>
 </Project>

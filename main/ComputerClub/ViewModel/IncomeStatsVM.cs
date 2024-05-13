@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Providers;
-
+using ComputerClub.Services;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.SkiaSharpView.Painting.Effects;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 using TimeSpan = System.TimeSpan;
@@ -21,11 +23,19 @@ namespace ComputerClub.ViewModel
     {
         private readonly IncomeStatsProvider _provider = new();
 
-        [ObservableProperty] 
-        private decimal _currentClubBalance;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(CurrentClubBalance))]
+        [NotifyPropertyChangedFor(nameof(LastIncome))]
+        private int _reportPeriod = 7;
 
         [ObservableProperty] 
-        private decimal _lastWeekIncome;
+        private decimal? _currentClubBalance = 0;
+
+        [ObservableProperty] 
+        private decimal _lastIncome = 0;
+
+        [ObservableProperty] 
+        private ObservableCollection<Tuple<DateTime, decimal>> _data;
 
         // graph line
         [ObservableProperty] 
@@ -34,12 +44,11 @@ namespace ComputerClub.ViewModel
 
         public IncomeStatsVM()
         {
-            UpdateBalanceData();
-            Serie = new ISeries[]
-            {
-                GetGraphLine()
-            };
+            Refresh();
+
+            AuthService.GetInstance().PropertyChanged += OnPropertyChanged;
         }
+
 
         public Axis[] XAxes { get; set; } =
         {
@@ -55,7 +64,6 @@ namespace ComputerClub.ViewModel
                 },
             }
         };
-
         public Axis[] YAxes { get; set; } =
         {
             new Axis()
@@ -72,15 +80,41 @@ namespace ComputerClub.ViewModel
         };
 
 
+        [RelayCommand]
+        public void SubmitInfoUpdate()
+        {
+            Refresh();
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Refresh();
+        }
+        private void Refresh()
+        {
+            _provider.Period = ReportPeriod;
+            UpdateBalanceData();
+            UpdateData();
+            Serie = new ISeries[]
+            {
+                GetGraphLine()
+            };
+        }
         private void UpdateBalanceData()
         {
             CurrentClubBalance = _provider.Balance;
-            LastWeekIncome = _provider.WeekIncome;
+            LastIncome = _provider.GetTotalIncomeOnPeriod();
         }
+        private void UpdateData()
+        {
+            Data = new ObservableCollectionListSource<Tuple<DateTime, decimal>>(
+                _provider.GraphData);
+        }
+
 
         private ISeries GetGraphLine()
         {
-            List< Tuple<DateTime, decimal> > data = _provider.GraphData;
+            ObservableCollection< Tuple<DateTime, decimal> > data = Data;
             ObservableCollection<DateTimePoint> points = new();
 
 

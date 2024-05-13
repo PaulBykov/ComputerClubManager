@@ -10,41 +10,25 @@ namespace ComputerClub.Providers
     public class IncomeStatsProvider
     {
         private readonly IncomeRepository _incomeRepository = RepositoryServiceLocator.Resolve<IncomeRepository>();
-        private readonly Club _club = AuthService.GetInstance().CurrentClub;
+        
 
-        public IncomeStatsProvider(int distance = 7)
+        public IncomeStatsProvider()
         {
-            Distance = distance;
         }
 
-        public int Distance { get; set; }
-        public decimal Balance => _club.Balance;
-        public decimal WeekIncome
-        {
-            get 
-            {
-                List<Income> incomes = new List<Income>(_incomeRepository.GetAll());
+        private Club Club => AuthService.GetInstance().CurrentClub;
 
-                DateOnly targetDay = DateOnly.FromDateTime(DateTime.Today);
-                targetDay = targetDay.AddDays(-Distance);
-
-
-                decimal filteredAmount = incomes
-                    .Where(i => i.Date >= targetDay)
-                    .Sum(i => i.Amount);
-
-                return filteredAmount;
-            }
-        }
-
-
+        public int Period { get; set; }
+        public decimal? Balance => Club?.Balance;
         public List<Tuple<DateTime, decimal>> GraphData
         {
             get
             {
                 List< Tuple<DateTime, decimal> > graphData = new List<Tuple<DateTime, decimal>>();
+                DateOnly periodStart = DateOnly.FromDateTime(DateTime.Today).AddDays(-Period);
 
                 var groupedData = _incomeRepository.GetAll()
+                    .Where(income => income.Date >= periodStart)
                     .GroupBy(income => income.Date)
                     .Select(group => 
                         new
@@ -64,6 +48,29 @@ namespace ComputerClub.Providers
 
                 return graphData;
             }
+        } 
+
+
+        public decimal GetTotalIncomeOnPeriod()
+        {
+            return SumIncomes(GetIncomesOnPeriod(Period));
+        }
+
+
+        private IEnumerable<Income> GetIncomesOnPeriod(int period)
+        {
+            List<Income> incomes = new(_incomeRepository.GetAll());
+
+            DateOnly targetDay = DateOnly.FromDateTime(DateTime.Today);
+            targetDay = targetDay.AddDays(-period);
+
+            return incomes.Where(i => i.Date >= targetDay);
+        }
+
+        private decimal SumIncomes(IEnumerable<Income> incomes)
+        {
+            return incomes.Sum(i => i.Amount);
+
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using System.Windows.Media;
+﻿using System.ComponentModel;
+using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Providers;
+using ComputerClub.Services;
 
 namespace ComputerClub.ViewModel
 {
@@ -24,18 +26,16 @@ namespace ComputerClub.ViewModel
         [NotifyPropertyChangedFor(nameof(OpacityColor))]
         private bool _isInactiveSession;
 
+        private readonly SessionStatsProvider _sessionStatsProvider = new();
+        private readonly ComputerStatsProvider _computerStatsProvider  = new();
 
-        private readonly SessionStatsProvider _sessionStatsProvider;
-        private readonly ComputerStatsProvider _computerStatsProvider;
 
-        public HomePageVM() 
+        public HomePageVM()
         {
-            _sessionStatsProvider = new SessionStatsProvider();
-            _computerStatsProvider = new ComputerStatsProvider();
-
-            IsInactiveSession = _sessionStatsProvider.IsInactiveSession;
             UpdateData();
+            AuthService.GetInstance().PropertyChanged += OnPropertyChanged;
         }
+
 
         public Color OpacityColor
         {
@@ -57,12 +57,17 @@ namespace ComputerClub.ViewModel
             _sessionStatsProvider.BeginSession();
 
             IsInactiveSession = _sessionStatsProvider.IsInactiveSession;
+            Logger.Add($"Начал смену в клубе {_sessionStatsProvider.CurrentSession?.Club.Name}");
             UpdateData();
         }
 
-
-        public void UpdateData() 
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            UpdateData();
+        }
+        private void UpdateData() 
+        {
+            IsInactiveSession = _sessionStatsProvider.IsInactiveSession;
             FreeComputersCount = _computerStatsProvider.GetFreeComputersCount();
             RentedComputersCount = _computerStatsProvider.GetRentedComputersCount();
 
@@ -72,6 +77,5 @@ namespace ComputerClub.ViewModel
             UserName = _sessionStatsProvider.GetShortedSessionOwner();
             SessionBeginTime = session.BeginTime.ToString(@"dd/MM/yyyy HH:mm");
         }
-
     }
 }

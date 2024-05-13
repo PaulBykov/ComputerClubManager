@@ -39,6 +39,8 @@ namespace ComputerClub.ViewModel
                 RatesRepository repository = RepositoryServiceLocator.Resolve<RatesRepository>();
                 repository.Update(_rate);
 
+                
+                Logger.Add($"Изменил тариф {RateName}");
                 Done?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception e)

@@ -51,6 +51,7 @@ namespace ComputerClub.ViewModel
                 computersRepository.AddMany(Count, SelectedRate);
 
                 Done?.Invoke(this, EventArgs.Empty);
+                Logger.Add($"Добавил {Count} компьютеров тарифа {SelectedRate.Name}");
                 NotifyModalWindow.Show(NotifyKind.Success,$"Вы успешно добавили компьютеры {Count} шт");
             }
             catch (Exception e) 

@@ -7,33 +7,38 @@ namespace ComputerClub.Services
 {
     public class Effector
     {
-        Page _win;
+        private readonly Page _win;
 
         public Effector(Page page)
         {
             _win = page;
         }
 
-        public static void TryApplyModalEffects(Window window) 
+        public static bool? TryApplyModalEffects(Window window) 
         {
+            bool? dialogAnswer = false;
             try
             {
                 Page parentWindow = ((Frame)(Application.Current.MainWindow.Content)).Content as Page;
-                Effector effector = new Effector(parentWindow);
+
+                 Effector effector = new Effector(parentWindow);
 
                 effector.ApplyBlurEffect(30);
+                dialogAnswer = window.ShowDialog();
 
-                if (window.ShowDialog() == true) 
+                if (dialogAnswer == true)
                 {
                     window.Close();
                 }
 
                 effector.ClearEffect();
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+
+            return dialogAnswer;
         }
 
         public void ApplyBlurEffect(uint radious = 30)

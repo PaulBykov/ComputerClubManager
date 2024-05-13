@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              xmlns:local="clr-namespace:ComputerClub.View.widgets"
+             xmlns:xtnd="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -22,11 +23,28 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
-            <TextBlock Text="Баланс: "/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
+                <TextBlock Text="Отчет за последние" FontSize="24" Foreground="{DynamicResource c_text}"/>
+                <xtnd:IntegerUpDown Minimum="3" Maximum="365" Margin="5 0 5 0" VerticalAlignment="Center" ClipValueToMinMax="True" Width="60" FontSize="20" Value="{Binding ReportPeriod, Mode=TwoWay}"/>
+                <TextBlock Text="дней" FontSize="24" Foreground="{DynamicResource c_text}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5 0 5 0">
+                <Border Margin="0 20 20 20" Width="150" Height="50" Background="{DynamicResource c_btn}" CornerRadius="15">
+                    <Button Content="Получить" Command="{Binding SubmitInfoUpdateCommand}" Cursor="Hand" FontSize="20" Foreground="{DynamicResource c_text}"/>
+                </Border>
+
+                <Border Margin="20 20 0 20" Width="150" Height="50" Background="{DynamicResource c_btn}" CornerRadius="15">
+                    <Button Content="Сохранить" Cursor="Hand" FontSize="20" Foreground="{DynamicResource c_text}"/>
+                </Border>
+            </StackPanel>
+
+
+            <TextBlock Text="Текущий баланс: "/>
             <TextBlock Text="{Binding CurrentClubBalance}"/>
 
-            <TextBlock Text="За эту неделю: "/>
-            <TextBlock Text="{Binding LastWeekIncome}"/>
+            <TextBlock Text="Доход: "/>
+            <TextBlock Text="{Binding LastIncome}"/>
         </StackPanel>
 
         <lvc:CartesianChart Grid.Column="1"

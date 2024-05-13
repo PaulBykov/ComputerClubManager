@@ -1,9 +1,5 @@
-﻿using ComputerClub.Services;
-using ComputerClub.ViewModel;
-using System.ComponentModel;
-using System.Windows;
+﻿using ComputerClub.ViewModel;
 using System.Windows.Controls;
-using ComputerClub.View.pages;
 
 
 namespace ComputerClub.View
@@ -15,14 +11,9 @@ namespace ComputerClub.View
         {
             InitializeComponent();
             DataContext = ViewModel = new HomePageVM();
-            AuthService.GetInstance().PropertyChanged += HandlePropertyChanges;
         }
 
         private HomePageVM ViewModel { get; set; }
 
-        private void HandlePropertyChanges(object sender, PropertyChangedEventArgs e)
-        {
-            NavService.NavigateTo(new HomePage());
-        }
     }
 }

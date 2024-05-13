@@ -64,7 +64,7 @@ namespace ComputerClub.Services
             var temp = _context.Users.Include(s => s.Clubs).ToList();
             var temp1 = _context.Clubs.Include(c => c.Users).ToList();
 
-            User user = _context.Users.Where(u => u.Login == login).FirstOrDefault();
+            User user = _context.Users.FirstOrDefault(u => u.Login == login);
 
             if (user == null)
             {
@@ -73,7 +73,7 @@ namespace ComputerClub.Services
 
             string passHash = GetHash(password);
 
-            if(user.PassHash.Equals(passHash)) 
+            if(!user.PassHash.TrimEnd().Equals(passHash)) 
             {
                 return false;
             }
@@ -82,6 +82,8 @@ namespace ComputerClub.Services
 
             CurrentUser = user;
             CurrentClub = user.Clubs.First();
+
+            Logger.Add("Успешно вошел в систему");
             return true;
         }
 

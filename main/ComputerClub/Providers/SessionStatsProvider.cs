@@ -3,6 +3,7 @@ using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
 using System;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -23,9 +24,18 @@ namespace ComputerClub.Providers
 
         public SessionStatsProvider() 
         {
-            _currentSession = GetCurrentSessionInfo();
-
+            CurrentSession = GetCurrentSessionInfo();
+                
             Application.Current.Exit += Application_Exit;
+            _authService.PropertyChanged += AuthServiceOnPropertyChanged;
+        }
+
+        public bool IsInactiveSession => CurrentSession == null;
+        
+        
+        private void AuthServiceOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            CurrentSession = GetCurrentSessionInfo();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -36,9 +46,6 @@ namespace ComputerClub.Providers
                 CurrentSession = null;
             }
         }
-
-        public bool IsInactiveSession => CurrentSession == null;
-        
 
         private Session GetCurrentSessionInfo()
         {

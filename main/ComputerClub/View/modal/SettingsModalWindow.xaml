@@ -10,26 +10,40 @@
         WindowStyle="None"
         BorderThickness="0"
         AllowsTransparency="True"
-        Background="Transparent"
-        >
+        Background="Transparent">
 
     <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="500">
         <Button DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Right"
-            Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand" 
-            Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
+                Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand" 
+                Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
 
         <Grid HorizontalAlignment="Center" Margin="0 50 0 50">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+
             </Grid.RowDefinitions>
 
-        </Grid>
-        
-    </DockPanel>
+            <TextBlock Grid.Row="0" Text="Папка с логами:" FontSize="24" Foreground="{DynamicResource c_text}" FontWeight="Bold" VerticalAlignment="Center"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox Margin="5" IsReadOnly="True" Width="225" Height="35" VerticalContentAlignment="Center" Foreground="{DynamicResource c_dark}" Text="{Binding LogsSelectedPath, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Margin="5" Content="..." Width="30" Background="{DynamicResource c_text}" Command="{Binding OpenLogsPathCommand}" />
+            </StackPanel>
 
+            <TextBlock Grid.Row="2" FontSize="24" Margin="0 20 0 0" Foreground="{DynamicResource c_text}" Text="Папка с отчетами:" FontWeight="Bold" VerticalAlignment="Center"/>
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBox Margin="5" IsReadOnly="True" Width="225" Height="35" Foreground="{DynamicResource c_dark}" Text="{Binding ReportsSelectedPath, Mode=TwoWay}" VerticalAlignment="Center" />
+                <Button Margin="5" Background="{DynamicResource c_text}" Content="..." Width="30" Command="{Binding OpenReportsPathCommand}" />
+            </StackPanel>
+
+
+            <Border Grid.Row="5" Cursor="Hand" Background="{DynamicResource c_btn}" CornerRadius="5">
+                <Button Margin="5" Command="{Binding OverridePathsCommand}" Height="40" FontSize="24" Content="Сохранить" Foreground="{DynamicResource c_text}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+        </Grid>
+    </DockPanel>
 </Window>

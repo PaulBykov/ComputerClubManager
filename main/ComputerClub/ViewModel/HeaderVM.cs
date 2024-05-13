@@ -30,7 +30,6 @@ namespace ComputerClub.ViewModel
 
 
         private readonly AuthService _authService = AuthService.GetInstance();
-        private bool _isFirstLoadComplete = false;
 
 
         public HeaderVM() 
@@ -66,8 +65,7 @@ namespace ComputerClub.ViewModel
 
         private ICollection<Club> GetClubs() 
         {
-            AuthService auth = AuthService.GetInstance();
-            return auth.GetAvailableClubs();
+            return _authService.GetAvailableClubs();
         }
         private Button CreateLogOutButton()
         {
@@ -86,14 +84,7 @@ namespace ComputerClub.ViewModel
         {
             try 
             {
-                AuthService.GetInstance().CurrentClub = (Club)club;
-
-                if (_isFirstLoadComplete)
-                {
-                    NavService.Refresh();
-                }
-
-                _isFirstLoadComplete = true;
+                _authService.CurrentClub = (Club)club;
             }
             catch (InvalidCastException e)
             {

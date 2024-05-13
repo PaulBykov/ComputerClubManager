@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using ComputerClub.ViewModel;
 
 
 namespace ComputerClub.View.pages
@@ -8,6 +9,10 @@ namespace ComputerClub.View.pages
         public LogsPage()
         {
             InitializeComponent();
+            DataContext = ViewModel = new LogsPageVM();
         }
+
+        private LogsPageVM ViewModel { get; set; }
+
     }
 }

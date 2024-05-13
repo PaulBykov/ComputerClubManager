@@ -28,11 +28,25 @@
             </Grid.RowDefinitions>
 
             <widget:Aside Grid.Column="0" Background="{DynamicResource c_second}"/>
-
-            <Border Background="{DynamicResource c_second}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                
+            
+            <Border Grid.Column="1" Background="{DynamicResource c_main}">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ListBox x:Name="Messages" Width="900" Height="500"
+                             ItemsSource="{Binding MessagesSource}" 
+                             Background="{DynamicResource c_second}"
+                             FontSize="18" Foreground="{DynamicResource c_text}"
+                             />
+                    
+                    <Border Width="175" Height="40" CornerRadius="10"
+                            Margin="15" Background="{DynamicResource c_btn}"
+                            HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                        <Button Content="Экспорт" Cursor="Hand"
+                                Foreground="{DynamicResource c_text}"
+                                FontSize="22"
+                                Command="{Binding SaveLogsToFileCommand}"/>
+                    </Border>
+                </Grid>
             </Border>
-
         </Grid>
 
 

@@ -71,11 +71,18 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void DeleteComputer() 
         {
-            try 
+            try
             {
+                if (ConfirmationModalWindow.Show("Вы действительно хотите удалить компьютер?") != true)
+                {
+                    Done?.Invoke(this, EventArgs.Empty);
+                    return;
+                }
+
                 ComputersRepository repository = RepositoryServiceLocator.Resolve<ComputersRepository>();
 
                 repository.Delete(_computer);
+                Logger.Add($"Удалил компьютер");
                 Done?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception e) 
@@ -112,7 +119,8 @@ namespace ComputerClub.ViewModel
                 {
                     repository.Update(_computer.Rent.Id, rent);
                 }
-
+                
+                Logger.Add($"Создал новую аренду длиной {rent.Length.ToShortTimeString()}");
                 SetEditMode(false);
             }
             catch (Exception e)
