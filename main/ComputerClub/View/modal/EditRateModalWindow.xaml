@@ -36,7 +36,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Название" FontSize="20" Foreground="{DynamicResource c_text}"/>
-                    <TextBox Grid.Column="1" Margin="40 0 0 0" Text="{Binding RateName}"/>
+                    <TextBox Grid.Column="1" Margin="40 0 0 0" VerticalContentAlignment="Center" FontSize="18" Text="{Binding RateName}"/>
                 </Grid>
 
                 <Grid Height="30" Margin="0 40 0 0">
@@ -46,7 +46,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Цена/час" FontSize="20" Foreground="{DynamicResource c_text}"/>
-                    <TextBox Grid.Column="1" Margin="40 0 0 0" Text="{Binding Price}"/>
+                    <TextBox Grid.Column="1" VerticalContentAlignment="Center" FontSize="18" Margin="40 0 0 0" Text="{Binding Price}"/>
                 </Grid>
             </StackPanel>
 

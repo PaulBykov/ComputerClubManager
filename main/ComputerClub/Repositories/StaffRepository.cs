@@ -18,6 +18,11 @@ namespace ComputerClub.Repositories
             _context.SaveChanges();
         }
 
+        public bool Has(string login)
+        {
+            return _context.Users.Any(x => x.Login == login);
+        }
+
         public void Delete(User item)
         {
             _context.Users.Remove(item);

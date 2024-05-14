@@ -6,17 +6,17 @@
         xmlns:local="clr-namespace:ComputerClub.View.windows"
         mc:Ignorable="d"
         Title="AddStaffModalWindow"    WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
-    BorderThickness="0"
-    AllowsTransparency="True"
-    Background="Transparent"
-    >
+        WindowStyle="None"
+        BorderThickness="0"
+        AllowsTransparency="True"
+        Background="Transparent"
+        >
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
 
-    <DockPanel Background="{DynamicResource c_dark}" Width="400" Height="650">
+    <DockPanel Background="{DynamicResource c_dark}" Width="425" Height="650">
         <Button DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Right"
     Margin="5 5 10 5" IsCancel="True" Content="✖" Cursor="Hand"
     Foreground="LightGray" FontSize="24" FontWeight="Bold"/>
@@ -39,7 +39,22 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="ФИО" FontSize="20" Foreground="{DynamicResource c_text}" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Margin="40 0 0 0" Text="{Binding FullName}"/>
+                    <TextBox Grid.Column="1" Margin="40 0 0 0" VerticalContentAlignment="Center" FontSize="18" Text="{Binding FullName}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="textBox" />
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextWrapping="Wrap" Height="Auto" MaxWidth="50" Text="{Binding ErrorContent}" Foreground="Red" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
                 </Grid>
 
                 <Grid Height="30" Margin="0 40 0 0">
@@ -61,7 +76,22 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Логин" FontSize="20" Foreground="{DynamicResource c_text}" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Margin="40 0 0 0" Text="{Binding Login}"/>
+                    <TextBox Grid.Column="1" Margin="40 0 0 0" VerticalContentAlignment="Center" FontSize="18" Text="{Binding Login}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="textBox" />
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
                 </Grid>
 
                 <Grid Height="30" Margin="0 40 0 0">
@@ -71,17 +101,37 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Пароль" FontSize="20" Foreground="{DynamicResource c_text}" VerticalAlignment="Center"/>
-                    <PasswordBox Grid.Column="1" Margin="40 0 0 0" PasswordChanged="PasswordBox_PasswordChanged"/>
+                    <TextBox Grid.Column="1" Margin="40 0 0 0" VerticalContentAlignment="Center" FontSize="18" Text="{Binding Password}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="textBox" />
+                                    <ItemsControl ItemsSource="{Binding}" MaxWidth="240">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextWrapping="Wrap" Height="Auto" MaxWidth="240" Text="{Binding ErrorContent}" Foreground="Red" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
                 </Grid>
 
-                <Grid Height="100" Margin="0 40 0 0" Visibility="{Binding ClubSectionVisibility, Converter={StaticResource BoolToVis}}">
+                <Grid Height="100" Margin="0 60 0 0" Visibility="{Binding ClubSectionVisibility, Converter={StaticResource BoolToVis}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="Клубы" FontSize="20" Foreground="{DynamicResource c_text}" VerticalAlignment="Center"/>
-                    <ListBox x:Name="ClubLB" Grid.Column="1" Margin="40 0 0 0" ItemsSource="{Binding ClubList}" SelectionMode="Multiple" Height="100px" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="ListBox_SelectionChanged"/>
+                    <TextBlock Grid.Column="0" Text="Клубы" FontSize="20"
+                               Foreground="{DynamicResource c_text}"
+                               VerticalAlignment="Center"/>
+                    <ListBox x:Name="ClubLB" Grid.Column="1" Margin="40 0 0 0"
+                             ItemsSource="{Binding ClubList}" SelectionMode="Multiple"
+                             Height="100px" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             SelectionChanged="ListBox_SelectionChanged"/>
                 </Grid>
             </StackPanel>
 

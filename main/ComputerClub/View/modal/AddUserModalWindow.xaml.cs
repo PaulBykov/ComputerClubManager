@@ -25,13 +25,6 @@ namespace ComputerClub.View.windows
             this.DialogResult = true;
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            PasswordBox passBox = sender as PasswordBox;
-
-            ViewModel.Password = passBox.Password;
-        }
-
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ViewModel.SelectedClubs = ClubLB.SelectedItems.Cast<Club>();

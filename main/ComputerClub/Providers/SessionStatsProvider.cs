@@ -49,7 +49,7 @@ namespace ComputerClub.Providers
 
         private Session GetCurrentSessionInfo()
         {
-            return _authService.CurrentClub.Session;
+            return _authService.CurrentClub?.Session;
         }
 
         public void BeginSession()

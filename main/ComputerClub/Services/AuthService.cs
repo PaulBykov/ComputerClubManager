@@ -6,6 +6,7 @@ using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ComputerClub.Exceptions;
 using System.Collections.Generic;
+using ComputerClub.View.modal;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -37,17 +38,26 @@ namespace ComputerClub.Services
         
         public static AuthService GetInstance(ComputerClubContext context = null) 
         {
-            if (_instance == null)
+            try
             {
-                if(context == null)
+                if (_instance == null)
                 {
-                    throw new AuthException("Ошибка прав доступа: контекста не существует");
+                    if(context == null)
+                    {
+                        throw new AuthException("Ошибка прав доступа: контекста не существует");
+                    }
+
+                    _instance = new AuthService(context);
                 }
 
-                _instance = new AuthService(context);
+                return _instance;
+            }
+            catch (Exception e)
+            {
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, "Ошибка получения authservice: " + e.Message);
             }
 
-            return _instance;
+            return null;
         }
 
         public static string GetHash(string pass)

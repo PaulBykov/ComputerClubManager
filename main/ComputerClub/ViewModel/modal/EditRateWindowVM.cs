@@ -1,16 +1,20 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
-using ComputerClub.ViewModel.modal;
-using System;
 using ComputerClub.View.modal;
 
-namespace ComputerClub.ViewModel
+namespace ComputerClub.ViewModel.modal
 {
-    public partial class EditRateWindowVM : ObservableObject, IModalWindowVM
+    public partial class EditRateWindowVM : ObservableValidator, IModalWindowVM
     {
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Required (ErrorMessage = "Это обязательное поле")]
+        [MinLength(3, ErrorMessage = "Минимальная длина 3")]
+        [MaxLength(50, ErrorMessage = "Максимальная длина 50")]
         private string _rateName;
 
         [ObservableProperty]

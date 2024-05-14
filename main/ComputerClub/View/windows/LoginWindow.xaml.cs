@@ -1,8 +1,5 @@
-﻿using ComputerClub.Model;
-using ComputerClub.Services;
-using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
+using ComputerClub.ViewModel;
 
 
 namespace ComputerClub.View
@@ -12,42 +9,20 @@ namespace ComputerClub.View
         public LoginWindow()
         {
             InitializeComponent();
+            DataContext = ViewModel = new LoginWindowVM(this);
         }
 
-        private void Login_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            AuthService authService = AuthService.GetInstance(new ComputerClubContext());
-            string login = txtUser.Text;
-            string pass = txtPass.Password;
+        private LoginWindowVM ViewModel { get; set; }
 
-            if (authService.TryAuth(login,pass)) {
-                var main = new MainWindow();
-                Application.Current.MainWindow = main;
-                main.Show();
-                this.Close();
-            }
-            else
-            {
-                // wrong pass or login
-                MessageBox.Show("unlucku");
-            }
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void TxtPass_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
+            if (ViewModel == null)
+            {
+                return;
+            }
 
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                this.WindowState = WindowState.Minimized;
-            }
-            catch (Exception ex) 
-            {
-                MessageBox.Show(ex.Message);
-            }
+            ViewModel.Password = TxtPass.Password;
+            ViewModel.PassErrors = ViewModel.GetPassErrors();
         }
     }
 }

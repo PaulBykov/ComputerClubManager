@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:src="clr-namespace:ComputerClub.View.shared"
+        xmlns:src="clr-namespace:ComputerClub.View.shared" xmlns:viewmodel="clr-namespace:ComputerClub.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:LoginWindowVM}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="LoginWindow" Height="350" Width="300"
@@ -11,14 +11,6 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="NoResize">
-    
-    <Window.Resources>
-        <RoutedCommand x:Key="Login"/>
-    </Window.Resources>
-
-    <Window.CommandBindings>
-        <CommandBinding Command="{StaticResource Login}" Executed="Login_Executed"/>
-    </Window.CommandBindings>
 
 
     <Border Background="{DynamicResource c_main}" CornerRadius="10" BorderThickness="2" Opacity="0.95">
@@ -37,11 +29,12 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Frame x:Name="LoginFrame"/>
-
             <Border CornerRadius="5" Background="Transparent">
                 <DockPanel Grid.Row="0" Background="{DynamicResource c_dark}">
-                    <TextBlock DockPanel.Dock="Left" Margin="2 0 0 0" Text="LOG IN" FontFamily="Neura text" FontSize="20" VerticalAlignment="Center" Foreground="{DynamicResource c_text}"/>
+                    <TextBlock DockPanel.Dock="Left" Margin="2 0 0 0"
+                               Text="LOG IN" FontFamily="Neura text"
+                               FontSize="20" VerticalAlignment="Center"
+                               Foreground="{DynamicResource c_text}"/>
 
                     <StackPanel DockPanel.Dock="Right" Margin="0 0 2 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <Button x:Name="btnMinimize"
@@ -52,7 +45,7 @@
                                 Foreground="White"
                                 FontSize="16"
                                 FontFamily="Montserrat"
-                                Cursor="Hand" Click="btnMinimize_Click">
+                                Cursor="Hand" Command="{Binding CloseCommand}">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Style.Triggers>
@@ -83,7 +76,7 @@
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
-                            Cursor="Hand" Click="btnClose_Click">
+                            Cursor="Hand" Command="{Binding CloseCommand}">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="{DynamicResource c_btn}"/>
@@ -121,15 +114,14 @@
                                FontFamily="Neura text"
                                HorizontalAlignment="Center"/>
                 
-                <TextBlock Text="Club login"
+                <TextBlock Text="Логин"
                                Foreground="{DynamicResource c_text}"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"                             
                                Margin="0,35,0,0"/>
-                
-                <TextBox x:Name="txtUser"
-                             FontSize="13"
+
+                <TextBox FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
                              Foreground="White"
@@ -140,8 +132,22 @@
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
                              Padding="29,0,0,0"
-                             Text="bykov"
+                             Text="{Binding Username}"
                              >
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox" />
+                                <ItemsControl ItemsSource="{Binding}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
 
                     <TextBox.Background>
                         <ImageBrush ImageSource="/assets/icons/user_mini.png"
@@ -156,10 +162,10 @@
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"                             
-                               Margin="0,15,0,0"
+                               Margin="0,25,0,0"
                            />
                 
-                <PasswordBox x:Name="txtPass"
+                <PasswordBox x:Name="TxtPass"
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
@@ -170,19 +176,21 @@
                              Height="27"
                              VerticalContentAlignment="Center"
                              Margin="0,5,0,0"
-                             Padding="30, 0,0,0"
+                             Padding="30,0,0,0"
                              Password="123"
+                             PasswordChanged="TxtPass_OnPasswordChanged"
                              >
                     <PasswordBox.Background>
                         <ImageBrush ImageSource="/assets/icons/key_mini.png"
                                         Stretch="Uniform"
                                         AlignmentX="Left"/>
                     </PasswordBox.Background>
-                    
-                    
                 </PasswordBox>
+                <TextBlock Text="{Binding PassErrors}" Foreground="Red" />
 
-                <src:SubmitButton x:Name="submitBtn" Focusable="True" Text="Submit" Width="100" Margin="0 50 0 0" Command="{StaticResource Login}" Height="40px"/>
+                <src:SubmitButton Focusable="True"
+                                  Text="Submit" Width="100" Margin="0 30 0 0"
+                                  Command="{Binding LoginCommand}" Height="40px"/>
             </StackPanel>
         </Grid>
     </Border>

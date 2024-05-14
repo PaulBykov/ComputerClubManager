@@ -37,7 +37,7 @@ namespace ComputerClub.Repositories
 
         public IEnumerable<Income> GetAll()
         {
-            var clubId = _auth.CurrentClub.Id;
+            var clubId = _auth.CurrentClub?.Id;
             return _context.Incomes.Where(i => i.ClubId.Equals(clubId)).ToList();
         }
 

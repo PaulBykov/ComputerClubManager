@@ -51,8 +51,6 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void LogOut()
         {
-            AuthService.GetInstance().Clear();
-
             var oldWindow = Application.Current.MainWindow;
             var loginWindow = new LoginWindow();
 
@@ -60,6 +58,7 @@ namespace ComputerClub.ViewModel
 
             loginWindow.Show();
             oldWindow.Close();
+            AuthService.GetInstance().Clear();
         }
 
 

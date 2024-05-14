@@ -1,15 +1,14 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Helpers;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.View.modal;
-using ComputerClub.ViewModel.modal;
-using System;
-using System.Collections.Generic;
 using static ComputerClub.View.modal.NotifyModalWindow;
 
-namespace ComputerClub.ViewModel
+namespace ComputerClub.ViewModel.modal
 {
     public partial class DetailedComputerWindowVM : ObservableObject, IModalWindowVM
     {
