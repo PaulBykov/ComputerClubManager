@@ -20,6 +20,9 @@ namespace ComputerClub.ViewModel.modal
         private string _rateName;
 
         [ObservableProperty]
+        [NotifyDataErrorInfo]
+        [Range(0, Double.MaxValue, ErrorMessage = "Только положительные числа")]
+        [Required(ErrorMessage = "Это обязательное поле")]
         private double _price;
 
         public AddRateWindowVM() { }

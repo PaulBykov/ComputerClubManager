@@ -5,9 +5,12 @@ using ComputerClub.Services;
 using ComputerClub.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using ComputerClub.View.modal;
+
 
 namespace ComputerClub.ViewModel
 {
@@ -17,7 +20,7 @@ namespace ComputerClub.ViewModel
         private ICollection<Button> _userButtons = new List<Button>();
 
         [ObservableProperty]
-        private ICollection<Club> _clubs;
+        private ObservableCollection<Club> _clubs;
 
         [ObservableProperty]
         private object _geoIconSelectedItem;
@@ -35,7 +38,8 @@ namespace ComputerClub.ViewModel
         public HeaderVM() 
         {
             UserButtons.Add(CreateLogOutButton());
-            Clubs = GetClubs();
+            Clubs = new ObservableCollection<Club>(GetClubs());
+
 
             GeoIconSelectedItem = Clubs.First(c => c.Id.Equals(_authService.CurrentClub.Id));
             GeoIconItemSource   = Clubs.Cast<object>().ToList();
@@ -46,6 +50,8 @@ namespace ComputerClub.ViewModel
 
 
         public Action<object> SwitchSelectedClub;
+
+        public bool IsOwner => RoleIdentityService.IsOwner();
 
 
         [RelayCommand]
@@ -61,6 +67,21 @@ namespace ComputerClub.ViewModel
             AuthService.GetInstance().Clear();
         }
 
+        [RelayCommand]
+        private void OpenAddNewClub()
+        {
+            var window = new AddClubModalWindow(this);
+
+            Effector.TryApplyModalEffects(window);
+        }
+
+        [RelayCommand]
+        private void OpenDeleteClub()
+        {
+            var window = new DeleteClubModalWindow(this);
+
+            Effector.TryApplyModalEffects(window);
+        }
 
         private ICollection<Club> GetClubs() 
         {

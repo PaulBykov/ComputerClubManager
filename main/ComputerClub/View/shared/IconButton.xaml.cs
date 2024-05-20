@@ -28,6 +28,19 @@ namespace ComputerClub.View.shared
 
         public static readonly DependencyProperty NamePropery =
             DependencyProperty.Register(nameof(Name), typeof(string), typeof(IconButton));
+        
+        public static readonly DependencyProperty VisibilityProperty =
+            DependencyProperty.Register(
+                nameof(Visibility),
+                typeof(Visibility),
+                typeof(IconButton),
+                new PropertyMetadata(Visibility.Visible, OnVisibilityChanged));
+
+        public new Visibility Visibility
+        {
+            get { return (Visibility)GetValue(VisibilityProperty); }
+            set { SetValue(VisibilityProperty, value); }
+        }
 
         public new string Name
         {
@@ -57,6 +70,19 @@ namespace ComputerClub.View.shared
         {
             get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
+        }
+
+
+        private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            IconButton control = d as IconButton;
+            if (control != null)
+            {
+                if ((Visibility)e.NewValue != Visibility.Visible)
+                {
+                    control.Height = 0;
+                }
+            }
         }
     }
 }

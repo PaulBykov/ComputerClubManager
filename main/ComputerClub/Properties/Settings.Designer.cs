@@ -46,5 +46,17 @@ namespace ComputerClub.Properties {
                 this["ReportsPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("b")]
+        public char Currency {
+            get {
+                return ((char)(this["Currency"]));
+            }
+            set {
+                this["Currency"] = value;
+            }
+        }
     }
 }

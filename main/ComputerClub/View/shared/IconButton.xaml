@@ -13,7 +13,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Button Style="{StaticResource btnStyle}" Width="{Binding Width}" Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}">
+    <Button Style="{StaticResource btnStyle}" Visibility="{Binding Visibility}" Width="{Binding Width}" Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}">
         <Button.Content>
             <Grid VerticalAlignment="Center" Background="Transparent" Height="50" Width="{Binding Width}">
                 <Grid.ColumnDefinitions>

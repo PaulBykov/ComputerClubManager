@@ -61,7 +61,23 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Цена/час" FontSize="20" Foreground="{DynamicResource c_text}"/>
-                    <TextBox Grid.Column="1" VerticalContentAlignment="Center" FontSize="18" Margin="40 0 0 0" Text="{Binding Price}"/>
+                    <TextBox Grid.Column="1" VerticalContentAlignment="Center" 
+                             FontSize="18" Margin="40 0 0 0" Text="{Binding Price}">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="textBox" />
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
                 </Grid>
             </StackPanel>
 

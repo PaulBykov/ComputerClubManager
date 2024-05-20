@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ComputerClub.Properties;
 using ComputerClub.Providers;
 using ComputerClub.Services;
 using LiveChartsCore;
@@ -28,10 +29,13 @@ namespace ComputerClub.ViewModel
         [NotifyPropertyChangedFor(nameof(LastIncome))]
         private int _reportPeriod = 7;
 
-        [ObservableProperty] 
-        private decimal? _currentClubBalance = 0;
 
-        [ObservableProperty] 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(DisplayedClubBalance))]
+        private decimal _currentClubBalance = 0;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(DisplayedLastIncome))]
         private decimal _lastIncome = 0;
 
         [ObservableProperty] 
@@ -48,6 +52,11 @@ namespace ComputerClub.ViewModel
 
             AuthService.GetInstance().PropertyChanged += OnPropertyChanged;
         }
+
+
+        public string DisplayedClubBalance => CurrentClubBalance.ToString("0.00") + Settings.Default.Currency;
+        public string DisplayedLastIncome => LastIncome.ToString("0.00") + Settings.Default.Currency;
+
 
 
         public Axis[] XAxes { get; set; } =
@@ -69,6 +78,8 @@ namespace ComputerClub.ViewModel
             new Axis()
             {
                 TextSize = 18,
+                
+                Labeler = (d) => d.ToString() + Settings.Default.Currency,
                 LabelsPaint = new SolidColorPaint(SKColors.White),
                 SeparatorsPaint = new SolidColorPaint
                 {
@@ -102,8 +113,21 @@ namespace ComputerClub.ViewModel
         }
         private void UpdateBalanceData()
         {
-            CurrentClubBalance = _provider.Balance;
-            LastIncome = _provider.GetTotalIncomeOnPeriod();
+            try
+            {
+                if (_provider?.Balance == null)
+                {
+                    return;
+
+                }
+
+                CurrentClubBalance = (decimal)_provider.Balance;
+                LastIncome = _provider.GetTotalIncomeOnPeriod();
+            }
+            catch (Exception e)
+            {
+
+            }
         }
         private void UpdateData()
         {
@@ -127,7 +151,7 @@ namespace ComputerClub.ViewModel
             return new LineSeries<DateTimePoint>()
             {
                 Values = points,
-
+                
                 GeometryFill = new SolidColorPaint(Color.FromRgb(251, 70, 143).ToSKColor()),
                 GeometryStroke = new SolidColorPaint(Color.FromRgb(255, 255, 255).ToSKColor()),
                 Stroke = new SolidColorPaint(Color.FromRgb(251, 70, 143).ToSKColor()),

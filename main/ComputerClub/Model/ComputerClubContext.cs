@@ -30,7 +30,8 @@ public partial class ComputerClubContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True")
-                         .EnableSensitiveDataLogging(true);
+                         .EnableSensitiveDataLogging(true)
+                         .EnableDetailedErrors(true);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -67,7 +68,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.HasOne(d => d.Club).WithMany(p => p.Computers)
                 .HasForeignKey(d => d.ClubId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__computers__clubI__5812160E");
 
             entity.HasOne(d => d.RateNameNavigation).WithMany(p => p.Computers)
@@ -95,7 +96,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.HasOne(d => d.Club).WithMany(p => p.Incomes)
                 .HasForeignKey(d => d.ClubId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__incomes__clubId__3C69FB99");
         });
 
@@ -151,7 +152,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.HasOne(d => d.Club).WithOne(p => p.Session)
                 .HasForeignKey<Session>(d => d.ClubId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__sessions__club_i__59904A2C");
 
             entity.HasOne(d => d.UserLoginNavigation).WithMany(p => p.Sessions)
@@ -190,7 +191,7 @@ public partial class ComputerClubContext : DbContext
                     "UserClub",
                     r => r.HasOne<Club>().WithMany()
                         .HasForeignKey("ClubId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__UserClub__club_i__382F5661"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("UserLogin")

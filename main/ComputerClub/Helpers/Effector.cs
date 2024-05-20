@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
+using ComputerClub.View.modal;
 
 namespace ComputerClub.Services
 {
@@ -35,7 +36,7 @@ namespace ComputerClub.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error,e.ToString());
             }
 
             return dialogAnswer;

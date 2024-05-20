@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using ComputerClub.Repositories;
 
 
 namespace ComputerClub.View.widgets
@@ -45,7 +46,7 @@ namespace ComputerClub.View.widgets
 
         public string TimeLeft
         {
-            get 
+            get
             {
                 if (Rent == null)
                 {
@@ -60,10 +61,17 @@ namespace ComputerClub.View.widgets
                     TimeSpan timeLeft = endTime - currentTime;
                     return timeLeft.ToString(@"hh\:mm\:ss");
                 }
-                else 
-                {
-                    return "";
-                }
+
+
+                //rent is over
+                RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
+                Rent oldRent = Rent;
+                Rent.Computer.Rent = null;
+                repository.Delete(oldRent);
+
+                Logger.Add(oldRent.ToString() + " окончена!");
+
+                return "00:00:00";
             }
         }
     }

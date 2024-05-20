@@ -3,6 +3,7 @@ using ComputerClub.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 
 namespace ComputerClub.Repositories
@@ -22,12 +23,28 @@ namespace ComputerClub.Repositories
 
         public void Add(Income item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Incomes.Add(item);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void Delete(Income item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Incomes.Remove(item);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public Income Get(int id)

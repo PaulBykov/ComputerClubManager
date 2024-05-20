@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ComputerClub.View.modal;
 
 namespace ComputerClub.Repositories
 {
@@ -15,18 +16,38 @@ namespace ComputerClub.Repositories
 
         public IEnumerable<Club> GetAll()
         {
-            return _context.Clubs.ToList();
+            return _context.Clubs?.ToList();
         }
 
+        public bool Has(string name)
+        {
+            return _context.Clubs.Any(c => c.Name == name);
+        }
 
         public void Add(Club item)
         {
-            _context.Clubs.Add(item);
+            try
+            {
+                _context.Clubs.Add(item);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, "ComputersRepo add:" + ex);
+            }
         }
 
         public void Delete(Club item)
         {
-            _context.Clubs.Remove(item);
+            try
+            {
+                _context.Clubs.Remove(item);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, "ComputersRepo add:" + ex);
+            }
         }
 
         public Club Get(int id)

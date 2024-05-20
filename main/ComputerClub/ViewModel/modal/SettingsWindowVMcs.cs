@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Forms;
+using ComputerClub.Helpers;
 using ComputerClub.Properties;
 using ComputerClub.View.modal;
 using static ComputerClub.View.modal.NotifyModalWindow;
@@ -16,10 +18,15 @@ namespace ComputerClub.ViewModel.modal
         [ObservableProperty] 
         private string _reportsSelectedPath = Properties.Settings.Default.ReportsPath;
 
+        [ObservableProperty] 
+        private char _selectedCurrencyChar = Properties.Settings.Default.Currency;
+
 
         public SettingsWindowVM(){}
 
         
+        public List<char> CurrencyChars => Currency.Chars;
+
         public event EventHandler Done;
 
 
@@ -52,14 +59,17 @@ namespace ComputerClub.ViewModel.modal
 
 
         [RelayCommand]
-        private void OverridePaths()
+        private void SaveToSettings()
         {
             try
             {
                 Settings.Default.LogsPath = LogsSelectedPath;
                 Settings.Default.ReportsPath = ReportsSelectedPath;
-                Settings.Default.Save();
+
+                Settings.Default.Currency = SelectedCurrencyChar;
                 
+                
+                Settings.Default.Save();
                 Done?.Invoke(null, EventArgs.Empty);
             } 
             catch (Exception e)

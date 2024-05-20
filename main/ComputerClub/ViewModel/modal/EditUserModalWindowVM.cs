@@ -4,18 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
 using ComputerClub.Exceptions;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
 using ComputerClub.View.modal;
-using static ComputerClub.View.modal.NotifyModalWindow;
-
 
 namespace ComputerClub.ViewModel.modal
 {
-    public partial class AddStaffModalWindowVM : ObservableValidator, IModalWindowVM
+    public partial class EditUserModalWindowVM : ObservableValidator, IModalWindowVM
     {
         [ObservableProperty]
         [NotifyDataErrorInfo]
@@ -40,7 +37,6 @@ namespace ComputerClub.ViewModel.modal
         private string _password;
 
         [ObservableProperty]
-        [NotifyDataErrorInfo]
         [Required (ErrorMessage = "Это обязательное поле")]
         private string _role = "Admin";
 
@@ -48,14 +44,18 @@ namespace ComputerClub.ViewModel.modal
         private bool _clubSectionVisibility = true;
 
         [ObservableProperty]
-        [NotifyDataErrorInfo]
         [Required (ErrorMessage = "Это обязательное поле")]
         private IEnumerable<Club> _selectedClubs;
 
 
-        public AddStaffModalWindowVM() 
+        public EditUserModalWindowVM(User user) 
         {
-            ClubList = RepositoryServiceLocator.Resolve<ClubRepository>().GetAll(); 
+            ClubList = RepositoryServiceLocator.Resolve<ClubRepository>().GetAll();
+
+            FullName = user.Fullname;
+            Login = user.Login;
+            Role = user.Role == "admin" ? "Admin" : "Owner";
+            SelectedClubs = user.Clubs;
         }
 
         public event EventHandler Done;
@@ -101,15 +101,15 @@ namespace ComputerClub.ViewModel.modal
 
                 Done?.Invoke(this, EventArgs.Empty);
                 Logger.Add($"Добавил нового пользователя - {person.Fullname}");
-                NotifyModalWindow.Show(NotifyKind.Success, $"Вы успешно добавили нового пользователя");
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Success, $"Вы успешно добавили нового пользователя");
             }
             catch (InvalidDataException e)
             {
-                NotifyModalWindow.Show(NotifyKind.Error, e.Message);
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, e.Message);
             }
             catch (Exception e)
             {
-                NotifyModalWindow.Show(NotifyKind.Error, "Ошибка при добавлении нового пользователя");
+                NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, "Ошибка при добавлении нового пользователя");
             }
         }
 
@@ -123,5 +123,6 @@ namespace ComputerClub.ViewModel.modal
         {
             ClubSectionVisibility = RoleIdentityService.IsAdmin(newRole);
         }
+
     }
 }

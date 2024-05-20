@@ -63,12 +63,17 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path='.', RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource UserToVisibilityConverter}}">
-                                                <Button Height="30px" Width="30" Background="{DynamicResource c_dark}"
-                                                        >
+                                                <Button Height="30px" Width="30"
+                                                        Background="{DynamicResource c_dark}"
+                                                        Command="{Binding  DataContext.ShowEditUserWindowCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        CommandParameter="{Binding}">
                                                     <Image Source="/assets/icons/pencil_mini.png" Stretch="UniformToFill" Margin="3"/>
                                                 </Button>
 
-                                                <Button Height="30px" Width="30" Margin="15 0 0 0" Background="{DynamicResource c_btn}"
+                                                <Button Height="30px" Width="30" Margin="15 0 0 0"
+                                                        Background="{DynamicResource c_btn}"
+                                                        Command="{Binding DataContext.RemoveUserCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        CommandParameter="{Binding}"
                                                         >
                                                     <Image Source="/assets/icons/trashbin_mini.png" Stretch="UniformToFill" Margin="3"/>
                                                 </Button>

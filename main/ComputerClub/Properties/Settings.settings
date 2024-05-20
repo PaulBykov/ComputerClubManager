@@ -10,5 +10,8 @@
       <Value Profile="(Default)">C:/Users/rurumi/AppData/Local/ComputerClub/Reports/
 </Value>
     </Setting>
+    <Setting Name="Currency" Type="System.Char" Scope="User">
+      <Value Profile="(Default)">b</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,5 +1,4 @@
 ﻿using ComputerClub.Model;
-using ComputerClub.ViewModel;
 using ComputerClub.ViewModel.modal;
 using System;
 using System.Windows;

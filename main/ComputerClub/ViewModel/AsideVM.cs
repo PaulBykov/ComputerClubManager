@@ -7,10 +7,14 @@ namespace ComputerClub.ViewModel
 {
     public partial class AsideVM
     {
-        public AsideVM() 
+
+        public AsideVM()
         {
-            
+
         }
+
+
+        public bool IsOwner => RoleIdentityService.IsOwner();
 
 
         [RelayCommand]

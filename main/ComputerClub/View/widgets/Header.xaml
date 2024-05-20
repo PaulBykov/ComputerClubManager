@@ -8,6 +8,10 @@
              xmlns:viewmodel="clr-namespace:ComputerClub.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HeaderVM}"
              mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
     <Grid VerticalAlignment="Top">
 
         <Border Height="90" BorderThickness="0,0,0, 1" BorderBrush="{DynamicResource c_text}" Background="{DynamicResource c_second}">
@@ -20,7 +24,7 @@
                     <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="CLUB NAME"
+                <TextBlock Text="PixelArena"
                            Foreground="{DynamicResource c_text}"
                            FontSize="40" FontFamily="Neutra Text"
                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -31,10 +35,39 @@
                            FontSize="24" FontFamily="Neutra Text Book"
                            HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                <shared:Combobox x:Name="GeoIcon" Grid.Column="3" Width="280"
-                                 IconSource="../../assets/icons/geopoint_mini.png"
-                                 ItemsSource="{Binding GeoIconItemSource}"
-                                 SelectedItem="{Binding GeoIconSelectedItem}"/>
+                <StackPanel Grid.Column="3" Orientation="Horizontal">
+                    <shared:Combobox x:Name="GeoIcon"  Width="280"
+                                     IconSource="../../assets/icons/geopoint_mini.png"
+                                     ItemsSource="{Binding GeoIconItemSource, Mode=OneWay}"
+                                     SelectedItem="{Binding GeoIconSelectedItem}"/>
+                    <Border Background="{DynamicResource c_btn}"
+                            Margin="20 0 20 0" Cursor="Hand" CornerRadius="10"
+                            Width="40" Height="40"
+                            Visibility="{Binding IsOwner, Converter={StaticResource BoolToVis}}">
+                        <Button Foreground="{DynamicResource c_text}"
+                                FontSize="28" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                Command="{Binding OpenAddNewClubCommand}">
+                            <Button.Content>
+                                <Image Source="/assets/icons/plus_mini.png" Margin="5"/>
+                            </Button.Content>
+                        </Button>
+                    </Border>
+
+                    <Border Background="{DynamicResource c_btn}" 
+                            Margin="0 0 20 0" Cursor="Hand" CornerRadius="10"
+                            Width="40" Height="40"
+                            Visibility="{Binding IsOwner, Converter={StaticResource BoolToVis}}">
+                        <Button Foreground="{DynamicResource c_text}"
+                                FontSize="28" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                Command="{Binding OpenDeleteClubCommand}">
+                            <Button.Content>
+                                <Image Source="/assets/icons/trashbin_mini.png" Margin="5"/>
+                            </Button.Content>
+                        </Button>
+                    </Border>
+
+
+                </StackPanel>
 
                 <shared:Combobox x:Name="UserIcon" Grid.Column="4" Width="80"
                                  IconSource="../../assets/icons/user_mini.png" Cursor="Arrow"

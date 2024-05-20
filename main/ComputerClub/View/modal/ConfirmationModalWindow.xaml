@@ -32,7 +32,7 @@
             <Image Grid.Row="0" Source="/assets/icons/questionMark.png" Stretch="Uniform"/>
             <TextBlock Grid.Row="1" Margin="0 10 0 0" 
                        Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
-                       FontSize="22" Foreground="{DynamicResource c_text}"
+                       FontSize="18" Foreground="{DynamicResource c_text}"
                        TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"
                        TextAlignment="Center"
             />
@@ -42,6 +42,7 @@
                         Width="100" Background="{DynamicResource c_btn}"
                         Foreground="{DynamicResource c_text}" FontSize="16"
                         FontFamily="Neutra Text"
+                        Cursor="Hand"
                         Command="{Binding SubmitCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                         />
                 <Button Content="Отмена" IsCancel="True" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="100" Background="black" Foreground="{DynamicResource c_text}" FontSize="16" FontFamily="Neutra Text"/>

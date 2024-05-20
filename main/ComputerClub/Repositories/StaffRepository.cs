@@ -1,6 +1,8 @@
 ﻿using ComputerClub.Model;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Xceed.Wpf.Toolkit.Primitives;
 
 namespace ComputerClub.Repositories
 {
@@ -41,7 +43,8 @@ namespace ComputerClub.Repositories
 
         public void Update(User item)
         {
-            throw new System.NotImplementedException();
+            _context.Users.First(u => u.Login.Equals(item.Login)).Clubs = item.Clubs;
+            _context.SaveChanges();
         }
     }
 }

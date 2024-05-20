@@ -4,7 +4,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Helpers;
 using ComputerClub.Model;
+using ComputerClub.Properties;
 using ComputerClub.Repositories;
+using ComputerClub.Services;
 using ComputerClub.View.modal;
 using static ComputerClub.View.modal.NotifyModalWindow;
 
@@ -55,6 +57,11 @@ namespace ComputerClub.ViewModel.modal
             _timer.Start();
         }
 
+        ~DetailedComputerWindowVM()
+        {
+            _timer.Stop();
+        }
+
 
         public int ComputerNumber => _converter.GetComputerNumberById(_computer.Id);
         public bool AntiEditMode => !EditMode;
@@ -95,10 +102,12 @@ namespace ComputerClub.ViewModel.modal
         {
             try
             {
+                RentsRepository rentsRepository = RepositoryServiceLocator.Resolve<RentsRepository>();
                 ShouldSaveChanges?.Invoke(this, EventArgs.Empty);
 
                 _computer.RateName = SelectedRate.Name;
                 _computer.RateNameNavigation = SelectedRate;
+
 
                 Rent rent = new Rent()
                 {
@@ -107,16 +116,44 @@ namespace ComputerClub.ViewModel.modal
                     Length = TimeOnly.FromTimeSpan(RentDuration),
                     StartTime = RentalStartTime
                 };
-                RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
+                
+
+                double durationHours = rent.Length.ToTimeSpan().TotalHours;
+                if (_computer.Rent != null)
+                {
+                    durationHours -= _computer.Rent.Length.ToTimeSpan().TotalHours;
+                }
+
+                double totalPrice = SelectedRate.Price * durationHours;
+                totalPrice = Math.Round(totalPrice, 2);
+
+                
+
+                if (ConfirmationModalWindow.Show(
+                        $"К оплате: {totalPrice} {Settings.Default.Currency}") != true)
+                {
+                    return;
+                }
+
+                IncomeRepository incomeRepository = RepositoryServiceLocator.Resolve<IncomeRepository>();
+                incomeRepository.Add(new Income()
+                {
+                    Amount = Convert.ToDecimal(totalPrice),
+                    ClubId = rent.Computer.ClubId,
+                    Date = DateOnly.FromDateTime(DateTime.Now),
+                    RateName = rent.Computer.RateName
+                });
+
+                AuthService.GetInstance().CurrentClub.Balance += Convert.ToDecimal(totalPrice);
 
 
                 if (_computer.Rent == null)
                 {
-                    repository.Add(rent);
+                    rentsRepository.Add(rent);
                 }
                 else
                 {
-                    repository.Update(_computer.Rent.Id, rent);
+                    rentsRepository.Update(_computer.Rent.Id, rent);
                 }
                 
                 Logger.Add($"Создал новую аренду длиной {rent.Length.ToShortTimeString()}");
@@ -124,7 +161,7 @@ namespace ComputerClub.ViewModel.modal
             }
             catch (Exception e)
             {
-                NotifyModalWindow.Show(NotifyKind.Error, "An error occurred during editing rent details");
+                NotifyModalWindow.Show(NotifyKind.Error, "Произошла ошибка при изменении деталь аренды");
             }
 
         }
@@ -156,19 +193,18 @@ namespace ComputerClub.ViewModel.modal
                 TimeSpan timeLeft = endTime - currentTime;
                 return timeLeft.ToString(@"hh\:mm\:ss");
             }
-            else
-            {
-                //rent is over
-                RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
-                Rent oldRent = _computer.Rent;
-                _computer.Rent = null;
-                repository.Delete(oldRent);
 
-                Logger.Add(oldRent.ToString() + " окончена!");
 
-                UpdateRentTime();
-                return "00:00:00";
-            }
+            //rent is over
+            RentsRepository repository = RepositoryServiceLocator.Resolve<RentsRepository>();
+            Rent oldRent = _computer.Rent;
+            _computer.Rent = null;
+            repository.Delete(oldRent);
+
+            Logger.Add(oldRent.ToString() + " окончена!");
+
+            UpdateRentTime();
+            return "00:00:00";
         }
 
         private void UpdateRentTime() 

@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
 using ComputerClub.Services;
 using ComputerClub.View;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ComputerClub.ViewModel
 {
@@ -14,13 +15,13 @@ namespace ComputerClub.ViewModel
         [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Обязательное поле")]
         [MaxLength(50, ErrorMessage = "Максимальная длина 50 символов")]
-        private string _username = "bykov";
+        private string _username;
 
         [ObservableProperty]
         [NotifyDataErrorInfo]
         [Required(ErrorMessage = "Обязательное поле")]
         [MaxLength(50, ErrorMessage = "Максимальная длина 50 символов")]
-        private string _password = "123";
+        private string _password;
 
 
         [ObservableProperty] 
@@ -40,8 +41,14 @@ namespace ComputerClub.ViewModel
         [RelayCommand]
         private void Login()
         {
-            AuthService authService = AuthService.GetInstance(new ComputerClubContext());
+            if (!GetPassErrors().IsNullOrEmpty() || !GetErrors(nameof(Username)).IsNullOrEmpty())
+            {
+                MessageBox.Show("Данные не валидны");
+                return;
+            }
 
+
+            AuthService authService = AuthService.GetInstance(new ComputerClubContext());
 
             if (authService.TryAuth(Username, Password)) {
                 var main = new MainWindow();
@@ -51,8 +58,7 @@ namespace ComputerClub.ViewModel
             }
             else
             {
-                // wrong pass or login
-                MessageBox.Show("Error during auth");
+                MessageBox.Show("Неверный логин или пароль");
             }
         }
 

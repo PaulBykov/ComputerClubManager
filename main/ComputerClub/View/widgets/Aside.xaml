@@ -10,6 +10,8 @@
     <UserControl.Resources>
         <RoutedCommand x:Key="NavigationCommand" />
         <RoutedCommand x:Key="ShowSettingsCommand" />
+
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
 
     <UserControl.CommandBindings>
@@ -31,7 +33,8 @@
             <shared:IconButton x:Name="toHome" IconSource="./../../assets/icons/house_mini.png"          Command="{StaticResource NavigationCommand}" Text="Главная"    Width="250" Height="55"/>
             <shared:IconButton x:Name="toComputers" IconSource="./../../assets/icons/computer_mini.png"  Command="{StaticResource NavigationCommand}" Text="Компьютеры" Width="250" Height="55"/>
             <shared:IconButton x:Name="toRates" IconSource="./../../assets/icons/rates_mini.png"         Command="{StaticResource NavigationCommand}" Text="Тарифы"     Width="250" Height="55"/>
-            <shared:IconButton x:Name="toStaff" IconSource="./../../assets/icons/team_mini.png"          Command="{StaticResource NavigationCommand}" Text="Сотрудники" Width="250" Height="55"/>
+            <shared:IconButton x:Name="toStaff" IconSource="./../../assets/icons/team_mini.png"          Command="{StaticResource NavigationCommand}" Text="Сотрудники" Width="250" Height="55"
+                               Visibility="{Binding DataContext.IsOwner, Converter={StaticResource BoolToVis}, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             <shared:IconButton x:Name="toLogs" IconSource="./../../assets/icons/logs_mini.png"           Command="{StaticResource NavigationCommand}" Text="Логи"       Width="250" Height="55"/>
         </StackPanel>
 

@@ -20,7 +20,7 @@ namespace ComputerClub.View.modal
         {
             var window = new ConfirmationModalWindow(message);
 
-            return Effector.TryApplyModalEffects(window);
+            return window.ShowDialog();
         }
 
         [RelayCommand]

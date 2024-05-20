@@ -70,7 +70,6 @@ namespace ComputerClub.ViewModel
         }
 
 
-
         private void UpdateRates() 
         {
             Rates = Repository.GetAll();

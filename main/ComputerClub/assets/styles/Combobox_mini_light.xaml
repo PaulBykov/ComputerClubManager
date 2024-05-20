@@ -16,7 +16,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
-                    <Border x:Name="border" BorderThickness="0" BorderBrush="Black" CornerRadius="10"
+                    <Border x:Name="border" BorderThickness="0" BorderBrush="Black"
                  Background="{TemplateBinding Background}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
