@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
+using ComputerClub.Exceptions;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
@@ -50,15 +50,19 @@ namespace ComputerClub.ViewModel.modal
                         $"Вы действительно хотите удалить клуб {SelectedClub}?" +
                         $" Это действие нельзя отменить") == true)
                 {
-                    _clubRepository.Delete(SelectedClub);
+                    
+                    if (auth.CurrentClub.Id == SelectedClub.Id)
+                    {
+                        throw new InvalidDataException("Попытка удалить текущий клуб");
+                    }
 
                     try
                     {
                         auth.CurrentUser.Clubs.Remove(SelectedClub);
-                        _headerVM.Clubs.Remove(SelectedClub);
                     }
                     catch(Exception e){}
                     
+                    _clubRepository.Delete(SelectedClub);
                 }
 
                 

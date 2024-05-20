@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ComputerClub.Helpers;
 using ComputerClub.ViewModel;
 
 
@@ -9,6 +10,8 @@ namespace ComputerClub.View
         public LoginWindow()
         {
             InitializeComponent();
+            
+            AppInit.Init();
             DataContext = ViewModel = new LoginWindowVM(this);
         }
 

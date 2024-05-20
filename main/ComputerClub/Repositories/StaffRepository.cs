@@ -9,6 +9,7 @@ namespace ComputerClub.Repositories
     public class UserRepository : IRepository<User>
     {
         private ComputerClubContext _context;
+
         public UserRepository(ComputerClubContext context)
         {
             _context = context;
@@ -36,7 +37,12 @@ namespace ComputerClub.Repositories
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<User> GetAll()
+        public User GetByLogin(string login)
+        {
+            return _context.Users.First(u => u.Login.Equals(login));
+        }
+
+    public IEnumerable<User> GetAll()
         {
            return _context.Users.ToList();
         }

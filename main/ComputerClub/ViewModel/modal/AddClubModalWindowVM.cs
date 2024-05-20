@@ -50,9 +50,13 @@ namespace ComputerClub.ViewModel.modal
                     Balance = 0
                 };
 
-                clubRepository.Add(newClub);
-                auth.CurrentUser.Clubs.Add(newClub);
-                userRepository.Update(auth.CurrentUser);
+                clubRepository.Add(newClub); 
+
+                var user = userRepository.GetByLogin(auth.CurrentUser.Login);
+                user.Clubs.Add(newClub);
+                auth.CurrentUser = null;
+                userRepository.Update(user);
+                auth.CurrentUser = user;
 
 
                 Logger.Add($"Добавил новый клуб: {newClub}");

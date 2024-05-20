@@ -29,10 +29,6 @@
             private AuthService(ComputerClubContext context)
             {
                 _context = context;
-
-                _context.Sessions.Load();
-                _context.Clubs.Load();
-                _context.Users.Load();
             }
 
             

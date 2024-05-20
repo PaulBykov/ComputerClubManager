@@ -42,12 +42,22 @@ namespace ComputerClub.Repositories
             try
             {
                 _context.Clubs.Remove(item);
+
+                foreach (var income in _context.Incomes)
+                {
+                    if (income.ClubId == item.Id)
+                    {
+                        _context.Incomes.Remove(income);
+                    }
+                }
+
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
                 NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Error, "ComputersRepo add:" + ex);
             }
+
         }
 
         public Club Get(int id)

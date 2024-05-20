@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
+using ComputerClub.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerClub.Helpers
@@ -10,6 +11,7 @@ namespace ComputerClub.Helpers
         public static void Init() 
         {
             ComputerClubContext context = new ComputerClubContext();
+            
             context.Computers.Load();
             context.Rates.Load();
             context.Rents.Load();
@@ -22,7 +24,7 @@ namespace ComputerClub.Helpers
             context.Clubs.Include(c => c.Session).ToList();
 
 
-
+            AuthService.GetInstance(context);
             RegisterRepositories(context);
         }
 

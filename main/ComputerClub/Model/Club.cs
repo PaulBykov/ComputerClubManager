@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ComputerClub.Model;
 
@@ -18,6 +19,7 @@ public partial class Club
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 
+    
     public override string ToString()
     {
         return $"{Name}";

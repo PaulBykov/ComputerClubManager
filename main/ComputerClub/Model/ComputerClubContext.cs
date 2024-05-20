@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerClub.Model;
@@ -30,8 +31,8 @@ public partial class ComputerClubContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=HOME-PC;Initial Catalog=ComputerClub;Integrated Security=True;Encrypt=True;TrustServerCertificate=True")
-                         .EnableSensitiveDataLogging(true)
-                         .EnableDetailedErrors(true);
+            .EnableSensitiveDataLogging(true)
+            .EnableDetailedErrors(true);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -41,9 +42,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.ToTable("clubs");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Balance)
                 .HasColumnType("money")
                 .HasColumnName("balance");
@@ -129,7 +128,7 @@ public partial class ComputerClubContext : DbContext
 
             entity.HasOne(d => d.Computer).WithOne(p => p.Rent)
                 .HasForeignKey<Rent>(d => d.ComputerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__rents__computer___71D1E811");
         });
 
@@ -195,7 +194,7 @@ public partial class ComputerClubContext : DbContext
                         .HasConstraintName("FK__UserClub__club_i__382F5661"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("UserLogin")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__UserClub__user_l__373B3228"),
                     j =>
                     {

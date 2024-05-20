@@ -2,7 +2,6 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using ComputerClub.Model;
 using ComputerClub.Services;
 using ComputerClub.View;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +47,7 @@ namespace ComputerClub.ViewModel
             }
 
 
-            AuthService authService = AuthService.GetInstance(new ComputerClubContext());
+            AuthService authService = AuthService.GetInstance();
 
             if (authService.TryAuth(Username, Password)) {
                 var main = new MainWindow();

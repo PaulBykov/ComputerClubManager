@@ -12,7 +12,6 @@ namespace ComputerClub
         {
             InitializeComponent();
 
-            AppInit.Init();
             MainFrame.Content = new HomePage();
         }
         
