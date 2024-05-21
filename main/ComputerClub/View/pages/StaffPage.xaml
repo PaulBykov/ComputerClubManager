@@ -66,7 +66,8 @@
                                                 <Button Height="30px" Width="30"
                                                         Background="{DynamicResource c_dark}"
                                                         Command="{Binding  DataContext.ShowEditUserWindowCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                        CommandParameter="{Binding}">
+                                                        CommandParameter="{Binding}"
+                                                        Cursor="Hand">
                                                     <Image Source="/assets/icons/pencil_mini.png" Stretch="UniformToFill" Margin="3"/>
                                                 </Button>
 
@@ -74,6 +75,7 @@
                                                         Background="{DynamicResource c_btn}"
                                                         Command="{Binding DataContext.RemoveUserCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                                         CommandParameter="{Binding}"
+                                                        Cursor="Hand"
                                                         >
                                                     <Image Source="/assets/icons/trashbin_mini.png" Stretch="UniformToFill" Margin="3"/>
                                                 </Button>

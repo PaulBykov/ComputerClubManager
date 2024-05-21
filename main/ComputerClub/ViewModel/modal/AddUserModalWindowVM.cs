@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Windows.Forms;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -10,6 +11,7 @@ using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
 using ComputerClub.View.modal;
+using Microsoft.IdentityModel.Tokens;
 using static ComputerClub.View.modal.NotifyModalWindow;
 
 
@@ -68,6 +70,12 @@ namespace ComputerClub.ViewModel.modal
         [RelayCommand]
         private void FormSubmit()
         {
+            if (!GetErrors(nameof(FullName)).IsNullOrEmpty() || !GetErrors(nameof(Password)).IsNullOrEmpty() || !GetErrors(nameof(Login)).IsNullOrEmpty())
+            {
+                MessageBox.Show("Данные не валидны");
+                return;
+            }
+
             try
             {
                 UserRepository repository = RepositoryServiceLocator.Resolve<UserRepository>();

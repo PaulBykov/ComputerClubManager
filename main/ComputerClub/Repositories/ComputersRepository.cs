@@ -25,9 +25,17 @@ namespace ComputerClub.Repositories
         public int Count => GetAll().Count();
         public IEnumerable<Computer> GetAll()
         {
-            return _context.Computers
-                .Where(computer => computer.ClubId == CurrentClubId)
-                .ToList();
+            try
+            {
+                return _context.Computers
+                    .Where(computer => computer.ClubId == CurrentClubId)
+                    .ToList();
+            }
+            catch (Exception e)
+            {
+            }
+
+            return new List<Computer>();
         }
 
         public void AddMany(int count, Rate rate)
@@ -51,7 +59,15 @@ namespace ComputerClub.Repositories
 
         public Computer Get(int id)
         {
-            return _context.Computers.Where(c => c.Id == id).FirstOrDefault();
+            try
+            {
+                return _context.Computers.Where(c => c.Id == id).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+            }
+
+            return null;
         }
 
         public void Add(Computer item)

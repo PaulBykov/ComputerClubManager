@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Exceptions;
@@ -7,6 +8,7 @@ using ComputerClub.Model;
 using ComputerClub.Repositories;
 using ComputerClub.Services;
 using ComputerClub.View.modal;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ComputerClub.ViewModel.modal
 {
@@ -33,6 +35,12 @@ namespace ComputerClub.ViewModel.modal
         [RelayCommand]
         private void AddClub()
         {
+            if (!GetErrors(nameof(ClubName)).IsNullOrEmpty())
+            {
+                MessageBox.Show("Данные не валидны");
+                return;
+            }
+
             try
             {
                 ClubRepository clubRepository = RepositoryServiceLocator.Resolve<ClubRepository>();

@@ -21,7 +21,17 @@ namespace ComputerClub.Repositories
 
         public bool Has(string name)
         {
-            return _context.Clubs.Any(c => c.Name == name);
+            try
+            {
+
+                return _context.Clubs.Any(c => c.Name == name);
+
+            }
+            catch (Exception e)
+            {
+            }
+
+            return false;
         }
 
         public void Add(Club item)
@@ -62,7 +72,16 @@ namespace ComputerClub.Repositories
 
         public Club Get(int id)
         {
-            return _context.Clubs.Where(c => c.Id ==  id).FirstOrDefault();
+            try
+            {
+
+                return _context.Clubs.Where(c => c.Id ==  id).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+            }
+
+            return null;
         }
 
         public void Update(Club item)

@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using ComputerClub.Helpers;
+﻿using System;
+using System.Windows;
 using ComputerClub.View;
 
 
@@ -10,9 +10,16 @@ namespace ComputerClub
         
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            MainFrame.Content = new HomePage();
+                MainFrame.Content = new HomePage();
+            }
+            catch (Exception e)
+            {
+
+            }
         }
         
     }

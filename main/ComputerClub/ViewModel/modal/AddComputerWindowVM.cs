@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Model;
@@ -38,6 +39,7 @@ namespace ComputerClub.ViewModel.modal
         [RelayCommand]
         private void FormSubmit() 
         {
+
             try 
             {
                 if(SelectedRate == null)

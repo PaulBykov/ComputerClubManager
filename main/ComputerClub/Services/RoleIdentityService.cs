@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ComputerClub.Services
 {
@@ -17,7 +16,7 @@ namespace ComputerClub.Services
         public static bool IsAdmin()
         {
             return _userRole.Equals("admin");
-        }
+        }   
 
         public static bool IsOwner()
         {

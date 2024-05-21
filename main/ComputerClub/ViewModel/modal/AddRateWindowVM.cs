@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ComputerClub.Exceptions;
 using ComputerClub.Model;
 using ComputerClub.Repositories;
+using Microsoft.IdentityModel.Tokens;
 using static ComputerClub.View.modal.NotifyModalWindow;
 
 
@@ -32,6 +34,12 @@ namespace ComputerClub.ViewModel.modal
         [RelayCommand]
         public void FormSubmit()
         {
+            if (!GetErrors(nameof(RateName)).IsNullOrEmpty())
+            {
+                MessageBox.Show("Данные не валидны");
+                return;
+            }
+
             try
             {
                 RatesRepository repository = RepositoryServiceLocator.Resolve<RatesRepository>();

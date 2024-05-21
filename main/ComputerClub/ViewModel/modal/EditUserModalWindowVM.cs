@@ -72,10 +72,6 @@ namespace ComputerClub.ViewModel.modal
             {
                 UserRepository repository = RepositoryServiceLocator.Resolve<UserRepository>();
 
-                if (repository.Has(Login))
-                {
-                    throw new InvalidDataException("Пользователь с там логином уже существует");
-                }
 
                 if (SelectedClubs.ToList().Count < 1)
                 {
@@ -100,7 +96,7 @@ namespace ComputerClub.ViewModel.modal
                 repository.Add(person);
 
                 Done?.Invoke(this, EventArgs.Empty);
-                Logger.Add($"Добавил нового пользователя - {person.Fullname}");
+                Logger.Add($"Изменил пользователя - {person.Fullname}");
                 NotifyModalWindow.Show(NotifyModalWindow.NotifyKind.Success, $"Вы успешно добавили нового пользователя");
             }
             catch (InvalidDataException e)

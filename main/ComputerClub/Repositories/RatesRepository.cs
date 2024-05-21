@@ -1,4 +1,5 @@
-﻿using ComputerClub.Model;
+﻿using System;
+using ComputerClub.Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,14 +16,24 @@ namespace ComputerClub.Repositories
 
         public void Add(Rate item)
         {
-            _context.Rates.Add(item);
-            _context.SaveChanges();
+            try
+            {
+                _context.Rates.Add(item);
+                _context.SaveChanges();
+            }
+            catch(Exception e) { }
         }
 
         public void Delete(Rate item)
         {
-            _context.Rates.Remove(item);
-            _context.SaveChanges();
+            try
+            {
+                _context.Rates.Remove(item);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         public Rate Get(int id)
@@ -32,12 +43,21 @@ namespace ComputerClub.Repositories
 
         public IEnumerable<Rate> GetAll()
         {
-            return _context.Rates.ToList();
+            return _context.Rates?.ToList();
         }
 
         public bool Has(string name) 
         {
-            return _context.Rates.Any(r => r.Name.Equals(name));
+            try
+            {
+
+                return _context.Rates.Any(r => r.Name.Equals(name));
+            }
+            catch (Exception e)
+            {
+            }
+
+            return false;
         }
 
         public void Update(Rate item)

@@ -4,6 +4,7 @@
 		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<ApplicationIcon>Assets\icons\Logo.ico</ApplicationIcon>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="Assets\icons\computer.png" />
@@ -24,6 +25,9 @@
 	  <None Remove="Assets\icons\user_mini.png" />
 	  <None Remove="Assets\images\computer.png" />
 	  <None Remove="Assets\images\computer_2.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="Assets\icons\Logo.ico" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
